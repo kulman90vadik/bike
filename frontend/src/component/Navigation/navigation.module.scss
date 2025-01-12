@@ -1,0 +1,36 @@
+
+.navigation {
+
+}
+
+.list {
+  display: flex;
+}
+
+.header-nav {
+  // background-color: #fff;
+  margin-right: 40px;
+}
+
+.footer-nav {
+  // background-color: green;
+}
+
+.item {
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.link {
+  display: block;
+  color: rgb(109, 81, 9);
+  padding: 4px 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: 1px solid;
+}
+
+.active {
+  color: goldenrod;
+}

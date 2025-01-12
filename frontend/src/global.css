@@ -1,0 +1,117 @@
+html {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+main {
+    flex-grow: 1;
+    height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  display: inline-block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+address {
+  font-style: normal;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: transparent;
+}
+
+body {
+  /* font-family: 'Outfit', sans-serif;
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 400; */
+  color: var(--color-white);
+  display: flex; 
+  flex-direction: column; 
+}
+
+
+.container {
+  max-width: 1250px;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
