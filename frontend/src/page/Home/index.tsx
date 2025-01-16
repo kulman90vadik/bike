@@ -1,13 +1,14 @@
-import styles from './home.module.scss';
+// import styles from './home.module.scss';
+import Catalog from "../../component/Catalog";
+import Hero from "../../component/Hero";
 
 const Home = () => {
   return (
-    <section className={styles.home}>
-      <div className="container">
-        Home
-      </div>
-    </section>
+    <>
+      <Hero />
+      <Catalog />
+    </>
   );
-}
- 
+};
+
 export default Home;

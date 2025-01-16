@@ -18,7 +18,7 @@ const Login = () => {
     
   const onSubmit = async (values:FormValueslogin) => {
       const data = await dispatch(fetchAuth(values));
-      console.log(data, ' data');
+      // console.log(data, ' data');
       if(!data.payload) {
         return alert('Не удалось авторизоваться')
       }

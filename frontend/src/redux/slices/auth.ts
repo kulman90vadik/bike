@@ -43,6 +43,7 @@ const authSlice = createSlice({
 
     extraReducers: (builder) => {
 
+
 // fetchAuth
 
         builder.addCase(fetchAuth.pending, (state) => {
@@ -93,6 +94,7 @@ const authSlice = createSlice({
 
 
 export const selectIsAuth = (state: RootState): boolean => Boolean(state.auth.data);
+// export const userData = (state: RootState) => state.auth.data;
 export const userData = (state: RootState): string => String(state.auth.data?.fullName);
 // export const dataAuth = (state: RootState) => state.auth.data;
 export const authReducer = authSlice.reducer;

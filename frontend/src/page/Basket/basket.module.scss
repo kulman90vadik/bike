@@ -1,0 +1,14 @@
+
+.basket {
+  padding: 50px 0;
+  background-color: var(--color-black);
+  height: 100vh;
+}
+
+
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+}

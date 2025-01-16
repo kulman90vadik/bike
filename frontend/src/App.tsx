@@ -6,22 +6,22 @@ import React from "react";
 import { fetchAuthMe } from "./redux/slices/auth";
 import { useAppDispatch } from "./redux/store";
 import Registration from "./page/Registration";
-// import { useDispatch } from "react-redux";
-
-
+import Basket from "./page/Basket";
+import { fetchAllBasket } from "./redux/slices/basket";
 
 const App = () => {
   const dispatch = useAppDispatch();
   // const isAuth = useSelector(selectIsAuth);
-
-
  React.useEffect(() => {
-   dispatch(fetchAuthMe())
-  //  console.log(dispatch(fetchAuthMe()));
+    const loadData = async () => {
+      await dispatch(fetchAuthMe())
+      await dispatch(fetchAllBasket())
+    }
+  //  console.log(dispatch(fetchAllBasket()));
+    loadData();
  }, [])
 
 
- 
   return (
     <>
       <Header />
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
-          {/* <Route path="/hookform" element={<HookForm />} /> */}
+          <Route path="/basket" element={<Basket />} />
         </Routes>
       </main>
       {/* <Footer /> */}

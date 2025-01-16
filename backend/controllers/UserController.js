@@ -10,7 +10,7 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10); // алгоритм шифрования
     const hash = await bcrypt.hash(password, salt);
 
-    // запись данных в бекенд
+// запись данных в бекенд
     const doc = new UserModel({
       email: req.body.email,
       fullName: req.body.fullName,
@@ -68,6 +68,7 @@ export const login = async (req, res) => {
       expiresIn: "30d",
     });
 
+    // const userData = user.toObject();
     const { passwordHash, ...userData } = user._doc;
     // если всё ок то возвращаем что либо что нужно
     res.json({
@@ -93,11 +94,10 @@ export const getMe = async (req, res) => {
       return res.status(404).json({
         message: "Пользователь не найден",
       });
-    }
-
+    } 
     const { passwordHash, ...userData } = user._doc;
     // если всё ок то возвращаем что либо что нужно
-    res.json({ userData });
+    res.json( userData );
   } catch (err) {
     console.log(err);
     res.status(500).json({

@@ -31,35 +31,79 @@
 }
 
 .exit {
-  // background-color: red;
   color: var(--color-white);
   display: flex;
   align-items: center;
+  margin-right: 10px;
   svg {
     margin-right: 5px;
-  }
-  svg {
+    width: 29px;
+    height: 29px;
     path {
       fill: var(--color-orange);
     }
   }
-  // padding: 5px 10px;
-  // font-weight: 700;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .login {
-  // background-color: green;
-  // color: #fff;
-  // padding: 5px 10px;
-  // font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  margin-right: 10px;
   svg {
+    width: 29px;
+    height: 29px;
+    fill: var(--color-orange);
+    stroke: var(--color-white);
     path {
       fill: var(--color-orange);
     }
+  }
+}
+
+.search {
+  margin-right: 10px;
+  svg {
+    width: 29px;
+    height: 29px;
+    path {
+      stroke: var(--color-white);
+    }
+    stroke: var(--color-white);
+  }
+}
+.card {
+  position: relative;
+  svg {
+    width: 29px;
+    height: 29px;
+    path {
+      stroke: var(--color-white);
+    }
+    stroke: var(--color-orange);
+  }
+  span {
+    position: absolute;
+    top: 0;
+    right: -9px;
+    border-radius: 50%;
+    line-height: 1;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 13px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-orange);
   }
 }

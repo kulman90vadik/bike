@@ -14,6 +14,8 @@ export interface FormValueslogin {
   password: string;
   email: string;
 }
+
+
 export interface FormValuesRegister {
   password: string;
   email: string;
@@ -22,22 +24,28 @@ export interface FormValuesRegister {
 
 
 export interface Registerprops {
-  _id: string;
-  password: string;
-  email: string;
-  fullName: string;
-  token: string;
-  avatarUrl?: string;
+    _id: string;
+    password: string;
+    email: string;
+    fullName: string;
+    token?: string;
+    avatarUrl?: string;
 }
 
+export interface ProductProps {
+  _id: string;
+  name: string;
+  flag: string;
+  image: string;
+  price: string;
+  stocked: string;
+}
 
-
-// export interface AuthResponse {
-//   // Укажите поля, которые ожидаете от ответа
-//   token: string;
-//   user: {
-//     id: string;
-//     email: string;
-//     name: string;
-//   };
-// }
+export interface BasketProps {
+  _id: string;
+  name: string;
+  flag: string;
+  image: string;
+  price: string;
+  stocked: string;
+}

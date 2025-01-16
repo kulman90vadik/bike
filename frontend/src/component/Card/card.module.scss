@@ -1,0 +1,36 @@
+
+.item {
+  // padding: 50px 0;
+  // background-color: #ccc;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.flag {
+  width: 72px;
+  height: 38px;
+  display: flex;
+  object-fit: cover;
+}
+
+
+.image {
+  max-width: 235px;
+  width: 100%;
+  margin: 0 auto 15px;
+  height: 205px;
+  object-fit: cover;
+}
+
+.btn {
+  background-color: var(--color-orange);
+  width: 100%;
+  color: var(--color-white);
+  padding: 15px 0;
+  font-weight: 500;
+  border-radius: 10px;
+}

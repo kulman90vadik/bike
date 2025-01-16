@@ -1,20 +1,42 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import multer from 'multer';
 
 import { registerValidation, loginValidation } from './validations.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
-import { UserController } from './controllers/index.js';
+import { UserController, ProductController, BasketController } from './controllers/index.js';
 
 const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
+
+const storage = multer.diskStorage({
+  // выполниться функция ниже с параметрами, пропускаем сейчас их
+  // и выполняем ф-ию cb
+  destination: (_, file, cb) => {
+    // получавет путь
+    cb(null, 'uploads'); // НЕ получает ошибок и сохраняет данный в папку uploads
+  },
+  // прежде чем как сохранить он скажет как называется файл
+  filename: (_, file, cb) => {
+    cb(null, file.originalname); // НЕ получает ошибок и сохраняет данный в папку uploads
+  },
+});
+
+const upload = multer({storage});
+app.use('/uploads', express.static('uploads')); // если убрать то он не будет знать что лежит в папке с файлами. 
 
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+app.get('/products', ProductController.getAll);
+
+
+app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
+app.get('/basket', checkAuth, BasketController.getAllBasket);
 
 app.listen(5555, (err) => {
   if(err) {

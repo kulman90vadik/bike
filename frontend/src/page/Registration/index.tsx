@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import styles from "./registration.module.scss";
 import { useAppDispatch } from "../../redux/store";
-import { FormValueslogin, FormValuesRegister } from "../../propstype";
-import { fetchAuth, fetchRegister, selectIsAuth } from "../../redux/slices/auth";
+import { FormValuesRegister } from "../../propstype";
+import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
