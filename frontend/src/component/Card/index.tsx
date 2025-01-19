@@ -22,7 +22,7 @@ const Card = ({obj}: Props) => {
     <li className={styles.item}>
       <div className={styles.top}>
         <img className={styles.flag} src={obj.flag} alt="" />
-        <span className={styles.stocked}>{obj.stocked}</span>
+        <span className={styles.stocked}>{obj.stocked ? 'In stock' : 'Sold Out'}</span>
       </div>
       <img className={styles.image} src={obj.image} alt={obj.name} />
       <div className={styles.name}>{obj.name}</div>

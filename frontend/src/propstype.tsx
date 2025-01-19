@@ -38,7 +38,7 @@ export interface ProductProps {
   flag: string;
   image: string;
   price: string;
-  stocked: string;
+  stocked: boolean;
 }
 
 export interface BasketProps {
@@ -47,5 +47,5 @@ export interface BasketProps {
   flag: string;
   image: string;
   price: string;
-  stocked: string;
+  stocked: boolean;
 }

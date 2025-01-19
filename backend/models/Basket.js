@@ -15,7 +15,7 @@ const BasketSchema = new mongoose.Schema({
     required: true
   },
   stocked: {
-    type: String,
+    type: Boolean,
     required: true
   },
   flag: {

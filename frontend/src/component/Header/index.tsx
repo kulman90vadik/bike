@@ -3,7 +3,7 @@ import Navigation from "../Navigation";
 import styles from "./header.module.scss";
 import { useSelector } from "react-redux";
 import { logout, selectIsAuth, userData } from "../../redux/slices/auth";
-import { useAppDispatch } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
 import { LogIn, LogOut, Search, ShoppingCart, UserRoundPlus } from "lucide-react";
 
 const navigation = [
@@ -13,8 +13,10 @@ const navigation = [
 
 const Header = () => {
   const isAuth = useSelector(selectIsAuth);
-  const user = useSelector(userData);
+  const user = useSelector(userData); // name 
   const dispatch = useAppDispatch();
+  const basket = useSelector((state: RootState) => state.basket.data);
+  // let count = basket.length >= 1 ? basket.length : '0';
   // const user = useSelector((state: RootState) => state.auth.data);
 
   const onClickLogout = () => {
@@ -62,7 +64,7 @@ const Header = () => {
             )}
             <Link to="/basket" className={styles.card}>
                 <ShoppingCart />
-                <span>0</span>
+                <span>{basket.length}</span>
             </Link>
           </div>
         </div>

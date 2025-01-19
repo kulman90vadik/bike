@@ -17,11 +17,7 @@ const Catalog = () => {
 
   React.useEffect(() => {
     dispatch(fetchProducts())
-  }, [])
-
-  
-// console.log(products);
-// console.log(isLoading);
+  }, [dispatch])
 
   return (
     <section className={styles.catalog}>

@@ -42,7 +42,7 @@ const basketSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchBasket.pending, (state) => {
             state.status = 'loading'
-            state.data = [];
+            // state.data = [];
         });
         builder.addCase(fetchBasket.fulfilled, (state, action) => {
             state.status = 'loaded'

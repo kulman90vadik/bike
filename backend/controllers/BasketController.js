@@ -55,6 +55,7 @@ export const addToBasket = async (req, res) => {
     
     // Возвращаем обновлённую корзину
     const basketItems = await BasketModel.find({ user: req.userId });
+    
     res.json(basketItems);
     
   } catch (err) {
