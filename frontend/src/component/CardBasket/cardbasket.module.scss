@@ -1,0 +1,34 @@
+
+.card {
+  // display: flex;
+  color: var(--color-white);
+  // align-items: center;
+  // justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
+}
+
+
+.image {
+  grid-column: 1/4;
+}
+
+.name {
+  font-size: 22px;
+  grid-column: 4/7;
+  align-self: center;
+  text-align: center;
+}
+
+.price {
+  grid-column: 9/11;
+  align-self: center;
+  justify-self: center;
+}
+
+.btn {
+  grid-column: 11/13;
+  align-self: center;
+  justify-self: center;
+}

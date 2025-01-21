@@ -11,6 +11,17 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string>('auth/fetchBa
     return data;
 })
 
+export const fetchCounterBasketCard = createAsyncThunk<
+  BasketProps[], // Тип возвращаемого значения
+  { id: string; str: string } // Тип аргументов
+>(
+  'auth/fetchCounterBasketCard',
+  async ({ id, str }: { id: string; str: string }) => {
+    const { data } = await axios.post<BasketProps[]>(`./basket/counter/${id}/${str}`);
+    return data;
+  }
+);
+
 export const fetchAllBasket = createAsyncThunk('auth/fetchAllBasket', async() => {
     const {data} = await axios.get<BasketProps[]>('./basket');
     return data;
@@ -64,6 +75,20 @@ const basketSlice = createSlice({
             state.data = action.payload;
         });
         builder.addCase(fetchAllBasket.rejected, (state) => {
+            state.status = 'error'
+            state.data = [];
+        });
+
+
+        builder.addCase(fetchCounterBasketCard.pending, (state) => {
+            state.status = 'loading'
+            // state.data = [];
+        });
+        builder.addCase(fetchCounterBasketCard.fulfilled, (state, action) => {
+            state.status = 'loaded'
+            state.data = action.payload;
+        });
+        builder.addCase(fetchCounterBasketCard.rejected, (state) => {
             state.status = 'error'
             state.data = [];
         });

@@ -36,6 +36,7 @@ app.get('/products', ProductController.getAll);
 
 
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
+app.post('/basket/counter/:id/:action', checkAuth, handleValidationErrors, BasketController.counterBasket);
 app.get('/basket', checkAuth, BasketController.getAllBasket);
 
 app.listen(5555, (err) => {

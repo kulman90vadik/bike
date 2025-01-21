@@ -5,7 +5,14 @@
   z-index: 100;
   width: 100%;
   top: 0;
+  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
   left: 0;
+}
+
+.active {
+  padding: 10px 0;
+  background-color: rgba(#000, 0.7);
+  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
 }
 
 .wrapper {
@@ -89,6 +96,35 @@
       stroke: var(--color-white);
     }
     stroke: var(--color-orange);
+  }
+  span {
+    position: absolute;
+    top: 0;
+    right: -9px;
+    border-radius: 50%;
+    line-height: 1;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 13px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-orange);
+  }
+}
+
+.heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  margin-right: 15px;
+  position: relative;
+  svg {
+    width: 27px;
+    height: 27px;
   }
   span {
     position: absolute;

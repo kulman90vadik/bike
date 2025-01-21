@@ -12,12 +12,15 @@ const Catalog = () => {
   const dispatch = useAppDispatch();
   // const isAuth = useSelector(selectIsAuth);
   const products = useSelector((state: RootState) => state.products.data);
+  const basket = useSelector((state: RootState) => state.basket.data);
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === 'loadingg';
 
   React.useEffect(() => {
     dispatch(fetchProducts())
   }, [dispatch])
+
+
 
   return (
     <section className={styles.catalog}>
@@ -26,9 +29,13 @@ const Catalog = () => {
         {isLoading ? (
           [...Array(5)].map((_, index) => <Loader key={index} />)
         ) : status === 'loaded' ? (
-          products?.map((obj: ProductProps) => (
-            <Card obj={obj} key={obj._id} />
-          ))
+          products?.map((obj: ProductProps) => {
+            const isInBasket = basket?.find((item: ProductProps) => item._id === obj._id);
+            // console.log(isInBasket, 'isInBasket');
+            return (
+              <Card obj={obj} key={obj._id}  isInBasket={!!isInBasket} />
+            )
+          })
         ) : null}
       </ul>
     </div>

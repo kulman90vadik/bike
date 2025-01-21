@@ -39,6 +39,7 @@ export interface ProductProps {
   image: string;
   price: string;
   stocked: boolean;
+  counter: number;
 }
 
 export interface BasketProps {
@@ -48,4 +49,5 @@ export interface BasketProps {
   image: string;
   price: string;
   stocked: boolean;
+  counter: number;
 }

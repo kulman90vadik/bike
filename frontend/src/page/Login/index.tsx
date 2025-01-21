@@ -5,19 +5,21 @@ import { FormValueslogin } from "../../propstype";
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { fetchAllBasket } from "../../redux/slices/basket";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
   
   const { register, handleSubmit, formState: {errors, isValid} } = useForm({
-    defaultValues: { email: "jan@outlook.com", password: "12345" },
+    defaultValues: { email: "vasja@outlook.com", password: "123456" },
     mode: "onChange", // при либом изменении формы
   });
   
     
   const onSubmit = async (values:FormValueslogin) => {
       const data = await dispatch(fetchAuth(values));
+  
       // console.log(data, ' data');
       if(!data.payload) {
         return alert('Не удалось авторизоваться')
@@ -26,7 +28,9 @@ const Login = () => {
       if (data?.payload && typeof data.payload === 'object' && 'token' in data.payload) {
         window.localStorage.setItem('token', (data.payload as { token: string }).token);
       }
-    
+   
+      await dispatch(fetchAllBasket())
+      
       // reset();
     }
     if(isAuth) {

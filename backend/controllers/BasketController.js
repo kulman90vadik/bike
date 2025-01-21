@@ -13,7 +13,7 @@ export const getAllBasket = async (req, res) => {
   }
 };
 
-
+// removeFromBasket
 
 export const addToBasket = async (req, res) => {
   try {
@@ -22,7 +22,7 @@ export const addToBasket = async (req, res) => {
     // Проверяем, есть ли товар в корзине пользователя
     const existingProduct = await BasketModel.findOne({
       user: req.userId,
-      _id: id, // Сравниваем ID продукта
+      _id: id, // Сравниваем ID продуктаa
     });
     
     if (existingProduct) {
@@ -47,6 +47,7 @@ export const addToBasket = async (req, res) => {
         image: product.image,
         flag: product.flag,
         stocked: product.stocked,
+        counter: product.counter,
       });
     
       // Сохраняем новый товар в корзину
@@ -58,6 +59,64 @@ export const addToBasket = async (req, res) => {
     
     res.json(basketItems);
     
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Ошибка при добавлении товара в корзину",
+    });
+  }
+};
+
+
+export const counterBasket = async (req, res) => {
+  try {
+    const { id } = req.params; // Получаем ID товара
+    const { action } = req.params; // Получаем ID товара
+
+    // Проверяем, есть ли товар в корзине пользователя
+    const existingProduct = await BasketModel.findOne({
+      user: req.userId,
+      _id: id,
+    });
+
+  
+
+    if (existingProduct) {
+      // Увеличиваем значение счетчика
+      if(action === 'plus') {
+        existingProduct.counter += 1;
+      }
+      // Увеличиваем значение счетчика
+      if(action === 'minus' & existingProduct.counter > 1) {
+        console.log(action);
+        existingProduct.counter -= 1;
+      }
+
+      await existingProduct.save(); // Сохраняем изменения
+    } else {
+      // Если товара нет в корзине, проверяем, существует ли он в общем списке товаров
+      const product = await ProductModel.findById(id);
+
+      if (!product) {
+        return res.status(404).json({
+          message: "Товар не найден",
+        });
+      }
+
+      // Создаем новый товар в корзине
+      const newBasketItem = new BasketModel({
+        user: req.userId,
+        _id: id,
+        counter: 1, // Начальное значение счетчика
+        ...product.toObject(), // Копируем данные товара
+      });
+
+      await newBasketItem.save(); // Сохраняем товар в корзину
+    }
+
+    // Возвращаем обновленную корзину
+    const basketItems = await BasketModel.find({ user: req.userId });
+    res.json(basketItems);
   } catch (err) {
     console.error(err);
     res.status(500).json({

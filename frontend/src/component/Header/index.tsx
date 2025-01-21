@@ -4,7 +4,9 @@ import styles from "./header.module.scss";
 import { useSelector } from "react-redux";
 import { logout, selectIsAuth, userData } from "../../redux/slices/auth";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { LogIn, LogOut, Search, ShoppingCart, UserRoundPlus } from "lucide-react";
+import { Heart, LogIn, LogOut, Search, ShoppingCart, UserRoundPlus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { fetchAllBasket } from "../../redux/slices/basket";
 
 const navigation = [
   { lebel: "Home", link: "/" },
@@ -12,23 +14,41 @@ const navigation = [
 ];
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(userData); // name 
   const dispatch = useAppDispatch();
   const basket = useSelector((state: RootState) => state.basket.data);
-  // let count = basket.length >= 1 ? basket.length : '0';
-  // const user = useSelector((state: RootState) => state.auth.data);
 
   const onClickLogout = () => {
     if (window.confirm("Вы действительно хотите выйти?")) {
       dispatch(logout());
+      dispatch(fetchAllBasket())
       window.localStorage.removeItem("token");
       <Navigate to="/" />
     }
   };
 
+
+
+    const handleScroll = () => {
+        if (window.scrollY > 55) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isScrolled ? styles.active : ''}`}>
       <div className="container">
         <div className={styles.wrapper}>
           <Link className={styles.link_logo} to="/">
@@ -62,6 +82,10 @@ const Header = () => {
                 </Link>
               </>
             )}
+             <Link to="/" className={styles.heart}>
+              <Heart />
+              <span>0</span>
+             </Link>
             <Link to="/basket" className={styles.card}>
                 <ShoppingCart />
                 <span>{basket.length}</span>

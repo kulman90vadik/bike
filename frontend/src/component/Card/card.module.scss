@@ -1,13 +1,32 @@
 
 .item {
-  // padding: 50px 0;
-  // background-color: #ccc;
+  position: relative;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 12px #ccc;
 }
 
+.green {
+  color: var(--color-green);
+}
+
+
+.red {
+  color: var(--color-red);
+}
+
+
 .top {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
 }
 
 .flag {
@@ -18,6 +37,28 @@
   border-top-left-radius: 11px;
 }
 
+.heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 15px;
+}
+.name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 21px;
+  margin-bottom: auto;
+}
+
+.price {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 19px;
+
+  margin-bottom: 15px;
+}
 
 .image {
   max-width: 235px;
@@ -30,8 +71,36 @@
 .btn {
   background-color: var(--color-orange);
   width: 100%;
-  color: var(--color-white);
+  // color: var(--color-white);
   padding: 15px 0;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   border-radius: 10px;
+  transition: box-shadow 0.3s ease-in;
+  &:hover {
+    box-shadow: 0 0 12px var(--color-orange);
+  }
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.stocked {
+  padding: 3px 5px;
+  display: block;
+  text-transform: uppercase;
+  margin-right: 12px;
+  color: var(--color-white);
+  font-weight: 700;
+  background-color: var(--color-green);
+  font-weight: 500;
+}
+
+.btngreen {
+  background-color: var(--color-green);
+  box-shadow: var(--color-green);
+  &:hover {
+    box-shadow: 0 0 12px var(--color-green);
+  }
 }

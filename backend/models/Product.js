@@ -21,6 +21,9 @@ const ProductSchema = new mongoose.Schema({
   flag: {
     type: String
   },
+  counter: {
+    type: Number
+  },
   image: {
     type: String
   },

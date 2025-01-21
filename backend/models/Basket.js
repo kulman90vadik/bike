@@ -21,6 +21,9 @@ const BasketSchema = new mongoose.Schema({
   flag: {
     type: String
   },
+  counter: {
+    type: Number
+  },
   _id: {
     type: String
   },
