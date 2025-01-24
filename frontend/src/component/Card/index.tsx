@@ -30,9 +30,10 @@ const Card = ({obj, isInBasket}: Props) => {
         <div className={styles.name}>{obj.name}</div>
         <div className={styles.price}>
           {new Intl.NumberFormat('en-US', {
-            currency: 'EUR',
-            style: 'currency',
-          }).format(Number(obj.price))}
+            useGrouping: true,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }).format(Number(obj.price)) + ' €'}
         </div>
         <button className={`${styles.btn} ${isInBasket ? styles.btngreen : ''}`} type="button" onClick={() => addToBasket(obj._id)}>{`${isInBasket ? 'Remove from Basket' : 'Add to Cart'}`}</button>
     </li>

@@ -18,7 +18,7 @@ const Counter = ({obj}: Props) => {
 
   return (
     <div className={styles.counter}>
-      <button className={styles.minus} onClick={() => counter(obj._id, 'minus')}>-</button>
+      <button disabled={obj.counter === 1} className={styles.minus} onClick={() => counter(obj._id, 'minus')}>&minus;</button>
       <button className={styles.nummber}>{obj.counter}</button>
       <button className={styles.plus} onClick={() => counter(obj._id, 'plus')}>+</button>
     </div>

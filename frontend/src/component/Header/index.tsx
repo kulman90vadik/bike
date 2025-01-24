@@ -4,9 +4,11 @@ import styles from "./header.module.scss";
 import { useSelector } from "react-redux";
 import { logout, selectIsAuth, userData } from "../../redux/slices/auth";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { Heart, LogIn, LogOut, Search, ShoppingCart, UserRoundPlus } from "lucide-react";
+import { Heart, LogIn, LogOut, ShoppingCart, UserRoundPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchAllBasket } from "../../redux/slices/basket";
+import SearchBox from "../Search";
+
 
 const navigation = [
   { lebel: "Home", link: "/" },
@@ -57,9 +59,7 @@ const Header = () => {
           <div className={styles.inner}>
             <Navigation navigation={navigation} classNameNav="header-nav" />
 
-            <button className={styles.search}>
-                <Search />
-            </button>
+            <SearchBox />
 
             {isAuth ? (
               <>

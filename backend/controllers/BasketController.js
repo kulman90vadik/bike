@@ -44,6 +44,7 @@ export const addToBasket = async (req, res) => {
         user: req.userId,
         name: product.name,
         price: product.price,
+        basePrice: Number(product.price),
         image: product.image,
         flag: product.flag,
         stocked: product.stocked,
@@ -85,11 +86,13 @@ export const counterBasket = async (req, res) => {
       // Увеличиваем значение счетчика
       if(action === 'plus') {
         existingProduct.counter += 1;
+        existingProduct.price = Number(existingProduct.price) + existingProduct.basePrice;
       }
       // Увеличиваем значение счетчика
       if(action === 'minus' & existingProduct.counter > 1) {
-        console.log(action);
+        // console.log(action);
         existingProduct.counter -= 1;
+        existingProduct.price = Number(existingProduct.price) - existingProduct.basePrice;
       }
 
       await existingProduct.save(); // Сохраняем изменения

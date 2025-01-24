@@ -24,6 +24,9 @@ const BasketSchema = new mongoose.Schema({
   counter: {
     type: Number
   },
+  basePrice: {
+    type: Number
+  },
   _id: {
     type: String
   },

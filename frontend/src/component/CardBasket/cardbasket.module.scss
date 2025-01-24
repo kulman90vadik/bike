@@ -1,17 +1,37 @@
 
 .card {
-  // display: flex;
   color: var(--color-white);
-  // align-items: center;
-  // justify-content: space-between;
+  background-color: var(--color-white);
+  border-radius: 15px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-
+  color: var(--color-black);
+  box-shadow: 0 0 10px var(--color-white);
+  &:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
 }
 
 
-.image {
+.photo {
   grid-column: 1/4;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  &:hover {
+    .image {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.image {
+  transition: transform 0.3s ease-in;
+  width: 70%;
+  height: auto;
 }
 
 .name {
@@ -19,6 +39,7 @@
   grid-column: 4/7;
   align-self: center;
   text-align: center;
+  padding: 0 15px;
 }
 
 .price {
@@ -31,4 +52,15 @@
   grid-column: 11/13;
   align-self: center;
   justify-self: center;
+  transition: transform 0.3s ease-in;
+  &:hover {
+    transform: scale(1.1);
+    svg {
+      transform: scale(1.1);
+    }
+  }
+  svg {
+    transition: transform 0.3s ease-in;
+    stroke: var(--color-black);
+  }
 }

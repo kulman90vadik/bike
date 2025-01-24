@@ -76,17 +76,7 @@
   }
 }
 
-.search {
-  margin-right: 10px;
-  svg {
-    width: 29px;
-    height: 29px;
-    path {
-      stroke: var(--color-white);
-    }
-    stroke: var(--color-white);
-  }
-}
+
 .card {
   position: relative;
   svg {
@@ -114,6 +104,7 @@
     background-color: var(--color-orange);
   }
 }
+
 
 .heart {
   display: flex;
