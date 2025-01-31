@@ -5,7 +5,7 @@ import multer from 'multer';
 
 import { registerValidation, loginValidation } from './validations.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
-import { UserController, ProductController, BasketController } from './controllers/index.js';
+import { UserController, ProductController, BasketController, FavoritesController } from './controllers/index.js';
 
 const app = express();
 app.use(express.json()); // научили понимать json файлы
@@ -38,6 +38,13 @@ app.get('/products', ProductController.getAll);
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
 app.post('/basket/counter/:id/:action', checkAuth, handleValidationErrors, BasketController.counterBasket);
 app.get('/basket', checkAuth, BasketController.getAllBasket);
+
+
+
+app.post('/favorites/:id', checkAuth, handleValidationErrors, FavoritesController.addToFavorites);
+app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
+
+
 
 app.listen(5555, (err) => {
   if(err) {

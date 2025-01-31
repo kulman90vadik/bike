@@ -8,6 +8,8 @@ import { useAppDispatch } from "./redux/store";
 import Registration from "./page/Registration";
 import Basket from "./page/Basket";
 import { fetchAllBasket } from "./redux/slices/basket";
+import Favorites from "./page/Favorites";
+import { fetchAllFavorites } from "./redux/slices/favorites";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +18,7 @@ const App = () => {
       const loadData = async () => {
         await dispatch(fetchAuthMe())
         await dispatch(fetchAllBasket())
+        await dispatch(fetchAllFavorites())
       }
       loadData();
   }, [])
@@ -30,6 +33,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/basket" element={<Basket />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </main>
       {/* <Footer /> */}

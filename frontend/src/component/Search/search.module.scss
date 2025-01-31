@@ -8,22 +8,27 @@
   svg {
     width: 29px;
     height: 29px;
+    transition: stroke .3s ease-in;
+    stroke: var(--color-white);
     path {
       stroke: var(--color-white);
+      transition: stroke .3s ease-in;
     }
-    stroke: var(--color-white);
+  }
+  &:hover {
+    svg, path {
+      stroke: var(--color-orange);
+    }
   }
 }
 
 .box {
   position: absolute;
-  height: 35px;
+  height: 45px;
   width: 250px;
-  bottom: -45px;
+  bottom: -50px;
   right: 0;
 }
-
-
 
 .input {
   padding: 0 25px 0 6px;
@@ -32,10 +37,9 @@
   border-radius: 10px;
   outline: transparent;
   border: none;
-  background-color: rgba(#fff, 0.5);
+  background-color: rgba(#fff, 0.8);
   width: 100%;
   position: absolute;
-
   height: 100%;
   transition: all 0.4s ease-in;
   font-weight: 700;
@@ -43,7 +47,7 @@
     transition: color .2s ease-in;
   }
   &:focus {
-    background-color: rgba(#fff, 0.5);
+    background-color: rgba(#fff, 0.7);
     box-shadow: 0 0 9px rgba(#fff, 0.5);
     &::placeholder {
       color: transparent;
@@ -70,7 +74,7 @@
   justify-content: center;
   align-items: center;
   transform: translateX(-50%);
-  right: -10px;
+  right: -6px;
   svg {
     color: red;
   }

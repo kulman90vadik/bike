@@ -1,8 +1,16 @@
 
 .basket {
   padding-top: 100px;
-  background-color: var(--color-black);
-  height: 100%;
+  background-color: #131313;
+  height: auto;
+  min-height: 100vh;
+}
+
+.bg {
+  background-image: url('../../../public/images/bg.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 .inner {
@@ -16,9 +24,13 @@
 }
 
 .right {
-  background-color: teal;
-  height: 200px;
+  color: var(--color-white);
+  background-color: rgba(#fff, .12);
+  box-shadow: 0 0 19px rgba(255, 255, 255, .72);
   width: 20%;
+  padding: 50px 15px 15px;
+  border-radius: 20px;
+  height: fit-content;
 }
 
 .image {
@@ -28,4 +40,36 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.text {
+  color: var(--color-white);
+}
+
+.btn {
+  color: var(--color-white);
+  width: 100%;
+  border-radius: 20px;
+  font-size: 19px;
+  padding: 10px 0;
+  background-color: var(--color-orange);
+  transition: box-shadow 0.2s ease-in;
+  &:hover {
+    box-shadow: 0 0 12px rgba(#fff, 0.4);
+  }
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.price {
+  font-weight: 700;
+  font-size: 23px;
 }

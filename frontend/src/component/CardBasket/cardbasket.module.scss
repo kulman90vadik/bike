@@ -1,7 +1,7 @@
 
 .card {
   color: var(--color-white);
-  background-color: var(--color-white);
+  background-color: rgba(#fff, .72);
   border-radius: 15px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--color-white);
   overflow: hidden;
   &:hover {
     .image {
@@ -46,6 +47,8 @@
   grid-column: 9/11;
   align-self: center;
   justify-self: center;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .btn {

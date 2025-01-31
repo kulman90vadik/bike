@@ -13,14 +13,16 @@ const Catalog = () => {
   // const isAuth = useSelector(selectIsAuth);
   const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
+  const favorites = useSelector((state: RootState) => state.favorites.data);
+
+  const search = useSelector((state: RootState) => state.search.search);
+
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === 'loadingg';
 
   React.useEffect(() => {
     dispatch(fetchProducts())
   }, [dispatch])
-
-
 
   return (
     <section className={styles.catalog}>
@@ -29,11 +31,15 @@ const Catalog = () => {
         {isLoading ? (
           [...Array(5)].map((_, index) => <Loader key={index} />)
         ) : status === 'loaded' ? (
-          products?.map((obj: ProductProps) => {
+          products
+          .filter((item: ProductProps) => {
+            return item.name.toLowerCase().includes(search.toLowerCase());
+          })
+          .map((obj: ProductProps) => {
             const isInBasket = basket?.find((item: ProductProps) => item._id === obj._id);
-            // console.log(isInBasket, 'isInBasket');
+            const isInFavorites = favorites?.find((item: ProductProps) => item._id === obj._id);
             return (
-              <Card obj={obj} key={obj._id}  isInBasket={!!isInBasket} />
+              <Card obj={obj} key={obj._id} isInBasket={!!isInBasket}  isInFavorites={!!isInFavorites} />
             )
           })
         ) : null}

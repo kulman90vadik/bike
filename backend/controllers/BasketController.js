@@ -1,6 +1,8 @@
 import BasketModel from '../models/Basket.js';
 import ProductModel from '../models/Product.js';
 
+
+
 export const getAllBasket = async (req, res) => {
   try {
     const basketItems = await BasketModel.find({ user: req.userId });
@@ -13,7 +15,6 @@ export const getAllBasket = async (req, res) => {
   }
 };
 
-// removeFromBasket
 
 export const addToBasket = async (req, res) => {
   try {

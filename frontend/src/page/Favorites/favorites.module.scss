@@ -1,0 +1,27 @@
+
+.favorites {
+  background-color: var(--color-orange);
+  background-image: url('../../../public/images/1.png');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  height: auto;
+  min-height: 100vh;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background-color: rgba(#000, 0.5);
+  }
+}
+
+
+.list {
+  padding-top: 100px;
+  position: relative;
+  z-index: 20;
+  grid-gap: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

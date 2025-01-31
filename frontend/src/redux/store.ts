@@ -4,6 +4,8 @@ import { authReducer } from './slices/auth';
 import { useDispatch } from 'react-redux'
 import { productsReducer } from './slices/products';
 import { basketReducer } from './slices/basket';
+import { favoritesReducer } from './slices/favorites';
+import { searchReducer } from './slices/search';
 // import {postsReducer} from './slices/posts'
 
 
@@ -12,7 +14,9 @@ const store = configureStore({
     reducer: {
         products: productsReducer,
         auth: authReducer,
-        basket: basketReducer
+        basket: basketReducer,
+        favorites: favoritesReducer,
+        search: searchReducer
     }
 })
 

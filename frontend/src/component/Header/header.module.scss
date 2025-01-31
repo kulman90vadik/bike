@@ -47,8 +47,12 @@
     width: 29px;
     height: 29px;
     path {
+      transition: stroke .3s ease-in;
       fill: var(--color-orange);
     }
+  }
+  &:hover path {
+    stroke: var(--color-orange);
   }
 }
 
@@ -56,6 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+ 
 }
 
 
@@ -65,13 +70,18 @@
   align-items: center;
   margin-left: 10px;
   margin-right: 10px;
+  &:hover path {
+    stroke: var(--color-orange);
+  }
   svg {
     width: 29px;
     height: 29px;
+    
     fill: var(--color-orange);
     stroke: var(--color-white);
     path {
       fill: var(--color-orange);
+      transition: stroke .3s ease-in;
     }
   }
 }
@@ -83,8 +93,12 @@
     width: 29px;
     height: 29px;
     path {
+      transition: stroke .3s ease-in;
       stroke: var(--color-white);
     }
+    stroke: var(--color-orange);
+  }
+  &:hover path {
     stroke: var(--color-orange);
   }
   span {
@@ -116,6 +130,12 @@
   svg {
     width: 27px;
     height: 27px;
+  }
+  path {
+    transition: stroke .3s ease-in;
+  }
+  &:hover path {
+    stroke: var(--color-orange);
   }
   span {
     position: absolute;

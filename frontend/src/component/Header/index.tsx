@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation  } from "react-router-dom";
 import Navigation from "../Navigation";
 import styles from "./header.module.scss";
 import { useSelector } from "react-redux";
@@ -12,15 +12,17 @@ import SearchBox from "../Search";
 
 const navigation = [
   { lebel: "Home", link: "/" },
-  // { lebel: "Login", link: "/login" },
+  { lebel: "Favorites", link: "/favorites" },
 ];
 
 const Header = () => {
+  const location  = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(userData); // name 
   const dispatch = useAppDispatch();
   const basket = useSelector((state: RootState) => state.basket.data);
+  const favorites = useSelector((state: RootState) => state.favorites.data);
 
   const onClickLogout = () => {
     if (window.confirm("Вы действительно хотите выйти?")) {
@@ -58,9 +60,11 @@ const Header = () => {
           </Link>
           <div className={styles.inner}>
             <Navigation navigation={navigation} classNameNav="header-nav" />
-
-            <SearchBox />
-
+            
+            {
+              location.pathname  === '/' && <SearchBox /> 
+            }
+          
             {isAuth ? (
               <>
                 <button
@@ -82,9 +86,9 @@ const Header = () => {
                 </Link>
               </>
             )}
-             <Link to="/" className={styles.heart}>
+             <Link to="/favorites" className={styles.heart}>
               <Heart />
-              <span>0</span>
+              <span>{favorites.length}</span>
              </Link>
             <Link to="/basket" className={styles.card}>
                 <ShoppingCart />

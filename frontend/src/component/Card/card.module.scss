@@ -1,7 +1,6 @@
 
 .item {
   position: relative;
-  padding: 12px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -13,6 +12,15 @@
   color: var(--color-green);
 }
 
+.inner {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: rgba(#fff, 0.6);
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
 
 .red {
   color: var(--color-red);
@@ -43,7 +51,17 @@
   align-items: center;
   margin-left: auto;
   margin-right: 15px;
+  svg {
+    transition: stroke 0.3s ease-in, fill 0.3s ease-in;
+  }
+  &:hover {
+    svg {
+      stroke: var(--color-orange);
+    }
+  }
 }
+
+
 .name {
   text-align: center;
   font-weight: 700;
@@ -56,15 +74,21 @@
   text-align: center;
   font-weight: 700;
   font-size: 19px;
-
   margin-bottom: 15px;
+}
+
+.photo {
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  height: 205px;
+  background-color: var(--color-white);
 }
 
 .image {
   max-width: 235px;
   width: 100%;
-  margin: 0 auto 15px;
-  height: 205px;
+  height: 100%;
+  margin: 0 auto;
   object-fit: cover;
 }
 
@@ -104,3 +128,12 @@
     box-shadow: 0 0 12px var(--color-green);
   }
 }
+
+.btnorange {
+  svg {
+    fill: var(--color-orange);
+    stroke: var(--color-orange);
+  }
+}
+
+
