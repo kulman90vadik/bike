@@ -41,6 +41,7 @@ export interface ProductProps {
   stocked: boolean;
   basePrice: number;
   counter: number;
+  viewsCount: number;
 }
 
 export interface BasketProps {
@@ -52,6 +53,7 @@ export interface BasketProps {
   basePrice: number;
   stocked: boolean;
   counter: number;
+  viewsCount: number;
 }
 
 

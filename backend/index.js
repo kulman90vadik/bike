@@ -33,7 +33,7 @@ app.post('/auth/register', registerValidation, handleValidationErrors, UserContr
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.get('/products', ProductController.getAll);
-
+app.get('/products/:id', ProductController.getOne);
 
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
 app.post('/basket/counter/:id/:action', checkAuth, handleValidationErrors, BasketController.counterBasket);

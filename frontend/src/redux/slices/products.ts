@@ -10,6 +10,12 @@ export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProduct
     return data;
 })
 
+// export const fetchOneProduct = createAsyncThunk<ProductProps, string>('auth/fetchOneProduct', async(id: string) => {
+//     const {data} = await axios.get<ProductProps>(`./products/${id}`);
+//     return data;
+// })
+
+
 type Props = {
     data: ProductProps[],
     status: string
@@ -45,6 +51,23 @@ const productsSlice = createSlice({
             state.status = 'error'
             state.data = [];
         });
+
+
+ // fetchOneProduct
+ 
+ 
+        // builder.addCase(fetchOneProduct.pending, (state) => {
+        //     state.status = 'loading'
+        //     state.data = [];
+        // });
+        // builder.addCase(fetchOneProduct.fulfilled, (state, action) => {
+        //     state.status = 'loaded'
+        //     state.data = action.payload;
+        // });
+        // builder.addCase(fetchOneProduct.rejected, (state) => {
+        //     state.status = 'error'
+        //     state.data = [];
+        // });
     }
 
 })
