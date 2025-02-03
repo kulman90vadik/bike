@@ -10,10 +10,8 @@ const Favorites = () => {
 
   const favorites = useSelector((state: RootState) => state.favorites.data);
   const basket = useSelector((state: RootState) => state.basket.data);
-  console.log(favorites, ' favorites');
   const status = useSelector((state: RootState) => state.favorites.status);
   const isLoading = status === 'loadingg';
-
 
   return (
     <section className={styles.favorites}>

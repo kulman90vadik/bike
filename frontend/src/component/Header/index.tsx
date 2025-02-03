@@ -8,6 +8,7 @@ import { Heart, LogIn, LogOut, ShoppingCart, UserRoundPlus } from "lucide-react"
 import { useEffect, useState } from "react";
 import { fetchAllBasket } from "../../redux/slices/basket";
 import SearchBox from "../Search";
+import { fetchAllFavorites } from "../../redux/slices/favorites";
 
 
 const navigation = [
@@ -28,6 +29,7 @@ const Header = () => {
     if (window.confirm("Вы действительно хотите выйти?")) {
       dispatch(logout());
       dispatch(fetchAllBasket())
+      dispatch(fetchAllFavorites())
       window.localStorage.removeItem("token");
       <Navigate to="/" />
     }

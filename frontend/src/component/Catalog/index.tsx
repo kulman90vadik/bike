@@ -24,6 +24,7 @@ const Catalog = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
+
   return (
     <section className={styles.catalog}>
     <div className="container">

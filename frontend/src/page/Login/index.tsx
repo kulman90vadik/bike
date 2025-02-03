@@ -6,6 +6,7 @@ import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchAllBasket } from "../../redux/slices/basket";
+import { fetchAllFavorites } from "../../redux/slices/favorites";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ const Login = () => {
       }
    
       await dispatch(fetchAllBasket())
+      await dispatch(fetchAllFavorites())
       
       // reset();
     }
