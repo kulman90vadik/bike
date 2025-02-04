@@ -1,5 +1,5 @@
 import { Trash2 } from "lucide-react";
-import { ProductProps } from "../../propstype";
+import { BasketProps, ProductProps } from "../../propstype";
 import styles from "./cardbasket.module.scss";
 import Counter from "../Counter";
 import { fetchBasket } from "../../redux/slices/basket";

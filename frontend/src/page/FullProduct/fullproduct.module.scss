@@ -1,0 +1,49 @@
+
+
+.product {
+  background-color: #000;
+  // height: 100vh;
+  height: 100%;
+  padding-top: 120px;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 200px;
+}
+
+.inner {
+  display: flex;
+  position: relative;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+  color: var(--color-white);
+  font-size: 33px;
+}
+
+.image {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.counter {
+  color: var(--color-white);
+  button {
+    color: var(--color-white);
+  }
+
+  // .minus {
+  //   display: flex;
+  // }
+}

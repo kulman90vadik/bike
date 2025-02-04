@@ -27,25 +27,44 @@ const Catalog = () => {
 
   return (
     <section className={styles.catalog}>
-    <div className="container">
-      <ul className={styles.list}>
-        {isLoading ? (
-          [...Array(5)].map((_, index) => <Loader key={index} />)
-        ) : status === 'loaded' ? (
-          products
-          .filter((item: ProductProps) => {
-            return item.name.toLowerCase().includes(search.toLowerCase());
-          })
-          .map((obj: ProductProps) => {
-            const isInBasket = basket?.find((item: ProductProps) => item._id === obj._id);
-            const isInFavorites = favorites?.find((item: ProductProps) => item._id === obj._id);
+     <div className="container">
+  {isLoading ? (
+    <ul className={styles.list}>
+      {[...Array(5)].map((_, index) => (
+        <Loader key={index} />
+      ))}
+    </ul>
+  ) : status === 'loaded' ? (
+    (() => {
+      const filteredProducts = products.filter((item: ProductProps) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+
+      return filteredProducts.length > 0 ? (
+        <ul className={styles.list}>
+          {filteredProducts.map((obj: ProductProps) => {
+            const isInBasket = basket?.some((item: ProductProps) => item._id === obj._id);
+            const isInFavorites = favorites?.some((item: ProductProps) => item._id === obj._id);
+
             return (
-              <Card obj={obj} key={obj._id} isInBasket={!!isInBasket}  isInFavorites={!!isInFavorites} />
-            )
-          })
-        ) : null}
-      </ul>
+             
+                <Card key={obj._id} obj={obj} isInBasket={!!isInBasket} isInFavorites={!!isInFavorites} />
+             
+            );
+          })}
+        </ul>
+      ) : (
+        <p className={styles.notFound}>Nothing found.</p>
+      );
+    })()
+  ) : (
+    <div className={styles.error}>
+      Error retrieving products. Please try again later.
+      <span>&#128524;</span>
     </div>
+  )}
+</div>
+
   </section>
   
   );

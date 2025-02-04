@@ -41,9 +41,7 @@ const Card = ({obj, isInBasket, isInFavorites}: Props) => {
         <span className={`${obj.stocked ? styles.stocked : ''}`}>{obj.stocked ? 'New' : ''}</span>
       </div>
       <Link className={styles.photo} to={`/products/${obj._id}`} state={{ name: obj.name }}>
-      
           <img className={styles.image} src={obj.image} alt={obj.name} />
-  
        </Link>
 
         <div className={styles.inner}>

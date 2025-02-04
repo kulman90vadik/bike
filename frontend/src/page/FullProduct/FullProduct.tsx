@@ -1,43 +1,53 @@
 import React from "react";
 import axios from "../../axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { ProductProps } from "../../propstype";
-
+import { useParams } from "react-router-dom";
+import { BasketProps, ProductProps } from "../../propstype";
+import styles from './fullproduct.module.scss';
+import Counter from "../../component/Counter";
 
 const FullProduct = () => {
-    const [data, setData] = React.useState<ProductProps | null>();
+    const [data, setData] = React.useState<ProductProps | null>(null);
     const {id} = useParams();
-    const navigate = useNavigate();
-    // const favorites = useSelector((state: RootState) => state.favorites.data);
-    // const basket = useSelector((state: RootState) => state.basket.data);
-    // const status = useSelector((state: RootState) => state.favorites.status);
-    // const isLoading = status === 'loadingg';
-
+    const [isLoading, setIsLoading] = React.useState(true);
+  
+   // console.log(params);
     React.useEffect(() => {
-        axios.get(`./products/${id}`).then(res => {
-          setData(res.data);
-        //   setIsLoading(false)
-        // if (res.data?._id && id === res.data._id) {
-        //     if (res.data.slug) {
-        //       navigate(`/products/${res.data.slug}`, { replace: true });
-        //     } else {
-        //       console.log("Slug отсутствует");
-        //     }
-        //   }
-
-
-        }).catch(err => {
-          console.warn(err);
-        })
-      }, [id, navigate])
-
-
-console.log(data);
+      axios.get(`./products/${id}`).then(res => {
+        setData(res.data); 
+        setIsLoading(false)
+      }).catch(err => {
+        console.warn(err);
+      })
+    }, [])
+  
+    console.log(data);
   
     return (
-     <>
-     
-     </>
+     <section className={styles.product}>
+      <div className="container">
+
+        <div className={styles.inner}>
+          {isLoading && 
+            <img className={styles.loading} src="/images/loading.gif" alt="Loading" />
+          }
+          <div className={styles.left}>
+            <img className={styles.image} src={data?.image} alt={data?.name} />
+          </div>
+          <div className={styles.right}>
+            <h1>
+              {data?.name}
+            </h1>
+            {
+             data && 
+             <div className={styles.counter}>
+               <Counter obj={data}/>
+             </div>
+            }
+            </div>
+        </div>
+
+      </div>
+     </section>
     );
   }
    

@@ -43,6 +43,12 @@ const SearchBox = () => {
   }
 
 
+  const handleValue = () => {
+    setValue('');
+    dispatch(searchValue(''));
+  }
+
+
   return (
     <div className={styles.search} ref={ref}>
       <button className={styles.searchBtn} onClick={focusElement}>
@@ -51,14 +57,14 @@ const SearchBox = () => {
       <div className={styles.box}>
       <input
         value={value}
-        placeholder="... Search Name Bike"
+        placeholder="...Search Name Bike"
         onChange={(event) => changeSearch(event)}
        
         className={`${styles.input} ${open ? styles.show : styles.hidden}`}
         type="text"
         />
       {value &&
-        <button className={styles.close} onClick={() => setValue('')}>
+        <button className={styles.close} onClick={() => handleValue()}>
           <X />
         </button>
       }

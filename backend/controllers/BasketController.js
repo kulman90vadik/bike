@@ -70,10 +70,68 @@ export const addToBasket = async (req, res) => {
 };
 
 
+// export const counterBasket = async (req, res) => {
+//   try {
+//     const { id } = req.params; // Получаем ID товара
+//     const { action } = req.params; // Получаем ID товара
+
+//     // Проверяем, есть ли товар в корзине пользователя
+//     const existingProduct = await BasketModel.findOne({
+//       user: req.userId,
+//       _id: id,
+//     });
+
+//     if (existingProduct) {
+//       // Увеличиваем значение счетчика
+//       if(action === 'plus') {
+//         existingProduct.counter += 1;
+//         existingProduct.price = Number(existingProduct.price) + existingProduct.basePrice;
+//       }
+//       // Увеличиваем значение счетчика
+//       if(action === 'minus' & existingProduct.counter > 1) {
+//         // console.log(action);
+//         existingProduct.counter -= 1;
+//         existingProduct.price = Number(existingProduct.price) - existingProduct.basePrice;
+//       }
+
+//       await existingProduct.save(); // Сохраняем изменения
+//     } else {
+//       // Если товара нет в корзине, проверяем, существует ли он в общем списке товаров
+//       const product = await ProductModel.findById(id);
+
+//       if (!product) {
+//         return res.status(404).json({
+//           message: "Товар не найден",
+//         });
+//       }
+
+//       // Создаем новый товар в корзине
+//       const newBasketItem = new BasketModel({
+//         user: req.userId,
+//         _id: id,
+//         counter: 1, // Начальное значение счетчика
+//         ...product.toObject(), // Копируем данные товара
+//       });
+
+//       await newBasketItem.save(); // Сохраняем товар в корзину
+//     }
+
+//     // Возвращаем обновленную корзину
+//     const basketItems = await BasketModel.find({ user: req.userId });
+//     res.json(basketItems);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({
+//       message: "Ошибка при добавлении товара в корзину",
+//     });
+//   }
+// };
+
+
+
 export const counterBasket = async (req, res) => {
   try {
-    const { id } = req.params; // Получаем ID товара
-    const { action } = req.params; // Получаем ID товара
+    const { id, action } = req.params; // Получаем ID товара и действие (плюс или минус)
 
     // Проверяем, есть ли товар в корзине пользователя
     const existingProduct = await BasketModel.findOne({
@@ -81,41 +139,23 @@ export const counterBasket = async (req, res) => {
       _id: id,
     });
 
-  
-
     if (existingProduct) {
-      // Увеличиваем значение счетчика
-      if(action === 'plus') {
+      // Если товар есть в корзине, увеличиваем/уменьшаем счетчик и цену
+      if (action === 'plus') {
         existingProduct.counter += 1;
         existingProduct.price = Number(existingProduct.price) + existingProduct.basePrice;
-      }
-      // Увеличиваем значение счетчика
-      if(action === 'minus' & existingProduct.counter > 1) {
-        // console.log(action);
+      } else if (action === 'minus' && existingProduct.counter > 1) {
         existingProduct.counter -= 1;
         existingProduct.price = Number(existingProduct.price) - existingProduct.basePrice;
       }
 
-      await existingProduct.save(); // Сохраняем изменения
+      // Здесь не создаем новый продукт, а просто обновляем данные в корзине
+      await existingProduct.save(); // Сохраняем изменения в существующем объекте
     } else {
-      // Если товара нет в корзине, проверяем, существует ли он в общем списке товаров
-      const product = await ProductModel.findById(id);
-
-      if (!product) {
-        return res.status(404).json({
-          message: "Товар не найден",
-        });
-      }
-
-      // Создаем новый товар в корзине
-      const newBasketItem = new BasketModel({
-        user: req.userId,
-        _id: id,
-        counter: 1, // Начальное значение счетчика
-        ...product.toObject(), // Копируем данные товара
+      // Если товара нет в корзине, возвращаем ошибку
+      return res.status(404).json({
+        message: "Товар не найден в корзине",
       });
-
-      await newBasketItem.save(); // Сохраняем товар в корзину
     }
 
     // Возвращаем обновленную корзину
@@ -128,3 +168,4 @@ export const counterBasket = async (req, res) => {
     });
   }
 };
+

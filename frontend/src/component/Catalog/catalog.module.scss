@@ -1,10 +1,32 @@
 
 .catalog {
   padding: 50px 0;
+  position: relative;
 }
 
 .list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 25px;
+}
+
+.error {
+  position: absolute;
+  padding: 100px 0;
+  font-size: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  span {
+    display: block;
+    font-size: 50px;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+
+.notFound {
+  text-align: center;
+  font-size: 21px;
+  padding: 100px 0;
 }

@@ -1,5 +1,6 @@
 .hero {
   height: 100vh;
+  background-color: var(--color-black);
   background-image: url('./images/bike.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -36,4 +37,11 @@
   padding: 16px 45px;
   border-radius: 13px;
   font-size: 19px;
+  transition: box-shadow 0.3s ease-in;
+  &:hover {
+    box-shadow: 0 0 15px var(--color-orange);
+  }
+  &:active {
+    box-shadow: none;
+  }
 }
