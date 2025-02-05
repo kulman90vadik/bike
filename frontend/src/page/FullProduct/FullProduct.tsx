@@ -1,17 +1,17 @@
 import React from "react";
 import axios from "../../axios";
 import { useParams } from "react-router-dom";
-import { BasketProps, ProductProps } from "../../propstype";
+import { ProductProps } from "../../propstype";
 import styles from './fullproduct.module.scss';
-import Counter from "../../component/Counter";
+// import Counter from "../../component/Counter";
 
 const FullProduct = () => {
     const [data, setData] = React.useState<ProductProps | null>(null);
     const {id} = useParams();
     const [isLoading, setIsLoading] = React.useState(true);
   
-   // console.log(params);
-    React.useEffect(() => {
+   
+    React.useEffect(() => {  
       axios.get(`./products/${id}`).then(res => {
         setData(res.data); 
         setIsLoading(false)
@@ -20,7 +20,6 @@ const FullProduct = () => {
       })
     }, [])
   
-    console.log(data);
   
     return (
      <section className={styles.product}>
@@ -37,12 +36,12 @@ const FullProduct = () => {
             <h1>
               {data?.name}
             </h1>
-            {
+            {/* {
              data && 
              <div className={styles.counter}>
                <Counter obj={data}/>
              </div>
-            }
+            } */}
             </div>
         </div>
 

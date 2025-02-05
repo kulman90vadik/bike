@@ -10,10 +10,10 @@ export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProduct
     return data;
 })
 
-// export const fetchOneProduct = createAsyncThunk<ProductProps, string>('auth/fetchOneProduct', async(id: string) => {
-//     const {data} = await axios.get<ProductProps>(`./products/${id}`);
-//     return data;
-// })
+export const fetchSortProducts = createAsyncThunk<ProductProps[], string>('auth/fetchSortProducts', async(sort: string) => {
+    const {data} = await axios.get<ProductProps[]>(`./products/sort/?sort=${sort}`);
+    return data;
+})
 
 
 type Props = {
@@ -40,15 +40,29 @@ const productsSlice = createSlice({
 
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
-            state.status = 'loading'
+            state.status = 'loading';
             state.data = [];
         });
         builder.addCase(fetchProducts.fulfilled, (state, action) => {
-            state.status = 'loaded'
+            state.status = 'loaded';
             state.data = action.payload;
         });
         builder.addCase(fetchProducts.rejected, (state) => {
-            state.status = 'error'
+            state.status = 'error';
+            state.data = [];
+        });
+
+
+        builder.addCase(fetchSortProducts.pending, (state) => {
+            state.status = 'loading';
+            state.data = [];
+        });
+        builder.addCase(fetchSortProducts.fulfilled, (state, action) => {
+            state.status = 'loaded';
+            state.data = action.payload;
+        });
+        builder.addCase(fetchSortProducts.rejected, (state) => {
+            state.status = 'error';
             state.data = [];
         });
 

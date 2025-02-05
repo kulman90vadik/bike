@@ -42,3 +42,18 @@ export const getOne = async (req, res) => {
     });
   }
 };
+
+
+export const sortProducts = async (req, res) => {
+  
+  try {
+    const sortOrder = req.query.sort === "asc" ? 1 : -1; // Получаем направление сортировки
+    const products = await ProductModel.find().sort({ price: sortOrder }); // Запрос с сортировкой
+
+    res.json(products);
+
+
+  } catch (error) {
+      res.status(500).json({ error: "Ошибка сервера" });
+  }
+}

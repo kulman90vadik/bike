@@ -32,6 +32,7 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+app.get("/products/sort", ProductController.sortProducts);
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getOne);
 
@@ -43,7 +44,6 @@ app.get('/basket', checkAuth, BasketController.getAllBasket);
 
 app.post('/favorites/:id', checkAuth, handleValidationErrors, FavoritesController.addToFavorites);
 app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
-
 
 
 app.listen(5555, (err) => {

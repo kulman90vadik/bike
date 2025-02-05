@@ -16,7 +16,7 @@ const CardBasket = ({ obj }: Props) => {
     dispatch(fetchBasket(id));
   }
 
-  // console.log(obj);
+  console.log('render');
 
   return (
     <li className={styles.card}>

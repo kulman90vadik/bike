@@ -4,6 +4,17 @@
   position: relative;
 }
 
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.right {
+  width: 80%;
+}
+
+
+
 .list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
