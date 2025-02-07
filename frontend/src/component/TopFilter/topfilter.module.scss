@@ -2,8 +2,35 @@
 
 .top {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sort {
   font-size: 19px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  &:not(:last-child) {
+    margin-right: 11px;
+  }
+}
+
+.btn {
+  font-size: 19px;
+  transition: color 0.3s ease-in;
+  border-bottom: 1px solid var(--color-orange);
+  &:hover {
+    color: var(--color-orange);
+  }
+}
+
+.btnorange {
+  color: var(--color-orange);
 }

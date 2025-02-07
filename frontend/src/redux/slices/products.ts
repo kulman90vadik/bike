@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-// import { FormValueslogin, FormValuesRegister, Registerprops } from '../../propstype';
 import axios from '../../axios';
 import { ProductProps } from '../../propstype';
-// import { RootState } from '../store';
+
 
 export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProducts', async() => {
     const {data} = await axios.get<ProductProps[]>('./products');
     return data;
 })
 
-export const fetchSortProducts = createAsyncThunk<ProductProps[], string>('auth/fetchSortProducts', async(sort: string) => {
-    const {data} = await axios.get<ProductProps[]>(`./products/sort/?sort=${sort}`);
+export const fetchSortProducts = createAsyncThunk<ProductProps[], string, { rejectValue: string }>(
+    'auth/fetchSortProducts', async(queryString)=> {
+    const {data} = await axios.get<ProductProps[]>(`./products/sort?${queryString}`);
     return data;
 })
+
+
 
 
 type Props = {
@@ -65,23 +66,6 @@ const productsSlice = createSlice({
             state.status = 'error';
             state.data = [];
         });
-
-
- // fetchOneProduct
- 
- 
-        // builder.addCase(fetchOneProduct.pending, (state) => {
-        //     state.status = 'loading'
-        //     state.data = [];
-        // });
-        // builder.addCase(fetchOneProduct.fulfilled, (state, action) => {
-        //     state.status = 'loaded'
-        //     state.data = action.payload;
-        // });
-        // builder.addCase(fetchOneProduct.rejected, (state) => {
-        //     state.status = 'error'
-        //     state.data = [];
-        // });
     }
 
 })

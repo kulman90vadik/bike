@@ -14,7 +14,7 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  stocked: {
+  newproduct: {
     type: Boolean,
     required: true
   },
@@ -23,6 +23,9 @@ const ProductSchema = new mongoose.Schema({
   },
   counter: {
     type: Number
+  },
+  sale: {
+    type: String
   },
   image: {
     type: String

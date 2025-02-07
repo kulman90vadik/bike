@@ -14,11 +14,14 @@ const BasketSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  stocked: {
+  newproduct: {
     type: Boolean,
     required: true
   },
   flag: {
+    type: String
+  },
+  sale: {
     type: String
   },
   counter: {

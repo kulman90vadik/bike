@@ -14,6 +14,7 @@ import { fetchAllFavorites } from "../../redux/slices/favorites";
 const navigation = [
   { lebel: "Home", link: "/" },
   { lebel: "Favorites", link: "/favorites" },
+  { lebel: "Basket", link: "/basket" }
 ];
 
 const Header = () => {
@@ -24,6 +25,25 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
+
+  // const [basketStorage, setBasketStorage] = useState<any[]>([]); 
+
+  
+
+  // const storedBasket = localStorage.getItem('basket');
+  // if (storedBasket) {
+  //   setBasketStorage(JSON.parse(storedBasket));
+  // }
+  
+  // console.log(storedBasket?.length,  ' storedBasket')
+
+
+  // useEffect(() => {
+  //   if (storedBasket) {
+  //     setBasketStorage(JSON.parse(storedBasket)); 
+  //     console.log('render');
+  //   }
+  // }, []);
 
   const onClickLogout = () => {
     if (window.confirm("Вы действительно хотите выйти?")) {
@@ -51,6 +71,9 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+
+    // let count = isAuth ? basket.length : basketStorage.length;
 
 
   return (

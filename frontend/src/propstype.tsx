@@ -38,7 +38,8 @@ export interface ProductProps {
   flag: string;
   image: string;
   price: string;
-  stocked: boolean;
+  sale?: string;
+  newproduct: boolean;
   basePrice: number;
   counter: number;
   viewsCount: number;
@@ -49,9 +50,10 @@ export interface BasketProps {
   name: string;
   flag: string;
   image: string;
+  sale?: string;
   price: string;
   basePrice: number;
-  stocked: boolean;
+  newproduct: boolean;
   counter: number;
   viewsCount: number;
 }

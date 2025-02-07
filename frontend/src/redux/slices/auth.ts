@@ -23,11 +23,13 @@ export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async() => {
 
 interface Props {
     status: string,
+    // is: boolean,
     data: Registerprops | null
 }
 
 const initialState: Props = {
     data: null,
+    // is: false,
     status: 'loading'
 }
 
@@ -100,3 +102,4 @@ export const userData = (state: RootState): string => String(state.auth.data?.fu
 export const authReducer = authSlice.reducer;
 
 export const {logout} = authSlice.actions;
+

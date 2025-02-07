@@ -4,18 +4,38 @@ import styles from "./basket.module.scss";
 import { BasketProps } from "../../propstype";
 import CardBasket from "../../component/CardBasket";
 import { useEffect, useState } from "react";
+import { selectIsAuth } from "../../redux/slices/auth";
 
 const Basket = () => {
   const basket = useSelector((state: RootState) => state.basket.data);
   const[preisTotal, setPreisTotal] = useState(0);
+  const isAuth = useSelector(selectIsAuth);
+  const [basketStorage, setBasketStorage] = useState<any[]>([]); 
+
+    const storedBasket = localStorage.getItem('basket');
+  
+    useEffect(() => {
+      if (storedBasket) {
+        setBasketStorage(JSON.parse(storedBasket)); 
+      }
+    }, [storedBasket]);
+
+    useEffect(() => {
+      const totalPrice = basket.reduce((sum, item) => {
+          let price = item.sale 
+              ? Number(item.price) * (1 - Number(item.sale.replace(/%/g, "")) / 100) 
+              : Number(item.price);
+          return sum + price;
+      }, 0);
+
+      setPreisTotal(totalPrice);
+    }, [basket]);
+
+// console.log(basketStorage, ' basketStorage')
+// console.log(basket, ' basket')
 
 
-  useEffect(() => {
-    const totalPrice = basket.reduce((sum, item) => sum + Number(item.price), 0);
-    setPreisTotal(
-      totalPrice
-    )
-  }, [basket])
+let basketArr = isAuth ? basket : basketStorage;
 
   return (
     <section className={`${styles.basket} ${basket.length > 0 ? styles.bg : ''}`}>

@@ -76,6 +76,12 @@
   font-weight: 700;
   font-size: 19px;
   margin-bottom: 15px;
+  span {
+    color: var(--color-red);
+    display: inline-block;
+    margin-right: 3px;
+    text-decoration: line-through;
+  }
 }
 
 .photo {
@@ -119,6 +125,17 @@
   color: var(--color-white);
   font-weight: 700;
   background-color: var(--color-green);
+  font-weight: 500;
+}
+
+.sale {
+  padding: 3px 5px;
+  display: block;
+  text-transform: uppercase;
+  margin-right: 12px;
+  color: var(--color-white);
+  font-weight: 700;
+  background-color: var(--color-red);
   font-weight: 500;
 }
 

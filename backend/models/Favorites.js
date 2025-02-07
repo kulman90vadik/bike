@@ -14,9 +14,12 @@ const FavoritesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  stocked: {
+  newproduct: {
     type: Boolean,
     required: true
+  },
+  sale: {
+    type: String
   },
   flag: {
     type: String

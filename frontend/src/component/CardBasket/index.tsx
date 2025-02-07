@@ -16,7 +16,12 @@ const CardBasket = ({ obj }: Props) => {
     dispatch(fetchBasket(id));
   }
 
-  console.log('render');
+  let price = obj.sale 
+  ? Number(obj.price) * (1 - Number(obj.sale.replace(/%/g, "")) / 100) 
+  : obj.price;
+
+  console.log(obj);
+  console.log(price);
 
   return (
     <li className={styles.card}>
@@ -30,7 +35,7 @@ const CardBasket = ({ obj }: Props) => {
             useGrouping: true,
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
-          }).format(Number(obj.price)) + ' €'}
+          }).format(Number(price)) + ' €'}
       </div>
         <button className={styles.btn} type="button" onClick={() => removeFromBasket(obj._id)}>
           <Trash2 />

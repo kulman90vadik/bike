@@ -3,18 +3,45 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import { FormValueslogin, FormValuesRegister, Registerprops } from '../../propstype';
 import axios from '../../axios';
 import { BasketProps } from '../../propstype';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from './auth';
 // import { ProductProps } from '../../propstype';
-// import { RootState } from '../store';
+import { RootState } from '../store';
 
-export const fetchBasket = createAsyncThunk<BasketProps[], string>('auth/fetchBasket', async(id: string) => {
-    const {data} = await axios.post<BasketProps[]>(`./basket/${id}`);
-    return data;
-})
+export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: RootState }>(
+    'auth/fetchBasket',
+    async (id: string, { getState }) => {
+     const state = getState(); // Берем текущее состояние Redux
+       const isAuth = Boolean(state.auth.data); // Проверяем авторизацию
+    if (isAuth) {
+        // Если авторизован — отправляем запрос на сервер
+        const { data } = await axios.post<BasketProps[]>(`./basket/${id}`);
+        return data;
+    } else {
+        const products = state.products.data; // Достаем список продуктов
+        const product = products.find((p) => p._id === id);
+        if (!product) return []; // Если товара нет в списке, возвращаем пустой массив
+  
+        let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
+        const productIndex = basketStorage.findIndex((item: BasketProps) => item._id === id);
+  
+        if (productIndex !== -1) {
+          basketStorage.splice(productIndex, 1); // Если товар уже есть, удаляем его
+        } else {
+          basketStorage.push(product); // Если нет — добавляем
+        }
+  
+        localStorage.setItem('basket', JSON.stringify(basketStorage));
+  
+        return basketStorage; // Возвращаем обновленный массив корзины
+      }
+    }
+  );
+  
 
-export const fetchCounterBasketCard = createAsyncThunk<
-  BasketProps[], // Тип возвращаемого значения
-  { id: string; str: string } // Тип аргументов
->(
+
+
+export const fetchCounterBasketCard = createAsyncThunk<BasketProps[], { id: string; str: string }>(
   'auth/fetchCounterBasketCard',
   async ({ id, str }: { id: string; str: string }) => {
     const { data } = await axios.post<BasketProps[]>(`./basket/counter/${id}/${str}`);
@@ -22,9 +49,19 @@ export const fetchCounterBasketCard = createAsyncThunk<
   }
 );
 
-export const fetchAllBasket = createAsyncThunk('auth/fetchAllBasket', async() => {
-    const {data} = await axios.get<BasketProps[]>('./basket');
-    return data;
+
+
+export const fetchAllBasket =  createAsyncThunk<BasketProps[], void, { state: RootState }>('auth/fetchAllBasket', async(_, { getState }) => {
+    const state = getState(); // Берем текущее состояние Redux
+    const isAuth = Boolean(state.auth.data); // Проверяем авторизацию
+    if(isAuth) {
+        const {data} = await axios.get<BasketProps[]>('./basket');
+        return data;
+    }
+    else {
+        let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
+        return basketStorage;
+    }
 })
 
 

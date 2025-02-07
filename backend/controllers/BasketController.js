@@ -48,8 +48,9 @@ export const addToBasket = async (req, res) => {
         basePrice: Number(product.price),
         image: product.image,
         flag: product.flag,
-        stocked: product.stocked,
+        newproduct: product.newproduct,
         counter: product.counter,
+        sale: product.sale
       });
     
       // Сохраняем новый товар в корзину
@@ -68,6 +69,49 @@ export const addToBasket = async (req, res) => {
     });
   }
 };
+
+
+export const counterBasket = async (req, res) => {
+  try {
+    const { id, action } = req.params; // Получаем ID товара и действие (плюс или минус)
+
+    // Проверяем, есть ли товар в корзине пользователя
+    const existingProduct = await BasketModel.findOne({
+      user: req.userId,
+      _id: id,
+    });
+
+    if (existingProduct) {
+      // Если товар есть в корзине, увеличиваем/уменьшаем счетчик и цену
+      if (action === 'plus') {
+        existingProduct.counter += 1;
+        existingProduct.price = Number(existingProduct.price) + existingProduct.basePrice;
+      } else if (action === 'minus' && existingProduct.counter > 1) {
+        existingProduct.counter -= 1;
+        existingProduct.price = Number(existingProduct.price) - existingProduct.basePrice;
+      }
+
+      // Здесь не создаем новый продукт, а просто обновляем данные в корзине
+      await existingProduct.save(); // Сохраняем изменения в существующем объекте
+    } else {
+      // Если товара нет в корзине, возвращаем ошибку
+      return res.status(404).json({
+        message: "Товар не найден в корзине",
+      });
+    }
+
+    // Возвращаем обновленную корзину
+    const basketItems = await BasketModel.find({ user: req.userId });
+    res.json(basketItems);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Ошибка при добавлении товара в корзину",
+    });
+  }
+};
+
+
 
 
 // export const counterBasket = async (req, res) => {
@@ -126,46 +170,3 @@ export const addToBasket = async (req, res) => {
 //     });
 //   }
 // };
-
-
-
-export const counterBasket = async (req, res) => {
-  try {
-    const { id, action } = req.params; // Получаем ID товара и действие (плюс или минус)
-
-    // Проверяем, есть ли товар в корзине пользователя
-    const existingProduct = await BasketModel.findOne({
-      user: req.userId,
-      _id: id,
-    });
-
-    if (existingProduct) {
-      // Если товар есть в корзине, увеличиваем/уменьшаем счетчик и цену
-      if (action === 'plus') {
-        existingProduct.counter += 1;
-        existingProduct.price = Number(existingProduct.price) + existingProduct.basePrice;
-      } else if (action === 'minus' && existingProduct.counter > 1) {
-        existingProduct.counter -= 1;
-        existingProduct.price = Number(existingProduct.price) - existingProduct.basePrice;
-      }
-
-      // Здесь не создаем новый продукт, а просто обновляем данные в корзине
-      await existingProduct.save(); // Сохраняем изменения в существующем объекте
-    } else {
-      // Если товара нет в корзине, возвращаем ошибку
-      return res.status(404).json({
-        message: "Товар не найден в корзине",
-      });
-    }
-
-    // Возвращаем обновленную корзину
-    const basketItems = await BasketModel.find({ user: req.userId });
-    res.json(basketItems);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      message: "Ошибка при добавлении товара в корзину",
-    });
-  }
-};
-
