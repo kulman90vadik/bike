@@ -20,8 +20,8 @@ const CardBasket = ({ obj }: Props) => {
   ? Number(obj.price) * (1 - Number(obj.sale.replace(/%/g, "")) / 100) 
   : obj.price;
 
-  console.log(obj);
-  console.log(price);
+  // console.log(obj);
+  // console.log(price);
 
   return (
     <li className={styles.card}>

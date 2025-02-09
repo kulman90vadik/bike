@@ -9,7 +9,7 @@ import { selectIsAuth } from "../../redux/slices/auth";
 const Basket = () => {
   const basket = useSelector((state: RootState) => state.basket.data);
   const[preisTotal, setPreisTotal] = useState(0);
-  const isAuth = useSelector(selectIsAuth);
+  // const isAuth = useSelector(selectIsAuth);
   const [basketStorage, setBasketStorage] = useState<any[]>([]); 
 
     const storedBasket = localStorage.getItem('basket');
@@ -32,10 +32,9 @@ const Basket = () => {
     }, [basket]);
 
 // console.log(basketStorage, ' basketStorage')
-// console.log(basket, ' basket')
+console.log(basket, ' basket')
 
-
-let basketArr = isAuth ? basket : basketStorage;
+// let basketArr = isAuth ? basket : basketStorage;
 
   return (
     <section className={`${styles.basket} ${basket.length > 0 ? styles.bg : ''}`}>

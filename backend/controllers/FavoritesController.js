@@ -8,7 +8,7 @@ export const getAllFavorites = async (req, res) => {
     const favoritesItems = await FavoritesModel.find({ user: req.userId });
     res.json(favoritesItems);
   } catch (err) {
-    console.warm(err);
+    // console.war m(err);
     res.status(500).json({
       message: "Ошибка при загрузке favorites",
     });
