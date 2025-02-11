@@ -9,17 +9,18 @@ export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProduct
 })
 
 export const fetchSortProducts = createAsyncThunk<ProductProps[], string, { rejectValue: string }>(
-    'auth/fetchSortProducts', async(queryString, category)=> {
-
+    'auth/fetchSortProducts', async(queryString)=> {
+console.log(`./products/sort?${queryString}`)
     const {data} = await axios.get<ProductProps[]>(`./products/sort?${queryString}`);
     return data;
 })
+
 
 type Props = {
     data: ProductProps[],
     status: string,
     sales: string,
-    branding: string,
+    branding: string[],
     sortOrder: string
 }
 
@@ -27,7 +28,7 @@ const initialState: Props = {
     data: [],
     sortOrder: '',
     sales: '',
-    branding: '',
+    branding: [],
     status: 'loading'
 }
 
@@ -45,7 +46,16 @@ const productsSlice = createSlice({
             state.sales = action.payload;
         },
         setBranding: (state, action) => {
-            state.branding = action.payload;
+            const category = action.payload;
+            const index = state.branding.indexOf(category);
+        console.log(index)
+            if (index !== -1) {
+                // Если категория уже есть, удаляем её (отжать чекбокс)
+                state.branding = state.branding.filter(item => item !== category);
+            } else {
+                // Если категории нет, добавляем её (выбрать чекбокс)
+                state.branding.push(category);
+            }
         }
     },
     extraReducers: (builder) => {

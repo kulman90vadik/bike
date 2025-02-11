@@ -1,35 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./asidefilter.module.scss";
 import { Check, ChevronDown } from "lucide-react";
-import { RootState, useAppDispatch } from "../../redux/store";
-import { useSelector } from "react-redux";
-import { fetchSortProducts, setBranding } from "../../redux/slices/products";
+import { useAppDispatch } from "../../redux/store";
+import { setBranding } from "../../redux/slices/products";
 
 const brandData = [
   { id: 0, name: "Scott" },
-  { id: 1, name: "Marlin" },
-  { id: 2, name: "Fluo" },
+  // { id: 1, name: "Marlin" },
+  { id: 2, name: "Trek" },
   { id: 3, name: "Orbea" },
-  { id: 4, name: "BMC" },
+  { id: 4, name: "Look" },
 ];
 
 const AsideFilter = () => {
   const [openWidget, setOpenWidget] = useState(true);
   const dispatch = useAppDispatch();
-  const { branding } = useSelector((state: RootState) => state.products);
-
+ 
   const handleBrand = (name: string) => {
-    console.log(name.toLocaleLowerCase());
-    // setOpenWidget(!openWidget);
     dispatch(setBranding(name.toLocaleLowerCase()));
   };
-
-  useEffect(() => {
-     const category = branding ? `category=${branding}` : '';
-      // const queryString = `${sortParam}${sortParam && saleParam ? '&' : ''}${saleParam}`;
-      dispatch(fetchSortProducts(category))
-  }, [branding])
 
   return (
     <aside className={styles.filters}>

@@ -47,13 +47,18 @@ export const getOne = async (req, res) => {
 
 export const sortProducts = async (req, res) => {
   try {
-    const { sort, filter } = req.query;
+    const { sort, filter, category } = req.query;
 
     // Определяем порядок сортировки (если sort не указан, сортировку не применяем)
     const sortOrder = sort === "asc" ? 1 : sort === "desc" ? -1 : null;
 
     // Формируем фильтр
     let filterCondition = {};
+
+    if (category) {
+      const categoriesArray = category.split(','); // Разбиваем строку в массив
+      filterCondition.category = { $in: categoriesArray }; // Фильтр по списку категорий
+    }
 
     if (filter === "sale") {
       filterCondition = { sale: { $exists: true } }; // Берем только товары, у которых ЕСТЬ поле "sale"

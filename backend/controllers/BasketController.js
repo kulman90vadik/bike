@@ -44,6 +44,7 @@ export const addToBasket = async (req, res) => {
         _id: id,
         user: req.userId,
         name: product.name,
+        category: product.category,
         price: product.price,
         basePrice: Number(product.price),
         image: product.image,

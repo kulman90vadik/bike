@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./topfilter.module.scss";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { fetchSortProducts, setSortOrder, setSale } from "../../redux/slices/products";
+import { setSortOrder, setSale } from "../../redux/slices/products";
 import { useSelector } from "react-redux";
 
 const TopFilter = () => {
   const dispatch = useAppDispatch();
-  const {sortOrder, sales} = useSelector((state: RootState) => state.products);
+  const {sortOrder} = useSelector((state: RootState) => state.products);
   const [count, setCount] = React.useState(0);
   let filters = ["All", "Sale", "New"];
 
-  useEffect(() => {
-    const sortParam = sortOrder ? `sort=${sortOrder}` : '';
-    const saleParam = sales ? `filter=${sales}` : '';
-    const queryString = `${sortParam}${sortParam && saleParam ? '&' : ''}${saleParam}`;
-
-    dispatch(fetchSortProducts(queryString));
-  }, [sortOrder, sales]);
+ 
 
 
   const handleSale = (button: string, index: number) => {
