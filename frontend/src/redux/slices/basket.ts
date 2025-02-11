@@ -1,17 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-// import { FormValueslogin, FormValuesRegister, Registerprops } from '../../propstype';
 import axios from '../../axios';
 import { BasketProps } from '../../propstype';
-// import { useSelector } from 'react-redux';
-// import { selectIsAuth } from './auth'; 
-// import { ProductProps } from '../../propstype';
 import { RootState } from '../store';
 
 export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: RootState }>(
-    'auth/fetchBasket',
-    async (id: string, { getState }) => {
-     const state = getState(); 
+    'auth/fetchBasket', async (id: string, { getState }) => {
+       const state = getState(); 
        const isAuth = Boolean(state.auth.data); 
     if (isAuth) {
         const { data } = await axios.post<BasketProps[]>(`./basket/${id}`);
@@ -20,10 +14,8 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: Root
         const products = state.products.data; 
         const product = products.find((p) => p._id === id);
         if (!product) return []; 
-  
         let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
         const productIndex = basketStorage.findIndex((item: BasketProps) => item._id === id);
-  
         if (productIndex !== -1) {
           basketStorage.splice(productIndex, 1); 
         } else {
@@ -35,13 +27,6 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: Root
     }
   );
 
-// export const fetchCounterBasketCard = createAsyncThunk<BasketProps[], { id: string; str: string }>(
-//   'auth/fetchCounterBasketCard',
-//   async ({ id, str }: { id: string; str: string }) => {
-//     const { data } = await axios.post<BasketProps[]>(`./basket/counter/${id}/${str}`);
-//     return data;
-//   }
-// );
 
 
 export const fetchCounterBasketCard = createAsyncThunk<BasketProps[], { id: string; str: string }>(
@@ -55,13 +40,11 @@ export const fetchCounterBasketCard = createAsyncThunk<BasketProps[], { id: stri
     }
     else {
         let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
-        // console.log(id);
          basketStorage.map((item: BasketProps) => {
             if(item._id === id) {
 
                 if (str === 'plus') {
                     item.counter += 1;
-                    // let i = Number(item.price) + Number(item.basePrice);
                     item.price = String(Number(item.basePrice) + Number(item.price));
                 }
                 else if (str === 'minus' && item.counter > 0) {
@@ -82,7 +65,8 @@ export const fetchCounterBasketCard = createAsyncThunk<BasketProps[], { id: stri
 
 
 
-export const fetchAllBasket =  createAsyncThunk<BasketProps[], void, { state: RootState }>('auth/fetchAllBasket', async(_, { getState }) => {
+export const fetchAllBasket =  createAsyncThunk<BasketProps[], void, { state: RootState }>(
+    'auth/fetchAllBasket', async(_, { getState }) => {
     const state = getState(); // Берем текущее состояние Redux
     const isAuth = Boolean(state.auth.data); // Проверяем авторизацию
     if(isAuth) {

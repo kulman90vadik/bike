@@ -26,25 +26,6 @@ const Header = () => {
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
 
-  // const [basketStorage, setBasketStorage] = useState<any[]>([]); 
-
-  
-
-  // const storedBasket = localStorage.getItem('basket');
-  // if (storedBasket) {
-  //   setBasketStorage(JSON.parse(storedBasket));
-  // }
-  
-  // console.log(storedBasket?.length,  ' storedBasket')
-
-
-  // useEffect(() => {
-  //   if (storedBasket) {
-  //     setBasketStorage(JSON.parse(storedBasket)); 
-  //     console.log('render');
-  //   }
-  // }, []);
-
   const onClickLogout = () => {
     if (window.confirm("Вы действительно хотите выйти?")) {
       dispatch(logout());

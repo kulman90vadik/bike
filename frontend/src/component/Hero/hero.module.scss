@@ -24,6 +24,15 @@
   line-height: 1;
   margin-bottom: 33px;
   letter-spacing: 1px;
+  @media (max-width: 991px) {
+    font-size: 80px;
+  }
+  @media (max-width: 719px) {
+    font-size: 60px;
+  }
+  @media (max-width: 554px) {
+    font-size: 45px;
+  }
 }
 
 .text {

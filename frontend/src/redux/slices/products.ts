@@ -9,36 +9,45 @@ export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProduct
 })
 
 export const fetchSortProducts = createAsyncThunk<ProductProps[], string, { rejectValue: string }>(
-    'auth/fetchSortProducts', async(queryString)=> {
+    'auth/fetchSortProducts', async(queryString, category)=> {
+
     const {data} = await axios.get<ProductProps[]>(`./products/sort?${queryString}`);
     return data;
 })
 
-
-
-
 type Props = {
     data: ProductProps[],
-    status: string
+    status: string,
+    sales: string,
+    branding: string,
+    sortOrder: string
 }
-
 
 const initialState: Props = {
     data: [],
+    sortOrder: '',
+    sales: '',
+    branding: '',
     status: 'loading'
 }
 
 
+//   const [sales, setSale] = React.useState("");
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        // logout: (state) => {
-        //     state.data = null;
-        // }
+        setSortOrder: (state, action) => {
+            state.sortOrder = action.payload;
+        },
+        setSale: (state, action) => {
+            state.sales = action.payload;
+        },
+        setBranding: (state, action) => {
+            state.branding = action.payload;
+        }
     },
-
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
             state.status = 'loading';
@@ -53,7 +62,6 @@ const productsSlice = createSlice({
             state.data = [];
         });
 
-
         builder.addCase(fetchSortProducts.pending, (state) => {
             state.status = 'loading';
             state.data = [];
@@ -67,7 +75,6 @@ const productsSlice = createSlice({
             state.data = [];
         });
     }
-
 })
 // 
 
@@ -75,5 +82,6 @@ const productsSlice = createSlice({
 // // export const userData = (state: RootState) => state.auth.data;
 // export const userData = (state: RootState): string => String(state.auth.data?.fullName);
 // export const dataAuth = (state: RootState) => state.auth.data;
+export const { setSortOrder, setSale, setBranding } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;
 

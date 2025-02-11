@@ -14,7 +14,6 @@ import FullProduct from "./page/FullProduct/FullProduct";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  // const isAuth = useSelector(selectIsAuth);
   React.useEffect(() => {
       const loadData = async () => {
         await dispatch(fetchAuthMe())

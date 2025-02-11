@@ -11,13 +11,10 @@ import TopFilter from "../TopFilter";
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
-  // const isAuth = useSelector(selectIsAuth);
   const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
-
   const search = useSelector((state: RootState) => state.search.search);
-
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
 
