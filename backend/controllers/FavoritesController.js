@@ -41,6 +41,7 @@ export const addToFavorites = async (req, res) => {
         _id: id,
         user: req.userId,
         name: product.name,
+        category: product.category,
         price: product.price,
         image: product.image,
         flag: product.flag,

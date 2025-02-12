@@ -18,6 +18,9 @@ const FavoritesSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  category: {
+    type: String
+  },
   sale: {
     type: String
   },

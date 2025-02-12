@@ -43,10 +43,12 @@ export interface ProductProps {
   basePrice: number;
   counter: number;
   viewsCount: number;
+  category: string
 }
 
 export interface BasketProps {
   _id: string;
+  category: string
   name: string;
   flag: string;
   image: string;

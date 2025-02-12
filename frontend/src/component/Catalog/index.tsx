@@ -8,6 +8,7 @@ import { ProductProps } from "../../propstype";
 import Card from "../Card";
 import AsideFilter from "../AsideFilter";
 import TopFilter from "../TopFilter";
+import { fetchSortProducts } from "../../redux/slices/products";
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
@@ -17,12 +18,25 @@ const Catalog = () => {
   const search = useSelector((state: RootState) => state.search.search);
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
+  const {sortOrder, branding, sales} = useSelector((state: RootState) => state.products);
+ 
+ React.useEffect(() => {
+    // const category = branding ? `category=${branding}` : ''; 
+    const categoryParam = branding.length ? `category=${branding.join(',')}` : '';
+    const sortParam = sortOrder ? `sort=${sortOrder}` : '';
+    const saleParam = sales ? `filter=${sales}` : '';
+    const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
+    
+  
+      dispatch(fetchSortProducts(queryString));
 
-  React.useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+
+  }, [sortOrder, branding, sales]);
 
 
+    React.useEffect(() => {
+      dispatch(fetchProducts());
+    }, [dispatch]);
 
   return (
     <section className={styles.catalog}>

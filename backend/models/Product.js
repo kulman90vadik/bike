@@ -18,6 +18,9 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  category: {
+    type: String
+  },
   flag: {
     type: String
   },
