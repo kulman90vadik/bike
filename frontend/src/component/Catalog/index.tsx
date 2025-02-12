@@ -19,24 +19,27 @@ const Catalog = () => {
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
   const {sortOrder, branding, sales} = useSelector((state: RootState) => state.products);
- 
- React.useEffect(() => {
-    // const category = branding ? `category=${branding}` : ''; 
-    const categoryParam = branding.length ? `category=${branding.join(',')}` : '';
-    const sortParam = sortOrder ? `sort=${sortOrder}` : '';
-    const saleParam = sales ? `filter=${sales}` : '';
-    const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
-    
-  
-      dispatch(fetchSortProducts(queryString));
 
-
-  }, [sortOrder, branding, sales]);
-
+// const prevQuery = React.useRef("");
+const [prevQueryString, setPrevQueryString] = React.useState<string>('');
 
     React.useEffect(() => {
-      dispatch(fetchProducts());
-    }, [dispatch]);
+
+        const categoryParam = branding.length ? `category=${branding.join(',')}` : 'category=all';
+        const sortParam = sortOrder ? `sort=${sortOrder}` : '';
+        const saleParam = sales ? `filter=${sales}` : '';
+        const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
+
+        if (queryString !== prevQueryString) {
+          setPrevQueryString(queryString); 
+          dispatch(fetchSortProducts(queryString));
+        }
+    }, [branding, sortOrder, sales]);
+
+
+    // React.useEffect(() => {
+    //   // dispatch(fetchProducts());
+    // }, [dispatch]);
 
   return (
     <section className={styles.catalog}>

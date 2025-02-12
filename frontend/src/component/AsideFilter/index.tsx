@@ -2,8 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./asidefilter.module.scss";
 import { Check, ChevronDown } from "lucide-react";
-import { useAppDispatch } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
 import { setBranding } from "../../redux/slices/products";
+import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const brandData = [
   { id: 0, name: "Scott" },
@@ -16,10 +18,22 @@ const brandData = [
 const AsideFilter = () => {
   const [openWidget, setOpenWidget] = useState(true);
   const dispatch = useAppDispatch();
- 
+  // const { branding} = useSelector((state: RootState) => state.products);
   const handleBrand = (name: string) => {
-    dispatch(setBranding(name.toLocaleLowerCase()));
-  };
+    const n = name.toLocaleLowerCase();
+
+    // Проверяем, есть ли уже этот бренд в массиве
+    // const isPresent = branding.includes(n);
+    
+    // if (isPresent) {
+    //   // Если уже есть, удаляем
+    //   dispatch(delsetBranding(n));
+    // } else {
+      // Если нет, добавляем
+      dispatch(setBranding(n));
+    // }
+};
+
 
   return (
     <aside className={styles.filters}>

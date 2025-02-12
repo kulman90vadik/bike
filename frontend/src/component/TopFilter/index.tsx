@@ -10,9 +10,6 @@ const TopFilter = () => {
   const [count, setCount] = React.useState(0);
   let filters = ["All", "Sale", "New"];
 
- 
-
-
   const handleSale = (button: string, index: number) => {
     dispatch(setSale(button.toLowerCase()))
     setCount(index);

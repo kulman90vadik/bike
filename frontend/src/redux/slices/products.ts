@@ -45,17 +45,23 @@ const productsSlice = createSlice({
         setSale: (state, action) => {
             state.sales = action.payload;
         },
+        // delsetBranding: (state, action) => {
+        //     const category = action.payload;
+            
+        //     // Удаление элемента, если он есть
+        //     state.branding = state.branding.filter(item => item !== category); // Создаем новый массив
+        //   },
         setBranding: (state, action) => {
             const category = action.payload;
-            const index = state.branding.indexOf(category);
-        console.log(index)
-            if (index !== -1) {
-                // Если категория уже есть, удаляем её (отжать чекбокс)
-                state.branding = state.branding.filter(item => item !== category);
-            } else {
-                // Если категории нет, добавляем её (выбрать чекбокс)
-                state.branding.push(category);
-            }
+  
+  // Проверка, чтобы избежать лишнего обновления
+  if (!state.branding.includes(category)) {
+    state.branding = [...state.branding, category]; // Создаем новый массив
+  }
+           // const newBranding = state.branding.includes(action.payload)
+            // ? state.branding.filter(item => item !== action.payload) // Удаление
+            // : [...state.branding, action.payload]; // Добавление
+            //  state.branding = newBranding; // Только одно обновление состояния!
         }
     },
     extraReducers: (builder) => {

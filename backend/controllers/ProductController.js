@@ -55,23 +55,25 @@ export const sortProducts = async (req, res) => {
     // Формируем фильтр
     let filterCondition = {};
 
-    if (category) {
+    if (category && category !== "all") {
       const categoriesArray = category.split(','); // Разбиваем строку в массив
-      filterCondition.category = { $in: categoriesArray }; // Фильтр по списку категорий
+      filterCondition.category = { $in: categoriesArray }; // Фильтруем по категориям
     }
 
+    // Применяем фильтр по полю sale
     if (filter === "sale") {
-      filterCondition = { sale: { $exists: true } }; // Берем только товары, у которых ЕСТЬ поле "sale"
+      filterCondition.sale = { $exists: true }; // Фильтруем товары, у которых есть поле sale
     } else if (filter === "new") {
-      filterCondition = { newproduct: true }; // Фильтр по новым товарам
+      filterCondition.newproduct = true; // Фильтруем по новинкам
     }
 
     // Выполняем запрос (применяем сортировку только если она передана)
     const query = ProductModel.find(filterCondition);
+    
+    // Применяем сортировку, если она задана
     if (sortOrder) query.sort({ price: sortOrder });
 
     const products = await query;
-
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: "Ошибка сервера" });
