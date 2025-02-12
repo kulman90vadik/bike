@@ -19,8 +19,6 @@ export const getAllFavorites = async (req, res) => {
 export const addToFavorites = async (req, res) => {
   try {
     const { id } = req.params; // Получаем ID товара
-
-    // Проверяем, есть ли товар в корзине пользователя
     const existingProduct = await FavoritesModel.findOne({
       user: req.userId,
       _id: id, // Сравниваем ID продуктаa
@@ -32,7 +30,6 @@ export const addToFavorites = async (req, res) => {
     } else {
       // Получаем данные товара из базы, если его нет в 
       const product = await ProductModel.findById(id);
-    
       if (!product) {
         return res.status(404).json({
           message: "Товар не найден",
