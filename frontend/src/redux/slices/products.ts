@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../axios';
 import { ProductProps } from '../../propstype';
+import { RootState } from '../store';
 
 
 export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProducts', async() => {
@@ -20,7 +21,8 @@ type Props = {
     data: ProductProps[],
     status: string,
     sales: string,
-    branding: string[],
+    branding: string,
+    country: string,
     sortOrder: string
 }
 
@@ -28,12 +30,11 @@ const initialState: Props = {
     data: [],
     sortOrder: '',
     sales: '',
-    branding: [],
+    branding: '',
+    country: '',
     status: 'loading'
 }
 
-
-//   const [sales, setSale] = React.useState("");
 
 const productsSlice = createSlice({
     name: 'products',
@@ -45,23 +46,11 @@ const productsSlice = createSlice({
         setSale: (state, action) => {
             state.sales = action.payload;
         },
-        // delsetBranding: (state, action) => {
-        //     const category = action.payload;
-            
-        //     // Удаление элемента, если он есть
-        //     state.branding = state.branding.filter(item => item !== category); // Создаем новый массив
-        //   },
         setBranding: (state, action) => {
-            const category = action.payload;
-  
-  // Проверка, чтобы избежать лишнего обновления
-  if (!state.branding.includes(category)) {
-    state.branding = [...state.branding, category]; // Создаем новый массив
-  }
-           // const newBranding = state.branding.includes(action.payload)
-            // ? state.branding.filter(item => item !== action.payload) // Удаление
-            // : [...state.branding, action.payload]; // Добавление
-            //  state.branding = newBranding; // Только одно обновление состояния!
+            state.branding = action.payload;
+        },
+        setCountry: (state, action) => {
+            state.country = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -97,7 +86,7 @@ const productsSlice = createSlice({
 // export const selectIsAuth = (state: RootState): boolean => Boolean(state.auth.data);
 // // export const userData = (state: RootState) => state.auth.data;
 // export const userData = (state: RootState): string => String(state.auth.data?.fullName);
-// export const dataAuth = (state: RootState) => state.auth.data;
-export const { setSortOrder, setSale, setBranding } = productsSlice.actions;
+export const branding = (state: RootState) => state.products.branding;
+export const { setSortOrder, setCountry, setSale, setBranding } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;
 

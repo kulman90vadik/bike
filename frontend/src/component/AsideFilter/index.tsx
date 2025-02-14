@@ -1,99 +1,59 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+// import { motion } from "framer-motion";
 import styles from "./asidefilter.module.scss";
-import { Check, ChevronDown } from "lucide-react";
-import { RootState, useAppDispatch } from "../../redux/store";
-import { setBranding } from "../../redux/slices/products";
-import { useSelector } from "react-redux";
-// import { useSelector } from "react-redux";
-
-const brandData = [
-  { id: 0, name: "Scott" },
-  // { id: 1, name: "Marlin" },
-  { id: 2, name: "Trek" },
-  { id: 3, name: "Orbea" },
-  { id: 4, name: "Look" },
-];
+// import { Check, ChevronDown } from "lucide-react";
+// import { useAppDispatch } from "../../redux/store";
+// import { setBranding } from "../../redux/slices/products";
+import { ProductProps } from "../../propstype";
+import axios from "../../axios";
+import AsideFilterWidget from "../AsideFilterWidget";
+import { setBranding, setCountry } from "../../redux/slices/products";
+import { useAppDispatch } from "../../redux/store";
 
 const AsideFilter = () => {
-  const [openWidget, setOpenWidget] = useState(true);
+  const [brandData, setBrandData] = useState<string[]>();
+  const [countryData, setСountryData] = useState<string[]>();
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
-  // const { branding} = useSelector((state: RootState) => state.products);
-  const handleBrand = (name: string) => {
-    const n = name.toLocaleLowerCase();
 
-    // Проверяем, есть ли уже этот бренд в массиве
-    // const isPresent = branding.includes(n);
-    
-    // if (isPresent) {
-    //   // Если уже есть, удаляем
-    //   dispatch(delsetBranding(n));
-    // } else {
-      // Если нет, добавляем
-      dispatch(setBranding(n));
-    // }
-};
+ 
+  useEffect(() => {  
+    axios.get<ProductProps>(`./products`).then(res => {
+      let data = res.data;
+      if (Array.isArray(data)) {
+        // Защита от undefined и null значений
+        const categories = ["all Branding", ...new Set(data.map(item => item.category).filter(category => category))];
+        const country = ["all Сountry", ...new Set(data.map(item => item.country).filter(country => country))];
+        setBrandData(categories);
+        setСountryData(country);
+      }
+      setIsLoading(false)
+    }).catch(err => {
+      console.warn(err);
+    })
+  }, [])
+
+  const handleBrand = (name: string) => {
+    dispatch(setBranding(name.toLocaleLowerCase()));
+  };
+
+  const handleCountry = (name: string) => {
+    dispatch(setCountry(name.toLocaleLowerCase().replace(/\s+/g, '')));
+    console.log(name.toLocaleLowerCase().replace(/\s+/g, ''))
+  };
+
+ 
 
 
   return (
     <aside className={styles.filters}>
-      <div className={styles.widget}>
-        <button
-          type="button"
-          className={`${styles.heading} ${openWidget ? styles.rotate : ""}`}
-          onClick={() => setOpenWidget(!openWidget)}
-        >
-          Brand
-          <ChevronDown />
-        </button>
-        <motion.ul
-          // initial={{ height: 0, opacity: 0 }}
-          animate={{
-            height: openWidget ? "auto" : 0,
-            opacity: openWidget ? 1 : 0,
-          }}
-          transition={{ duration: 0.3 }}
-          className={styles.list}
-        >
-          {brandData.map((item, index) => {
-            return (
-              <li
-                
-                className={styles.item}
-                key={item.id}
-              >
-                <label className={styles.label} onClick={() => handleBrand(item.name)}>
-                  <input className={styles.input} type="checkbox" />
-                  <span>
-                    <Check />
-                  </span>
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
-        </motion.ul>
-      </div>
-      <div>Test</div>
+      
+      <AsideFilterWidget dispatchHandle={handleBrand} title='Brand' isLoading={isLoading} data={brandData}/>
+      <AsideFilterWidget dispatchHandle={handleCountry} title='Country' isLoading={isLoading} data={countryData}/>
+
     </aside>
   );
 };
 
 export default AsideFilter;
 
-{
-  /* <ul
-              className="catalog__price-list"
-              style={{ maxHeight: open ? "500px" : "0px" }}
-            >
-              {sortPrice.map((el, index) => (
-                <li
-                  className="catalog__price-item"
-                  key={el.title}
-                  onClick={() => clickItemPrice(index, el.id)}
-                >
-                  {el.title}
-                </li>
-              ))}
-            </ul> */
-}

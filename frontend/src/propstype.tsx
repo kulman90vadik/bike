@@ -43,7 +43,8 @@ export interface ProductProps {
   basePrice: number;
   counter: number;
   viewsCount: number;
-  category: string
+  category: string;
+  country: string
 }
 
 export interface BasketProps {
@@ -58,6 +59,7 @@ export interface BasketProps {
   newproduct: boolean;
   counter: number;
   viewsCount: number;
+  country: string
 }
 
 

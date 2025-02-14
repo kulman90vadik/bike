@@ -30,6 +30,9 @@ const ProductSchema = new mongoose.Schema({
   sale: {
     type: String
   },
+  country: {
+    type: String
+  },
   image: {
     type: String
   },

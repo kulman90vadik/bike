@@ -1,6 +1,5 @@
 import styles from "./catalog.module.scss";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { fetchProducts } from "../../redux/slices/products";
 import { useSelector } from "react-redux";
 import React from "react";
 import Loader from "../../Loader";
@@ -18,24 +17,18 @@ const Catalog = () => {
   const search = useSelector((state: RootState) => state.search.search);
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
-  const {sortOrder, branding, sales} = useSelector((state: RootState) => state.products);
+  const {sortOrder, branding, sales, country} = useSelector((state: RootState) => state.products);
 
-// const prevQuery = React.useRef("");
-const [prevQueryString, setPrevQueryString] = React.useState<string>('');
 
     React.useEffect(() => {
-
-        const categoryParam = branding.length ? `category=${branding.join(',')}` : 'category=all';
+        const categoryParam = branding ? `category=${branding}` : 'category=allbranding';
+        const countryParam = country ? `country=${country}` : 'country=allcountry';
         const sortParam = sortOrder ? `sort=${sortOrder}` : '';
         const saleParam = sales ? `filter=${sales}` : '';
-        const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
-
-        if (queryString !== prevQueryString) {
-          setPrevQueryString(queryString); 
-          dispatch(fetchSortProducts(queryString));
-        }
-    }, [branding, sortOrder, sales]);
-
+        // const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
+        const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}${countryParam ? `&${countryParam}` : ''}`;  
+        dispatch(fetchSortProducts(queryString));
+    }, [branding, country, sortOrder, sales]);
 
     // React.useEffect(() => {
     //   // dispatch(fetchProducts());

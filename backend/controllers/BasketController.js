@@ -51,7 +51,8 @@ export const addToBasket = async (req, res) => {
         flag: product.flag,
         newproduct: product.newproduct,
         counter: product.counter,
-        sale: product.sale
+        sale: product.sale,
+        country: product.country
       });
     
       // Сохраняем новый товар в корзину

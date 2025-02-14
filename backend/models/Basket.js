@@ -21,6 +21,9 @@ const BasketSchema = new mongoose.Schema({
   flag: {
     type: String
   },
+  country: {
+    type: String
+  },
   category: {
     type: String
   },

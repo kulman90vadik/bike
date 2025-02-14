@@ -21,6 +21,9 @@ const FavoritesSchema = new mongoose.Schema({
   category: {
     type: String
   },
+  country: {
+    type: String
+  },
   sale: {
     type: String
   },

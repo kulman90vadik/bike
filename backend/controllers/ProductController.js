@@ -15,7 +15,6 @@ export const getAll = async (req, res) => {
   }
 }
 
-
 export const getOne = async (req, res) => {
   try {
     const productId = req.params.id; // Получаем ID из параметров
@@ -44,20 +43,21 @@ export const getOne = async (req, res) => {
 };
 
 
-
 export const sortProducts = async (req, res) => {
   try {
-    const { sort, filter, category } = req.query;
-
-    // Определяем порядок сортировки (если sort не указан, сортировку не применяем)
+    const { sort, filter, category, branding, country } = req.query;
+    // Определяем порядок сортировки
     const sortOrder = sort === "asc" ? 1 : sort === "desc" ? -1 : null;
-
     // Формируем фильтр
     let filterCondition = {};
-
-    if (category && category !== "all") {
-      const categoriesArray = category.split(','); // Разбиваем строку в массив
-      filterCondition.category = { $in: categoriesArray }; // Фильтруем по категориям
+    // Обрабатываем параметр категории
+    if (category) {
+      const categoryName = category.trim().replace(/\s+/g, ''); // Убираем пробелы
+      if (categoryName === 'allbranding') {
+        filterCondition.category = { $exists: true }; // Все товары
+      } else {
+        filterCondition.category = categoryName; // Фильтруем по категории
+      }
     }
 
     // Применяем фильтр по полю sale
@@ -67,9 +67,29 @@ export const sortProducts = async (req, res) => {
       filterCondition.newproduct = true; // Фильтруем по новинкам
     }
 
-    // Выполняем запрос (применяем сортировку только если она передана)
+    // Обрабатываем параметр branding (один бренд)
+    if (branding) {
+      const brandingValue = branding.trim().replace(/\s+/g, ''); // Убираем пробелы из branding
+      if (brandingValue === "allbranding") {
+        filterCondition.brand = { $exists: true }; // Все бренды
+      } else {
+        filterCondition.brand = brandingValue; // Фильтруем по одному бренду
+      }
+    }
+
+    // Обрабатываем параметр country (фильтрация по стране)
+    if (country) {
+      const countryName = country.trim();
+      if (countryName.toLowerCase() === "allcountry") {
+        filterCondition.country = { $exists: true };
+      } else {
+        filterCondition.country = { $regex: new RegExp(`^${countryName}$`, "i") }; // Игнорирование регистра
+      }
+    }
+
+    // Выполняем запрос с фильтрацией
     const query = ProductModel.find(filterCondition);
-    
+
     // Применяем сортировку, если она задана
     if (sortOrder) query.sort({ price: sortOrder });
 

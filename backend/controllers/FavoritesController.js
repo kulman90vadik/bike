@@ -46,7 +46,8 @@ export const addToFavorites = async (req, res) => {
         image: product.image,
         flag: product.flag,
         newproduct: product.newproduct,
-        sale: product.sale
+        sale: product.sale,
+        country: product.country
       });
     
       // Сохраняем новый товар в корзину
