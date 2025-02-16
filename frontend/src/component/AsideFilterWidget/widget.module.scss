@@ -2,12 +2,14 @@
 
 
 .widget {
-  margin-bottom: 10px;
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
 }
 
 .list {
     overflow: hidden;
-    padding-top: 10px;
+    // padding-top: 10px;
 }
 
 .heading {
@@ -33,7 +35,7 @@
 }
 
 .item {
-  margin-bottom: 7px;
+  margin: 9px 0;
 }
 
 

@@ -11,11 +11,7 @@ type Props = {
 }
 
 const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
-
   const [openWidget, setOpenWidget] = useState(true);
-
-
-
 
   return (
     <div className={styles.widget}>

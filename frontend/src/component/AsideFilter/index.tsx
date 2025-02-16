@@ -16,6 +16,10 @@ const AsideFilter = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
 
+  const[value, setValue] = useState('');
+  const[min, setMin] = useState(0);
+  const[max, setMax] = useState(0);
+
  
   useEffect(() => {  
     axios.get<ProductProps>(`./products`).then(res => {
@@ -39,10 +43,24 @@ const AsideFilter = () => {
 
   const handleCountry = (name: string) => {
     dispatch(setCountry(name.toLocaleLowerCase().replace(/\s+/g, '')));
-    console.log(name.toLocaleLowerCase().replace(/\s+/g, ''))
+    // console.log(name.toLocaleLowerCase().replace(/\s+/g, ''))
   };
 
- 
+  const changePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    // dispatch(priceChange(Number(e.target.value)));
+  }
+
+
+
+  // let max = 0;
+  // data.map(item => (item.price - (item.price * item.sale) / 100) > max ? max = (item.price - (item.price * item.sale) / 100) : null)
+  // setMax(max);
+
+  // let min = data[0].price - (data[0].price * data[0].sale) / 100;
+  // data.map(item => (item.price - (item.price * item.sale) / 100) < max ? max = (item.price - (item.price * item.sale) / 100) : null)
+  // setMin(min)
+
 
 
   return (
@@ -50,6 +68,15 @@ const AsideFilter = () => {
       
       <AsideFilterWidget dispatchHandle={handleBrand} title='Brand' isLoading={isLoading} data={brandData}/>
       <AsideFilterWidget dispatchHandle={handleCountry} title='Country' isLoading={isLoading} data={countryData}/>
+
+      <div className="filter-price">
+            <input type="range" id="vol" name="vol" defaultValue={0} min={min} max={max} onChange={changePrice} />
+            <div className="filter-price__value">{value && `from ${value} € to ${max} €`}</div>
+            <div className="filter-price__prices">
+              <span>{min} €</span>
+              <span>{max} €</span>
+            </div>
+      </div>
 
     </aside>
   );

@@ -44,6 +44,7 @@ export const getOne = async (req, res) => {
 
 
 export const sortProducts = async (req, res) => {
+
   try {
     const { sort, filter, category, branding, country } = req.query;
     // Определяем порядок сортировки
@@ -77,20 +78,15 @@ export const sortProducts = async (req, res) => {
       }
     }
 
-    // Обрабатываем параметр country (фильтрация по стране)
     if (country) {
-      const countryName = country.trim();
+      const countryName = country.trim().replace(/с/g, "c");
       if (countryName.toLowerCase() === "allcountry") {
         filterCondition.country = { $exists: true };
       } else {
         filterCondition.country = { $regex: new RegExp(`^${countryName}$`, "i") }; // Игнорирование регистра
       }
     }
-
-    // Выполняем запрос с фильтрацией
     const query = ProductModel.find(filterCondition);
-
-    // Применяем сортировку, если она задана
     if (sortOrder) query.sort({ price: sortOrder });
 
     const products = await query;
