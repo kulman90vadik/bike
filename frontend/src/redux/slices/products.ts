@@ -23,7 +23,8 @@ type Props = {
     sales: string,
     branding: string,
     country: string,
-    sortOrder: string
+    sortOrder: string,
+    preisRange: string
 }
 
 const initialState: Props = {
@@ -32,6 +33,7 @@ const initialState: Props = {
     sales: '',
     branding: '',
     country: '',
+    preisRange: '',
     status: 'loading'
 }
 
@@ -51,6 +53,10 @@ const productsSlice = createSlice({
         },
         setCountry: (state, action) => {
             state.country = action.payload;
+        },
+
+        setRangePrice: (state, action) => {
+            state.preisRange = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -87,6 +93,6 @@ const productsSlice = createSlice({
 // // export const userData = (state: RootState) => state.auth.data;
 // export const userData = (state: RootState): string => String(state.auth.data?.fullName);
 export const branding = (state: RootState) => state.products.branding;
-export const { setSortOrder, setCountry, setSale, setBranding } = productsSlice.actions;
+export const { setSortOrder, setRangePrice, setCountry, setSale, setBranding } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;
 

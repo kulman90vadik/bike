@@ -1,41 +1,71 @@
 import { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
 import styles from "./asidefilter.module.scss";
-// import { Check, ChevronDown } from "lucide-react";
-// import { useAppDispatch } from "../../redux/store";
-// import { setBranding } from "../../redux/slices/products";
 import { ProductProps } from "../../propstype";
 import axios from "../../axios";
 import AsideFilterWidget from "../AsideFilterWidget";
 import { setBranding, setCountry } from "../../redux/slices/products";
-import { useAppDispatch } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
+import AsideRangePrice from "../AsideRangePrice";
+import { useSelector } from "react-redux";
 
 const AsideFilter = () => {
+  const products = useSelector((state: RootState) => state.products.data);
   const [brandData, setBrandData] = useState<string[]>();
   const [countryData, setСountryData] = useState<string[]>();
+  const [max, setMax] = useState(0);
+  const [min, setMin] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
-
-  const[value, setValue] = useState('');
-  const[min, setMin] = useState(0);
-  const[max, setMax] = useState(0);
 
  
   useEffect(() => {  
     axios.get<ProductProps>(`./products`).then(res => {
       let data = res.data;
       if (Array.isArray(data)) {
-        // Защита от undefined и null значений
         const categories = ["all Branding", ...new Set(data.map(item => item.category).filter(category => category))];
         const country = ["all Сountry", ...new Set(data.map(item => item.country).filter(country => country))];
+        
+        const maxPrice = data?.reduce((max, product) => {
+          const finalPrice = Number(product.price) * (1 - Number(product.sale?.replace("%", "")) / 100);
+          return finalPrice > max ? finalPrice : max;
+        }, 0);
+
+        const minPrice = data?.reduce((min, product) => {
+          const finalPrice = Number(product.price) * (1 - Number(product.sale?.replace("%", "")) / 100);
+          return finalPrice < min ? finalPrice : min;
+        }, Infinity);
+
         setBrandData(categories);
         setСountryData(country);
+        setMax(maxPrice);
+        setMin(minPrice);
       }
       setIsLoading(false)
     }).catch(err => {
       console.warn(err);
     })
   }, [])
+
+
+  
+  useEffect(() => {  
+        const maxPrice = products?.reduce((max, product) => {
+          const finalPrice = Number(product.price) * (1 - Number(product.sale?.replace("%", "")) / 100);
+          return finalPrice > max ? finalPrice : max;
+        }, 0);
+        const minPrice = products?.reduce((min, product) => {
+          const finalPrice = Number(product.price) * (1 - Number(product.sale?.replace("%", "")) / 100);
+          return finalPrice < min ? finalPrice : min;
+        }, Infinity);
+
+        setMax(maxPrice);
+        setMin(minPrice);
+        setIsLoading(false)
+  }, [products])
+  
+
+// console.log(products);
+
 
   const handleBrand = (name: string) => {
     dispatch(setBranding(name.toLocaleLowerCase()));
@@ -46,38 +76,11 @@ const AsideFilter = () => {
     // console.log(name.toLocaleLowerCase().replace(/\s+/g, ''))
   };
 
-  const changePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    // dispatch(priceChange(Number(e.target.value)));
-  }
-
-
-
-  // let max = 0;
-  // data.map(item => (item.price - (item.price * item.sale) / 100) > max ? max = (item.price - (item.price * item.sale) / 100) : null)
-  // setMax(max);
-
-  // let min = data[0].price - (data[0].price * data[0].sale) / 100;
-  // data.map(item => (item.price - (item.price * item.sale) / 100) < max ? max = (item.price - (item.price * item.sale) / 100) : null)
-  // setMin(min)
-
-
-
   return (
     <aside className={styles.filters}>
-      
       <AsideFilterWidget dispatchHandle={handleBrand} title='Brand' isLoading={isLoading} data={brandData}/>
       <AsideFilterWidget dispatchHandle={handleCountry} title='Country' isLoading={isLoading} data={countryData}/>
-
-      <div className="filter-price">
-            <input type="range" id="vol" name="vol" defaultValue={0} min={min} max={max} onChange={changePrice} />
-            <div className="filter-price__value">{value && `from ${value} € to ${max} €`}</div>
-            <div className="filter-price__prices">
-              <span>{min} €</span>
-              <span>{max} €</span>
-            </div>
-      </div>
-
+      <AsideRangePrice isLoading={isLoading} max={max} min={min}/>
     </aside>
   );
 };

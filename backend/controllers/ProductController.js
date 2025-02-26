@@ -63,7 +63,7 @@ export const sortProducts = async (req, res) => {
 
     // Применяем фильтр по полю sale
     if (filter === "sale") {
-      filterCondition.sale = { $exists: true }; // Фильтруем товары, у которых есть поле sale
+      filterCondition.sale = { $ne: "0" }; // Оставляем только товары, где sale НЕ "0%"
     } else if (filter === "new") {
       filterCondition.newproduct = true; // Фильтруем по новинкам
     }
@@ -86,6 +86,7 @@ export const sortProducts = async (req, res) => {
         filterCondition.country = { $regex: new RegExp(`^${countryName}$`, "i") }; // Игнорирование регистра
       }
     }
+
     const query = ProductModel.find(filterCondition);
     if (sortOrder) query.sort({ price: sortOrder });
 
@@ -94,4 +95,21 @@ export const sortProducts = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Ошибка сервера" });
   }
+
+  
 };
+
+
+
+export const topProducts = async (req, res) => {
+  try {
+    const topProducts = await ProductModel.find()
+      .sort({ viewsCount: -1 }) // Сортируем по полю viewsCount в порядке убывания
+      .limit(6); // Ограничиваем результат 5 продуктами
+
+    res.json(topProducts);
+  } catch (error) {
+    console.error('Ошибка сервера:', error.message);
+    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+  }
+}

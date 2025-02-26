@@ -44,7 +44,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
         <span className={`${obj.newproduct ? styles.stocked : ""}`}>
           {obj.newproduct ? "New" : ""}
         </span>
-        {obj.sale && <span className={styles.sale}>{obj.sale}</span>}
+        {Number(obj.sale) !== 0 && <span className={styles.sale}>{obj.sale}</span>}
       </div>
       <Link
         className={styles.photo}
@@ -57,7 +57,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
       <div className={styles.inner}>
         <div className={styles.name}>{obj.name}</div>
         <div className={styles.price}>
-          {obj.sale && <span>{obj.price}</span>}
+          {Number(obj.sale) !== 0 && <span>{obj.price}</span>}
           {new Intl.NumberFormat("en-US", {
             useGrouping: true,
             minimumFractionDigits: 0,

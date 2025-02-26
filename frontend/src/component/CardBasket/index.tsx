@@ -1,5 +1,5 @@
 import { Trash2 } from "lucide-react";
-import { BasketProps, ProductProps } from "../../propstype";
+import { ProductProps } from "../../propstype";
 import styles from "./cardbasket.module.scss";
 import Counter from "../Counter";
 import { fetchBasket } from "../../redux/slices/basket";
@@ -20,8 +20,6 @@ const CardBasket = ({ obj }: Props) => {
   ? Number(obj.price) * (1 - Number(obj.sale.replace(/%/g, "")) / 100) 
   : obj.price;
 
-  // console.log(obj);
-  // console.log(price);
 
   return (
     <li className={styles.card}>

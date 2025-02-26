@@ -4,6 +4,7 @@ import styles from './favorites.module.scss';
 import Card from '../../component/Card';
 import { ProductProps } from '../../propstype';
 import Loader from '../../Loader';
+import TopProducts from '../../component/TopProducts';
 
 
 const Favorites = () => {
@@ -30,6 +31,7 @@ const Favorites = () => {
         ) : null}
       </ul>
       </div>
+      {/* <TopProducts/> */}
     </section>
   );
 }

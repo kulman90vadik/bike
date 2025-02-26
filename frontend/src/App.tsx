@@ -12,6 +12,7 @@ import Favorites from "./page/Favorites";
 import { fetchAllFavorites } from "./redux/slices/favorites";
 import FullProduct from "./page/FullProduct/FullProduct";
 import { fetchProducts } from "./redux/slices/products";
+import { fetchTopProducts } from "./redux/slices/topproducts";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const App = () => {
         await dispatch(fetchAllBasket())
         await dispatch(fetchAllFavorites())
         await dispatch(fetchProducts());
+        await dispatch(fetchTopProducts());
       }
       loadData();
   }, [])

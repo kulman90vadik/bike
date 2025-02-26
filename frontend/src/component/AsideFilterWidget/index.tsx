@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./widget.module.scss";
 import { Check, ChevronDown } from "lucide-react";
+import LoaderLine from "../../LoaderLine";
 
 type Props = {
   isLoading: boolean;
@@ -36,8 +37,9 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
       {isLoading ? 
         <ul className={styles.listtttt}>
           {[...Array(5)].map((_, index) => (
-            // <Loader key={index} />
-            <p key={index}>loading...</p>
+            <li  key={index}>
+            <LoaderLine />
+            </li>
           ))}
         </ul>
       

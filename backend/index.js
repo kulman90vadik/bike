@@ -32,6 +32,7 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+app.get("/products/topproducts", ProductController.topProducts);
 app.get("/products/sort", ProductController.sortProducts);
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getOne);

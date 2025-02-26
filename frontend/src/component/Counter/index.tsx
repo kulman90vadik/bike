@@ -9,9 +9,7 @@ type Props = {
 }
 
 const Counter = ({obj}: Props) => {
-  const dispatch = useAppDispatch();
-  // let plus = 'plus';
-  
+  const dispatch = useAppDispatch(); 
   const counter = (id: string, str: string) => {
     dispatch(fetchCounterBasketCard({ id, str }));
   }

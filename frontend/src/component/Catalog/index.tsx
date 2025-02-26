@@ -17,7 +17,7 @@ const Catalog = () => {
   const search = useSelector((state: RootState) => state.search.search);
   const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
-  const {sortOrder, branding, sales, country} = useSelector((state: RootState) => state.products);
+  const {sortOrder, branding, sales, preisRange, country} = useSelector((state: RootState) => state.products);
 
 
     React.useEffect(() => {
@@ -25,14 +25,12 @@ const Catalog = () => {
         const countryParam = country ? `country=${country}` : 'country=allcountry';
         const sortParam = sortOrder ? `sort=${sortOrder}` : '';
         const saleParam = sales ? `filter=${sales}` : '';
-        // const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}`;
         const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}${countryParam ? `&${countryParam}` : ''}`;  
         dispatch(fetchSortProducts(queryString));
     }, [branding, country, sortOrder, sales]);
 
-    // React.useEffect(() => {
-    //   // dispatch(fetchProducts());
-    // }, [dispatch]);
+
+
 
   return (
     <section className={styles.catalog}>
@@ -48,18 +46,34 @@ const Catalog = () => {
             {isLoading ? (
               <ul className={styles.list}>
                 {[...Array(5)].map((_, index) => (
-                  <Loader key={index} />
+                  <li className={styles.loadercard} key={index}>
+                    <Loader />
+                  </li>
                 ))}
               </ul>
             ) : status === "loaded" ? (
               (() => {
-                const filteredProducts = products.filter((item: ProductProps) =>
-                  item.name.toLowerCase().includes(search.toLowerCase())
-                );
+                // const filteredProducts = products.filter((item: ProductProps) =>
+                //   item.name.toLowerCase().includes(search.toLowerCase())
+                // );
 
-                return filteredProducts.length > 0 ? (
+                return products.length > 0 ? (
                   <ul className={styles.list}>
-                    {filteredProducts.map((obj: ProductProps) => {
+                    {products
+                    
+                    .filter(item => {
+                      if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange) 
+                      let priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, ""))/100));
+                      if(priceSale >= Number(preisRange)) {
+                        return item
+                      }
+                    })
+                    
+                    .filter((item: ProductProps) =>
+                      item.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                    
+                    .map((obj: ProductProps) => {
                       const isInBasket = basket?.some(
                         (item: ProductProps) => item._id === obj._id
                       );
