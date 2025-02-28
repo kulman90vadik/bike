@@ -36,8 +36,6 @@ const Header = () => {
     }
   };
 
-
-
     const handleScroll = () => {
         if (window.scrollY > 55) {
             setIsScrolled(true);
@@ -53,8 +51,6 @@ const Header = () => {
         };
     }, []);
 
-
-    // let count = isAuth ? basket.length : basketStorage.length;
 
 
   return (

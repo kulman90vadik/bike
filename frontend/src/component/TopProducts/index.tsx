@@ -38,7 +38,7 @@ const TopProducts = () => {
           modules={[Autoplay]}
           autoplay={{
             delay: 3000,
-            // disableOnInteraction: false,
+            disableOnInteraction: false,
           }}
           // onSlideChange={() => console.log('slide change')}
           // onSwiper={(swiper) => console.log(swiper)}

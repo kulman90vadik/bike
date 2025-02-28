@@ -8,8 +8,14 @@ import Card from "../Card";
 import AsideFilter from "../AsideFilter";
 import TopFilter from "../TopFilter";
 import { fetchSortProducts } from "../../redux/slices/products";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const Catalog = () => {
+  const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
   const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
@@ -32,10 +38,50 @@ const Catalog = () => {
 
 
 
+    const addToRefs = (el: HTMLLIElement | null) => {
+      if (el) {
+        if (!cardRefs.current.includes(el)) {
+          cardRefs.current.push(el);
+        }
+      }
+    };
+  
+    React.useEffect(() => {
+      if (status === "loaded") {
+        // Запуск анимации только после загрузки
+        cardRefs.current.forEach((ref) => {
+          if (ref) {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: ref,
+                // markers: true,
+                start: "top 90%",
+                end: "top 40%",
+                scrub: 1,
+              },
+            });
+    
+            tl.from(ref, {
+              opacity: 0,
+              scale: 0.5,
+              // rotate: '120deg',
+              y: 200,
+              duration: 3,
+              ease: "power3.out",
+            });
+          }
+        });
+      }
+    }, [status]); 
+
+
+
   return (
     <section className={styles.catalog}>
       <div className="container">
         <div className={styles.wrapper}>
+
+  
 
           <AsideFilter />
 
@@ -53,9 +99,7 @@ const Catalog = () => {
               </ul>
             ) : status === "loaded" ? (
               (() => {
-                // const filteredProducts = products.filter((item: ProductProps) =>
-                //   item.name.toLowerCase().includes(search.toLowerCase())
-                // );
+               
 
                 return products.length > 0 ? (
                   <ul className={styles.list}>
@@ -82,12 +126,15 @@ const Catalog = () => {
                       );
 
                       return (
+                        <li key={obj._id} ref={addToRefs} className={styles.it} >
                         <Card
-                          key={obj._id}
+                         
                           obj={obj}
                           isInBasket={!!isInBasket}
                           isInFavorites={!!isInFavorites}
                         />
+                     
+                        </li>
                       );
                     })}
                   </ul>

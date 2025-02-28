@@ -17,10 +17,17 @@
   color: var(--color-white);
 }
 
+.word {
+  display: flex;
+  margin-right: 7px;
+}
+
 .title {
+  display: flex;
+  flex-wrap: wrap;
   max-width: 750px;
   text-transform: uppercase;
-  font-size: 110px;
+  font-size: 90px;
   line-height: 1;
   margin-bottom: 33px;
   letter-spacing: 1px;

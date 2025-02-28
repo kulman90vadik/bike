@@ -6,6 +6,10 @@ import styles from "./card.module.scss";
 import { fetchFavorites } from "../../redux/slices/favorites";
 import { Link } from "react-router-dom";
 
+// import gsap from "gsap";
+// import React from "react";
+// gsap.registerPlugin(ScrollTrigger);
+
 type Props = {
   obj: ProductProps;
   isInBasket: boolean;
@@ -13,6 +17,7 @@ type Props = {
 };
 
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
+ 
   const dispatch = useAppDispatch();
 
   const addToBasket = (id: string) => {
@@ -27,10 +32,8 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
     ? Number(obj.price) * (1 - Number(obj.sale.replace(/%/g, "")) / 100)
     : obj.price;
 
-    
-
   return (
-    <li className={styles.item}>
+    <article className={styles.item}>
       <div className={styles.top}>
         <img className={styles.flag} src={obj.flag} alt={obj.flag} />
         <button
@@ -44,7 +47,9 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
         <span className={`${obj.newproduct ? styles.stocked : ""}`}>
           {obj.newproduct ? "New" : ""}
         </span>
-        {Number(obj.sale) !== 0 && <span className={styles.sale}>{obj.sale}</span>}
+        {Number(obj.sale) !== 0 && (
+          <span className={styles.sale}>{obj.sale}</span>
+        )}
       </div>
       <Link
         className={styles.photo}
@@ -70,7 +75,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
           onClick={() => addToBasket(obj._id)}
         >{`${isInBasket ? "Remove from Basket" : "Add to Cart"}`}</button>
       </div>
-    </li>
+    </article>
   );
 };
 
