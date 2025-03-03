@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 
+import 'dotenv/config';
+
 export default (req, res, next) => {
   const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
 
@@ -7,7 +9,7 @@ export default (req, res, next) => {
   if(token) {
     // console.log('Authorization Header:', req.headers.authorization);
     try {
-      const decoded = jwt.verify(token, 'secret1234');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded._id;
       // console.log(req.userId = decoded._id);
       return next();

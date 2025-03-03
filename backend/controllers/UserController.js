@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import UserModel from '../models/User.js';
 
+import 'dotenv/config';
+
 // ВЫПОЛНЯ.ТСЯ ЭТИ ФУНКЦИИ ЗАПРОШЕННЫЕ ИЗ ФРОНТЕНДА!
 
 export const register = async (req, res) => {
@@ -24,7 +26,7 @@ export const register = async (req, res) => {
       {
         _id: user._id,
       },
-      "secret1234", // 
+      process.env.JWT_SECRET, // 
       {
         expiresIn: "30d", // окен будет действителен в течение 30 дней.
       }
@@ -64,7 +66,7 @@ export const login = async (req, res) => {
       });
     }
     // если всё ок
-    const token = jwt.sign({ _id: user._id }, "secret1234", {
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
 

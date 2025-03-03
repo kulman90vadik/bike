@@ -55,7 +55,7 @@ const Catalog = () => {
               scrollTrigger: {
                 trigger: ref,
                 // markers: true,
-                start: "top 90%",
+                start: "top 95%",
                 end: "top 40%",
                 scrub: 1,
               },
@@ -65,7 +65,7 @@ const Catalog = () => {
               opacity: 0,
               scale: 0.5,
               // rotate: '120deg',
-              y: 200,
+              y: 20,
               duration: 3,
               ease: "power3.out",
             });
