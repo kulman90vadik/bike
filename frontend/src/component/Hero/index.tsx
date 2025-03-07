@@ -4,6 +4,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import React from 'react';
 gsap.registerPlugin(useGSAP);
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   let str = 'Electric bicycles';
@@ -11,10 +14,22 @@ const Hero = () => {
   const textRef = React.useRef<HTMLParagraphElement | null>(null);
   const btnRef = React.useRef<HTMLAnchorElement | null>(null);
   const wordRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const heroRefs = React.useRef<(HTMLDivElement | null)>(null);
 
   useGSAP(
     () => {
-     gsap.from(titleRef.current, {opacity: 0, y: 100, duration: 0.8})
+    //  gsap.from(heroRefs.current, {scale: 1, y: 100, duration: 0.8})
+    // gsap.fromTo(heroRefs.current, 
+    //   {
+    //     scale: 1,    // Начальное значение
+    //     delay: 1
+    //   }, 
+    //   {
+    //     delay: 1,
+    //     scale: 1.2,    // Конечное значение
+    //     duration: 8 // Продолжительность анимации
+    //   });
+    
      gsap.from(textRef.current, {opacity: 0, y: 200, duration: 1.1})
      gsap.from(btnRef.current, {opacity: 0, y: 300, duration: 1.2})
     },
@@ -41,9 +56,30 @@ const Hero = () => {
       });
   }, []);
 
+
+  React.useLayoutEffect(() => {
+    // console.log(heroRefs.current)/
+    gsap.to(heroRefs.current, {
+      scrollTrigger: {
+        trigger: heroRefs.current,
+        scrub: 1,
+        start: 'top top',
+        // end: "+=600",
+        markers: true
+      },
+      scale: 1.2,
+    })
+  }, []);
+
+
+
+
+
+
   
   return (
-    <section className={styles.hero}>
+    <section  className={styles.hero}>
+      <div ref={heroRefs} className={styles.bg}></div>
       <div className="container">
         <div className={styles.inner}>
           <h1 ref={titleRef} className={styles.title}>

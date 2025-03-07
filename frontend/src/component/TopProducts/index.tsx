@@ -40,6 +40,10 @@ const TopProducts = () => {
             delay: 3000,
             disableOnInteraction: false,
           }}
+          onSwiper={(swiper) => {
+            // Явно запускаем автоплей при инициализации
+            swiper.autoplay.start();
+          }}
           // onSlideChange={() => console.log('slide change')}
           // onSwiper={(swiper) => console.log(swiper)}
         >

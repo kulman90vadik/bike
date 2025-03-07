@@ -21,6 +21,7 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
       className={`${styles.heading} ${openWidget ? styles.rotate : ""}`}
       onClick={() => setOpenWidget(!openWidget)}
     >
+      
       {title}
       <ChevronDown />
     </button>
