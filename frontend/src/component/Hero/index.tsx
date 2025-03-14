@@ -3,12 +3,13 @@ import styles from './hero.module.scss';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import React from 'react';
-gsap.registerPlugin(useGSAP);
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(useGSAP);
+
   let str = 'Electric bicycles';
   const titleRef = React.useRef<HTMLHeadingElement | null>(null);
   const textRef = React.useRef<HTMLParagraphElement | null>(null);
@@ -16,8 +17,8 @@ const Hero = () => {
   const wordRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const heroRefs = React.useRef<(HTMLDivElement | null)>(null);
 
-  useGSAP(
-    () => {
+  // useGSAP(
+  //   () => {
     //  gsap.from(heroRefs.current, {scale: 1, y: 100, duration: 0.8})
     // gsap.fromTo(heroRefs.current, 
     //   {
@@ -29,18 +30,23 @@ const Hero = () => {
     //     scale: 1.2,    // Конечное значение
     //     duration: 8 // Продолжительность анимации
     //   });
-    
-     gsap.from(textRef.current, {opacity: 0, y: 200, duration: 1.1})
-     gsap.from(btnRef.current, {opacity: 0, y: 300, duration: 1.2})
-    },
-  );
+    React.useLayoutEffect(() => {
+     gsap
+     .timeline()
+     .from(textRef.current, {opacity: 0, y: 200, delay: 2, duration: 2})
+     .from(btnRef.current, {opacity: 0, y: 300, duration: 1.2})
+    }, []);
+
+
+  //   },
+  // );
 
   function random (min: number, max: number) {
     return(Math.random() * (max - min)) + min;
   }
 
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     wordRefs.current.forEach((ref, index) => {
         if (ref) {
           gsap.from(ref, 0.9, {
@@ -64,8 +70,8 @@ const Hero = () => {
         trigger: heroRefs.current,
         scrub: 1,
         start: 'top top',
-        // end: "+=600",
-        markers: true
+        end: "+=600",
+        // markers: true
       },
       scale: 1.2,
     })

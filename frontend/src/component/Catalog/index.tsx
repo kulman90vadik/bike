@@ -11,10 +11,10 @@ import { fetchSortProducts } from "../../redux/slices/products";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
 
 
 const Catalog = () => {
+  gsap.registerPlugin(ScrollTrigger);
   const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
   const products = useSelector((state: RootState) => state.products.data);
@@ -46,9 +46,8 @@ const Catalog = () => {
       }
     };
   
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
       if (status === "loaded") {
-        // Запуск анимации только после загрузки
         cardRefs.current.forEach((ref) => {
           if (ref) {
             const tl = gsap.timeline({
@@ -64,7 +63,6 @@ const Catalog = () => {
             tl.from(ref, {
               opacity: 0,
               scale: 0.5,
-              // rotate: '120deg',
               y: 20,
               duration: 3,
               ease: "power3.out",

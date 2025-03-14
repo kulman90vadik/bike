@@ -9,8 +9,8 @@ const Home = () => {
     <>
       <Hero />
       <Catalog />
-      <TopProducts />
       <ScrollCards />
+      <TopProducts />
     </>
   );
 };

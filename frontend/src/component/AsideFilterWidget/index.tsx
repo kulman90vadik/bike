@@ -53,9 +53,7 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
           >
             <label className={styles.label} onClick={() => dispatchHandle(item)}>
               <input className={styles.input} name={title} type="radio" />
-              <span>
-                <Check />
-              </span>
+              <span><Check /></span>
               {item}
             </label>
           </li>
