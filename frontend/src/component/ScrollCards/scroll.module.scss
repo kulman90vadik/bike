@@ -3,8 +3,9 @@
 .section {
   overflow: hidden;
   padding: 150px 0;
-  // min-height: 500px;
+  min-height: 500px;
   background-color: transparent;
+  position: relative;
   // background-image: url('./public/images/decor.png');
   // background-position: left bottom;
   // background-size: auto;
@@ -38,4 +39,12 @@
   background-position: left bottom;
   background-size: auto;
   background-repeat: no-repeat;
+}
+
+.linie {
+  width: 100%;
+  position: absolute;
+  top: 50px;
+  height: 3px;
+  background-color: var(--color-orange);
 }

@@ -70,7 +70,7 @@ const Hero = () => {
         trigger: heroRefs.current,
         scrub: 1,
         start: 'top top',
-        end: "+=600",
+        // end: "+=600",
         // markers: true
       },
       scale: 1.2,
