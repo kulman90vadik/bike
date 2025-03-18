@@ -62,9 +62,9 @@ const Catalog = () => {
     
             tl.from(ref, {
               opacity: 0,
-              scale: 0.5,
-              y: 20,
-              duration: 3,
+              // scale: 0.5,
+              y: 160,
+              duration: 4,
               ease: "power3.out",
             });
           }

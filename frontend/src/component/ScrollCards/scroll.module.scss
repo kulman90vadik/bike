@@ -1,9 +1,7 @@
-
-
 .section {
   overflow: hidden;
   padding: 150px 0;
-  min-height: 500px;
+  // min-height: 700px;
   background-color: transparent;
   position: relative;
   // background-image: url('./public/images/decor.png');
@@ -23,7 +21,7 @@
 }
 
 .item {
-  min-width: 300px; 
+  min-width: 300px;
   &:not(:last-child) {
     margin-right: 25px;
   }
@@ -35,10 +33,12 @@
   inset: 0;
   z-index: -1;
 
-  background-image: url('./public/images/decor.png');
+  background-image: url("./public/images/decor.png");
   background-position: left bottom;
   background-size: auto;
   background-repeat: no-repeat;
+  // filter: blur(5px);
+  // transform: rotate(180deg);
 }
 
 .linie {
@@ -47,4 +47,18 @@
   top: 50px;
   height: 3px;
   background-color: var(--color-orange);
+}
+
+.images {
+  width: 130px;
+  height: 75px;
+  position: absolute;
+  top: 50px;
+
+  fill: var(--color-orange);
+  stroke: var(--color-orange);
+  path {
+    stroke: var(--color-orange);
+    fill: var(--color-orange);
+  }
 }
