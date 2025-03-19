@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 import styles from './hero.module.scss';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+// import { useGSAP } from '@gsap/react';
 import React from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
 const Hero = () => {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.registerPlugin(useGSAP);
-
+  function random (min: number, max: number) {
+    return(Math.random() * (max - min)) + min;
+  }
+  // gsap.registerPlugin(useGSAP);
   let str = 'Electric bicycles';
   const titleRef = React.useRef<HTMLHeadingElement | null>(null);
   const textRef = React.useRef<HTMLParagraphElement | null>(null);
@@ -17,65 +19,83 @@ const Hero = () => {
   const wordRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const heroRefs = React.useRef<(HTMLDivElement | null)>(null);
 
-  // useGSAP(
-  //   () => {
-    //  gsap.from(heroRefs.current, {scale: 1, y: 100, duration: 0.8})
-    // gsap.fromTo(heroRefs.current, 
-    //   {
-    //     scale: 1,    // Начальное значение
-    //     delay: 1
-    //   }, 
-    //   {
-    //     delay: 1,
-    //     scale: 1.2,    // Конечное значение
-    //     duration: 8 // Продолжительность анимации
-    //   });
+  // to ---- на месте 
+  // from ---- будет выехзжать 
+  // 1  gsap.to('.box', {scale: 2})  просто при загрузке просиходит анамицая
+  // 2  const heroRefs = React.useRef<(HTMLDivElement | null)>(null); 
+        // gsap.context(() => {
+          // gsap.to('.box', {scale: 2})  будет только в блоке с данным рефом
+        // }, herpRefs)
+  // 3  gsap  -------------  ПОСЛЕДОВАТЕЛНЬО ОДНА ПОСЛЕ ВТОРОЙ
+      //  .timeline()
+      //  .from(textRef.current, {opacity: 0, y: 200, delay: 2, duration: 2})
+  // 4 gsap.fromTo('.box', {scale: 2}, {scale: 0}) // БУДЕТ МЕНЯТЬ ОТ... ДО...  
+
+
     React.useLayoutEffect(() => {
      gsap
      .timeline()
-     .from(textRef.current, {opacity: 0, y: 200, delay: 2, duration: 2})
+     .from(textRef.current, {opacity: 0, y: 200, delay: 2, duration: 2}) // ВЫЕЗЖАТЬ БУДЕТ ПРОСТО
      .from(btnRef.current, {opacity: 0, y: 300, duration: 1.2})
     }, []);
 
-
-  //   },
-  // );
-
-  function random (min: number, max: number) {
-    return(Math.random() * (max - min)) + min;
-  }
-
-
-  React.useLayoutEffect(() => {
-    wordRefs.current.forEach((ref, index) => {
-        if (ref) {
-          gsap.from(ref, 0.9, {
-            opacity: 0,
-            scale: .1,
-            x: random(-500, 500),
-            y: random(-500, 500),
-            z: random(-500, 500),
-            delay: index * 0.1,
-            repeat: 0
-          })
-        }
-      });
-  }, []);
+    React.useLayoutEffect(() => {
+      wordRefs.current.forEach((ref, index) => {
+          if (ref) {
+            gsap.from(ref, 0.9, { // ПРИЛЕТИТ ОТКУДА ТО ЭТО FROM
+              opacity: 0,
+              scale: .1,
+              x: random(-500, 500),
+              y: random(-500, 500),
+              z: random(-500, 500),
+              delay: index * 0.1,
+              repeat: 0
+            })
+          }
+        });
+    }, []);
 
 
-  React.useLayoutEffect(() => {
-    // console.log(heroRefs.current)/
-    gsap.to(heroRefs.current, {
-      scrollTrigger: {
-        trigger: heroRefs.current,
-        scrub: 1,
-        start: 'top top',
-        // end: "+=600",
-        // markers: true
-      },
-      scale: 1.2,
-    })
-  }, []);
+    // React.useEffect(() => {
+    //   // gsap.from(heroRefs.current, {
+
+
+    //     const tl = gsap.timeline({
+    //       scrollTrigger: {
+    //         trigger: heroRefs.current,
+    //         markers: true,
+    //         start: 'top top',
+    //         end: 'bottom bottom',
+    //         scrub: 1,
+    //       },
+    //     });
+
+    //     tl.from(heroRefs.current, {
+    //       // opacity: 0,
+    //       // scale: 0.5,
+    //       y: 0,
+    //       x: 0,
+
+    //       // duration: 4,
+    //       scale: 1,
+    //       ease: "power3.out",
+    //     }).to(heroRefs.current, {
+    //       scale: 2, 
+    //       y: 220,
+    //       opacity: 0
+    //     })
+
+          
+          // scrollTrigger: {
+          //   trigger: heroRefs.current,
+          //   scrub: true,
+          //   start: 'top 80%',
+          //   end: 'bottom 20%',
+          //   markers: true
+          // },
+          // scale: 2,
+      // })
+    // }, []);
 
 
 

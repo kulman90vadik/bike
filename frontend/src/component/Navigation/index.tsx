@@ -14,7 +14,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
     }
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     gsap.fromTo(
       refLi.current,
       { y: -150 }, 

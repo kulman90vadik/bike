@@ -54,9 +54,10 @@ const Catalog = () => {
               scrollTrigger: {
                 trigger: ref,
                 // markers: true,
+                // pin: true,
                 start: "top 95%",
                 end: "top 40%",
-                scrub: 1,
+                scrub: 1, // ползунок тоде в теме
               },
             });
     
