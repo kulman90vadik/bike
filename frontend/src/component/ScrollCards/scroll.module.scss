@@ -43,10 +43,15 @@
 
 .linie {
   width: 100%;
-  position: absolute;
-  top: 50px;
   height: 3px;
   background-color: var(--color-orange);
+}
+
+.svg {
+  position: absolute;
+  top: 50px;
+  stroke-width: 3px;
+  stroke: var(--color-orange);
 }
 
 .images {

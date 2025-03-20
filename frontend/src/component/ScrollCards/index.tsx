@@ -14,14 +14,14 @@ const ScrollCards = () => {
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const containerRef = React.useRef<HTMLUListElement | null>(null);
   const divRef = React.useRef<HTMLDivElement | null>(null);
-  const divlinieRef = React.useRef<HTMLDivElement | null>(null);
+  const divlinieRef = React.useRef<SVGSVGElement | null>(null);
   const refSvg = React.useRef<SVGSVGElement | null>(null);
 
   const section = sectionRef.current;
   const container = containerRef.current;
 
   React.useLayoutEffect(() => {
-    if (section && container) {
+    if (section && container && refSvg.current) {
       const totalScroll = container.scrollWidth - window.innerWidth;
       console.log(totalScroll);
 
@@ -37,6 +37,25 @@ const ScrollCards = () => {
           pin: true,
         },
       });
+
+      gsap.fromTo(refSvg.current, 
+        { x: -150 }, 
+        { 
+          x: () => window.innerWidth,  // движение до конца контейнера
+          ease: "none",  // без easing, чтобы скролл был плавным
+          scrollTrigger: {
+            trigger: section,
+            start: "-40% -16%", // начинает анимацию, когда верхняя часть секции попадает в верх экрана
+            end: ` +=${totalScroll}`,  // конец анимации после полной ширины контейнера
+            scrub: true,  // привязка анимации к скроллу
+            // onUpdate: (self) => {
+            //   // Синхронизируем движение SVG с прокруткой контейнера
+            //   gsap.to(refSvg.current, { x: self.scroll() });
+            // },
+            // pin: true,  // фиксирует секцию, если нужно
+          },
+        });
+
 
       gsap.to(divRef.current, {
         scrollTrigger: {
@@ -83,7 +102,14 @@ const ScrollCards = () => {
   return (
     <section className={styles.section} ref={sectionRef}>
       <div ref={divRef} className={styles.bg}></div>
-      <div ref={divlinieRef} className={styles.linie}></div>
+      {/* <div  className={styles.linie}></div> */}
+
+
+      {/* <svg ref={divlinieRef} className={styles.svg} width="100%" height="29" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	    		<line strokeDasharray="15, 10, 5" x1="0" y1="16" x2="100%" y2="16"></line>
+			</svg>
+		   */}
+
       <svg
         ref={refSvg}
         className={styles.images}

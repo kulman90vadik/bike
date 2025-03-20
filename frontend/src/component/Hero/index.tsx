@@ -58,8 +58,6 @@ const Hero = () => {
 
     // React.useEffect(() => {
     //   // gsap.from(heroRefs.current, {
-
-
     //     const tl = gsap.timeline({
     //       scrollTrigger: {
     //         trigger: heroRefs.current,
@@ -84,7 +82,6 @@ const Hero = () => {
     //       y: 220,
     //       opacity: 0
     //     })
-
           
           // scrollTrigger: {
           //   trigger: heroRefs.current,
@@ -97,11 +94,7 @@ const Hero = () => {
       // })
     // }, []);
 
-
-
-
-
-
+    
   
   return (
     <section  className={styles.hero}>
