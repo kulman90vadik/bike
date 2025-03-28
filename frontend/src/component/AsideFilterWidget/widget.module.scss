@@ -21,10 +21,15 @@
   font-size: 19px;
   font-weight: 700;
   margin-bottom: 5px;
+  color: var(--color-white);
+  transition: color 0.3s ease-in;
   svg {
     width: 17px;
     height: 17px;
     transition: transform 0.3s ease-in;
+  }
+  &:hover {
+    color: var(--color-orange);
   }
 }
 
@@ -45,6 +50,10 @@
   cursor: pointer;
   align-items: center;
   text-transform: capitalize;
+  transition: color 0.3s ease-in;
+  &:hover {
+    color: var(--color-orange);
+  }
   span {
     display: block;
     margin-bottom: 1px;

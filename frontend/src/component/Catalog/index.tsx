@@ -80,8 +80,6 @@ const Catalog = () => {
       <div className="container">
         <div className={styles.wrapper}>
 
-  
-
           <AsideFilter />
 
           <div className={styles.right}>
@@ -103,7 +101,6 @@ const Catalog = () => {
                 return products.length > 0 ? (
                   <ul className={styles.list}>
                     {products
-                    
                     .filter(item => {
                       if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange) 
                       let priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, ""))/100));
@@ -126,8 +123,7 @@ const Catalog = () => {
 
                       return (
                         <li key={obj._id} ref={addToRefs} className={styles.it} >
-                        <Card
-                         
+                        <Card 
                           obj={obj}
                           isInBasket={!!isInBasket}
                           isInFavorites={!!isInFavorites}

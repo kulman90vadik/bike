@@ -8,6 +8,9 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import AsideRangePrice from "../AsideRangePrice";
 import { useSelector } from "react-redux";
 
+
+
+
 const AsideFilter = () => {
   const products = useSelector((state: RootState) => state.products.data);
   const [brandData, setBrandData] = useState<string[]>();
@@ -45,8 +48,6 @@ const AsideFilter = () => {
       console.warn(err);
     })
   }, [])
-
-
   
   useEffect(() => {  
         const maxPrice = products?.reduce((max, product) => {
@@ -64,16 +65,13 @@ const AsideFilter = () => {
   }, [products])
   
 
-// console.log(products);
-
-
   const handleBrand = (name: string) => {
     dispatch(setBranding(name.toLocaleLowerCase()));
   };
 
+
   const handleCountry = (name: string) => {
     dispatch(setCountry(name.toLocaleLowerCase().replace(/\s+/g, '')));
-    // console.log(name.toLocaleLowerCase().replace(/\s+/g, ''))
   };
 
   return (
@@ -84,6 +82,7 @@ const AsideFilter = () => {
     </aside>
   );
 };
+
 
 export default AsideFilter;
 

@@ -1,10 +1,11 @@
 import { Heart } from "lucide-react";
 import { ProductProps } from "../../propstype";
 import { fetchBasket } from "../../redux/slices/basket";
-import { useAppDispatch } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
 import styles from "./card.module.scss";
 import { fetchFavorites } from "../../redux/slices/favorites";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // import gsap from "gsap";
 // import React from "react";
@@ -17,7 +18,9 @@ type Props = {
 };
 
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
- 
+  const search = useSelector((state: RootState) => state.search.search);
+  console.log(search, 'search');
+  
   const dispatch = useAppDispatch();
 
   const addToBasket = (id: string) => {

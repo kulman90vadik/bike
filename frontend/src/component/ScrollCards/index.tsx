@@ -218,7 +218,6 @@ const ScrollCards = () => {
             </li>
           );
         })}
-        {/* */}
       </ul>
     </section>
   );

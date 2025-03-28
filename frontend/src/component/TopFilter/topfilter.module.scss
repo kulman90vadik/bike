@@ -9,6 +9,11 @@
 
 .sort {
   font-size: 19px;
+  color: var(--color-white);
+  transition: color 0.3s ease-in;
+  &:hover {
+    color: var(--color-orange);
+  }
 }
 
 .list {
@@ -25,7 +30,8 @@
 .btn {
   font-size: 19px;
   transition: color 0.3s ease-in;
-  border-bottom: 1px solid var(--color-orange);
+  color: var(--color-white);
+  border-bottom: 1px solid;
   &:hover {
     color: var(--color-orange);
   }
