@@ -19,6 +19,8 @@ type Props = {
 
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
   const search = useSelector((state: RootState) => state.search.search);
+
+
   console.log(search, 'search');
   
   const dispatch = useAppDispatch();
@@ -34,6 +36,14 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
   let price = obj.sale
     ? Number(obj.price) * (1 - Number(obj.sale.replace(/%/g, "")) / 100)
     : obj.price;
+
+
+
+
+    const regex = new RegExp(`(${search})`, "gi");
+    const parts = obj.name.split(regex);
+
+
 
   return (
     <article className={styles.item}>
@@ -63,7 +73,18 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
       </Link>
 
       <div className={styles.inner}>
-        <div className={styles.name}>{obj.name}</div>
+        <div className={styles.name}>
+          {parts.map((part, index) =>
+            part.toLowerCase() === search.toLowerCase() ? (
+              <span key={index} className={styles.highlight}>
+                {part}
+              </span>
+            ) : (
+              part
+            )
+          )}
+        </div>
+
         <div className={styles.price}>
           {Number(obj.sale) !== 0 && <span>{obj.price}</span>}
           {new Intl.NumberFormat("en-US", {
@@ -80,6 +101,8 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
       </div>
     </article>
   );
+
 };
 
 export default Card;
+   

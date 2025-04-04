@@ -2,8 +2,6 @@
 .catalog {
   padding: 50px 0;
   position: relative;
-  // background-color: #101010;
-
   color: var(--color-white);
 }
 
@@ -17,11 +15,10 @@
 }
 
 .it {
-  display: block; /* Убедись, что это блочный элемент */
-  position: relative; /* Для нормальной работы с анимацией */
-  width: 100%; /* Если нужно */
+  display: block; 
+  position: relative; 
+  width: 100%; 
 }
-
 
 .list {
   display: grid;
@@ -49,7 +46,6 @@
     text-align: center;
   }
 }
-
 
 .notFound {
   text-align: center;

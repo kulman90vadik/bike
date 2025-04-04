@@ -6,16 +6,6 @@
   height: 100%;
   border-radius: 15px;
   box-shadow: 0 0 12px #ccc;
-
-
-  // will-change: transform, opacity;
-    // opacity: 0;
-    // transform: translateY(50px); /* Смещение вниз */
-    // transition: all 0.5s ease;
-  
-  
-
-
 }
 
 .green {
@@ -35,7 +25,6 @@
 .red {
   color: var(--color-red);
 }
-
 
 .top {
   position: absolute;
@@ -71,7 +60,6 @@
     }
   }
 }
-
 
 .name {
   text-align: center;
@@ -112,7 +100,6 @@
 .btn {
   background-color: var(--color-orange);
   width: 100%;
-  // color: var(--color-white);
   padding: 15px 0;
   font-weight: 700;
   letter-spacing: 1px;
@@ -164,4 +151,9 @@
   }
 }
 
-
+.highlight {
+  background-color: var(--color-orange);
+  font-weight: 700;
+  border-radius: 3px;
+  color: var(--color-black);
+}

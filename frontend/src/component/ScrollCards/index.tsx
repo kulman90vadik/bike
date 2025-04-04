@@ -20,12 +20,11 @@ const ScrollCards = () => {
   const section = sectionRef.current;
   const container = containerRef.current;
 
-  React.useLayoutEffect(() => {
+  React.useLayoutEffect(() => { 
     if (section && container && refSvg.current) {
       const totalScroll = container.scrollWidth - window.innerWidth;
-      console.log(totalScroll);
 
-      gsap.to(container, {
+      gsap.to(container, { 
         x: totalScroll,
         ease: "none",
         scrollTrigger: {
@@ -57,41 +56,31 @@ const ScrollCards = () => {
         });
 
 
-      gsap.to(divRef.current, {
+      gsap.to(divRef.current, {    
         scrollTrigger: {
           trigger: section,
           scrub: 1,
-
           start: "-70% 16%",
           end: ` +=${totalScroll}`,
-          // markers: true
         },
         duration: 1,
         scale: 1.5,
       });
 
-
-
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           markers: true,
-          // start: "-70% 16%",
           start: "-40% -16%",
-          // end: "top 40%",
           scrub: 1,
         },
       });
 
       tl.from(divlinieRef.current, {
         opacity: 0,
-        // scale: 0.5,
-        // y: 25,
         duration: 0.5,
         ease: "power3.out",
-      });
-      
-   
+      }); 
     }
 
     return () => {
@@ -103,13 +92,10 @@ const ScrollCards = () => {
     <section className={styles.section} ref={sectionRef}>
       <div ref={divRef} className={styles.bg}></div>
       {/* <div  className={styles.linie}></div> */}
-
-
       {/* <svg ref={divlinieRef} className={styles.svg} width="100%" height="29" version="1.1" xmlns="http://www.w3.org/2000/svg">
 	    		<line strokeDasharray="15, 10, 5" x1="0" y1="16" x2="100%" y2="16"></line>
 			</svg>
 		   */}
-
       <svg
         ref={refSvg}
         className={styles.images}
@@ -197,7 +183,7 @@ const ScrollCards = () => {
             y2="4.5"
           />
 
-          <line
+          <line 
             id="XMLID_558_"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -210,6 +196,8 @@ const ScrollCards = () => {
         </g>
       </svg>
 
+
+
       <ul className={styles.list} ref={containerRef}>
         {products.map((item) => {
           return (
@@ -220,6 +208,9 @@ const ScrollCards = () => {
         })}
       </ul>
     </section>
+
+
+
   );
 };
 
