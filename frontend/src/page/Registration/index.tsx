@@ -5,31 +5,68 @@ import { FormValuesRegister } from "../../propstype";
 import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ImageUp } from "lucide-react";
+import React from "react";
+import axios from "../../axios";
+
+type FormValues = {
+  fullName: string;
+  email: string;
+  password: string;
+  avatarFile?: FileList;
+  avatarUrl?: string;
+};
 
 const Registration = () => {
+  const [preview, setPreview] = React.useState<string | null>(null);
+
+
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
-  const {
-    register, handleSubmit, formState: { errors, isValid }
-  } = useForm({
+  const { register, handleSubmit, watch, formState: { errors, isValid }} = useForm<FormValues>({
     defaultValues: {
-      fullName: 'ВАСЯ',
-      email: 'vasja@outlook.com',
-      password: '123456'
+      fullName: 'Tom',
+      email: 'tom@outlook.com',
+      password: '123456',
+      avatarFile: undefined,
+      avatarUrl: ''
     },
     mode: 'all' // при либом изменении формы
   })
 
+  const avatarFile = watch("avatarFile") as FileList | undefined;
+
+
+  React.useEffect(() => {
+    if (avatarFile?.length) {
+      const file = avatarFile[0];
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+  
+      return () => URL.revokeObjectURL(objectUrl); // очищаем после
+    }
+  }, [avatarFile]);
 
   // будет выполняться после того как форм поймёт что валидация норм 
   const onSubmit = async (values:FormValuesRegister) => {
-    const data = await dispatch(fetchRegister(values));
-    if (!data.payload) {
+    const formData = new FormData();
+    let avatarUrl = ''
+
+    if (values.avatarFile?.[0]) {
+      formData.append('image', values.avatarFile[0]); // важно: это массив! 
+      const { data } = await axios.post('/uploads', formData);
+      avatarUrl = data.url;
+    }
+    let { avatarFile, ...restOfValues } = values;
+    let mdata = await dispatch(fetchRegister({ ...restOfValues, avatarUrl }));
+    
+
+    if (!mdata.payload) {
       return alert('Не удалось зарегестрироваться')
     }
 
-    if (data?.payload && typeof data.payload === 'object' && 'token' in data.payload) {
-      window.localStorage.setItem('token', (data.payload as { token: string }).token);
+    if (mdata?.payload && typeof mdata.payload === 'object' && 'token' in mdata.payload) {
+      window.localStorage.setItem('token', (mdata.payload as { token: string }).token);
     }
   }
 
@@ -38,11 +75,29 @@ const Registration = () => {
   }
 
 
+
   return (
     <section className={styles.login}>
       <div className="container">
       <div className={styles.inner}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+       
+        <label className={styles.photo} >    
+          {!preview &&
+          <ImageUp />
+          }
+          {preview
+          &&
+          <img  className={styles.preview} src={preview} alt="Preview" />
+          }
+          <input 
+            type="file"
+            // onChange={(event) => handleChangeFile(event)} 
+            hidden 
+            {...register("avatarFile")}
+            />
+        </label>  
+
           <div className={styles.block}>
           <label className={styles.label}>Name</label>
             <input

@@ -20,6 +20,8 @@ export interface FormValuesRegister {
   password: string;
   email: string;
   fullName: string;
+  avatarFile?: FileList;
+  avatarUrl?: string;
 }
 
 
@@ -44,8 +46,21 @@ export interface ProductProps {
   counter: number;
   viewsCount: number;
   category: string;
-  country: string
+  country: string;
+
+  comments: IComment[];
 }
+
+export interface IComment {
+  user: string, 
+  _id: string, 
+  fullName: string,
+  avatarUrl: string,
+  text: string;
+  rating?: number;
+  date?: Date;
+}
+
 
 export interface BasketProps {
   _id: string;
@@ -59,7 +74,9 @@ export interface BasketProps {
   newproduct: boolean;
   counter: number;
   viewsCount: number;
-  country: string
+  country: string;
+
+  comments: IComment[];
 }
 
 

@@ -63,6 +63,15 @@
  
 }
 
+.smallimg {
+   width: 30px;
+   height: 30px;
+   border-radius: 50%;
+   object-fit: cover;
+   margin-right: 9px;
+   border: 2px solid var(--color-white);
+}
+
 
 .login {
   display: flex;

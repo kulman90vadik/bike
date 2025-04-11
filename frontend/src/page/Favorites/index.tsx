@@ -4,15 +4,19 @@ import styles from './favorites.module.scss';
 import Card from '../../component/Card';
 import { ProductProps } from '../../propstype';
 import Loader from '../../Loader';
-import TopProducts from '../../component/TopProducts';
+// import TopProducts from '../../component/TopProducts';
 
 
 const Favorites = () => {
 
-  const favorites = useSelector((state: RootState) => state.favorites.data);
-  const basket = useSelector((state: RootState) => state.basket.data);
-  const status = useSelector((state: RootState) => state.favorites.status);
-  const isLoading = status === 'loadingg';
+  console.log("Screen component mounted!");
+
+
+    const favorites = useSelector((state: RootState) => state.favorites.data);
+    const basket = useSelector((state: RootState) => state.basket.data);
+    const status = useSelector((state: RootState) => state.favorites.status);
+    const isLoading = status === 'loadingg';
+
 
   return (
     <section className={styles.favorites}>

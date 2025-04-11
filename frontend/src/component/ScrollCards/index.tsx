@@ -3,14 +3,28 @@ import { RootState } from "../../redux/store";
 import Card from "../Card";
 import styles from "./scroll.module.scss";
 import React from "react";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const ScrollCards = () => {
   gsap.registerPlugin(ScrollTrigger);
-
+  // const [products, setProducts] = React.useState<ProductProps[]>([]);
+  // const[loading, setLoading] = React.useState(false);
   const products = useSelector((state: RootState) => state.products.data);
+  // React.useEffect(() => {  
+  // const fetchData = async () => {
+  //   try {
+  //     const res = await axios.get<ProductProps[]>('./products');
+  //     setProducts(res.data); // сохраняем данные в state
+  //     setLoading(true)
+  //   } catch (err) {
+  //     console.warn('Error fetching products:', err);
+  //   }
+  // };
+
+  // fetchData(); // вызываем асинхронную функцию
+  // }, [])
+  
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const containerRef = React.useRef<HTMLUListElement | null>(null);
   const divRef = React.useRef<HTMLDivElement | null>(null);
@@ -25,7 +39,7 @@ const ScrollCards = () => {
       const totalScroll = container.scrollWidth - window.innerWidth;
 
       gsap.to(container, { 
-        x: totalScroll,
+        x: -section.scrollWidth,
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -47,11 +61,6 @@ const ScrollCards = () => {
             start: "-40% -16%", // начинает анимацию, когда верхняя часть секции попадает в верх экрана
             end: ` +=${totalScroll}`,  // конец анимации после полной ширины контейнера
             scrub: true,  // привязка анимации к скроллу
-            // onUpdate: (self) => {
-            //   // Синхронизируем движение SVG с прокруткой контейнера
-            //   gsap.to(refSvg.current, { x: self.scroll() });
-            // },
-            // pin: true,  // фиксирует секцию, если нужно
           },
         });
 
@@ -70,7 +79,7 @@ const ScrollCards = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          markers: true,
+          // markers: true,
           start: "-40% -16%",
           scrub: 1,
         },
@@ -86,16 +95,12 @@ const ScrollCards = () => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [section, container]);
+  }, [section, window.innerWidth, container]);
+
 
   return (
     <section className={styles.section} ref={sectionRef}>
       <div ref={divRef} className={styles.bg}></div>
-      {/* <div  className={styles.linie}></div> */}
-      {/* <svg ref={divlinieRef} className={styles.svg} width="100%" height="29" version="1.1" xmlns="http://www.w3.org/2000/svg">
-	    		<line strokeDasharray="15, 10, 5" x1="0" y1="16" x2="100%" y2="16"></line>
-			</svg>
-		   */}
       <svg
         ref={refSvg}
         className={styles.images}
@@ -103,9 +108,7 @@ const ScrollCards = () => {
         enableBackground="new 0 0 32 32"
         id="_x3C_Layer_x3E_"
         version="1.1"
-        // xml:space="preserve"
         xmlns="http://www.w3.org/2000/svg"
-        // xmlns:xlink="http://www.w3.org/1999/xlink"
       >
         <g id="cyclist_x2C__bike">
           <g id="XMLID_551_">
@@ -196,8 +199,6 @@ const ScrollCards = () => {
         </g>
       </svg>
 
-
-
       <ul className={styles.list} ref={containerRef}>
         {products.map((item) => {
           return (
@@ -208,9 +209,6 @@ const ScrollCards = () => {
         })}
       </ul>
     </section>
-
-
-
   );
 };
 

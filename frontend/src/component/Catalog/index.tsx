@@ -47,6 +47,10 @@ const Catalog = () => {
     };
   
     React.useLayoutEffect(() => {
+
+      const ctx = gsap.context(() => {
+
+
       if (status === "loaded") {
         cardRefs.current.forEach((ref) => {
           if (ref) {
@@ -57,7 +61,7 @@ const Catalog = () => {
                 // pin: true,
                 start: "top 95%",
                 end: "top 40%",
-                scrub: 1, // ползунок тоде в теме
+                // scrub: 1, // ползунок тоде в теме
               },
             });
     
@@ -71,6 +75,14 @@ const Catalog = () => {
           }
         });
       }
+
+    });
+
+    return () => ctx.revert();
+
+
+
+    
     }, [status]); 
 
 

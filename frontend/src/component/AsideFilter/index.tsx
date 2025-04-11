@@ -20,6 +20,7 @@ const AsideFilter = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
 
+  
  
   useEffect(() => {  
     axios.get<ProductProps>(`./products`).then(res => {

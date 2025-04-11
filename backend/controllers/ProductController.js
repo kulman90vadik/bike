@@ -1,4 +1,73 @@
 import ProductModel from '../models/Product.js';
+import UserModel from '../models/User.js';
+
+export const addComment = async (req, res) => {
+  try {
+    const { text, rating } = req.body;
+    const productId = req.params.id;
+    const userId = req.userId; // Получен из токена
+
+    const user = await UserModel.findById(userId);
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Продукт не найден' });
+    }
+
+    const updatedProduct = await ProductModel.updateOne(
+      { _id: productId },
+      {
+        $push: {
+          comments: {
+            user: userId,
+            fullName: user.fullName, // Имя пользователя из модели User
+            avatarUrl: user.avatarUrl, // URL аватара пользователя
+            text: text,
+            rating: rating,
+            date: new Date(),
+          },
+        },
+      }
+    );
+
+    if (updatedProduct.nModified === 0) {
+      return res.status(400).json({ message: 'Комментарий не добавлен' });
+    }
+
+    // Возвращаем обновлённый продукт с комментариями
+    const updatedProductWithComments = await ProductModel.findById(productId);
+    res.status(200).json(updatedProductWithComments);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Ошибка при добавлении комментария', error: err.message });
+  }
+};
+
+
+// export const addComment = async (req, res) => {
+// console.log('log')
+//   const { text, rating } = req.body;
+//   const productId = req.params.id;
+//   const userId = req.userId; // Получен из токена
+
+//   try {
+//     const product = await ProductModel.findById(productId);
+
+//     // Добавляем новый комментарий
+//     product.comments.push({
+//       user: userId,
+//       text: text,
+//       rating: rating,
+//     });
+
+//     await product.save();
+// res.status(200).json(product); // <- возвращаем обновлённый продукт
+//   } catch (err) {
+//     res.status(500).json({ message: 'Ошибка при добавлении комментария', err });
+//   }
+// };
+
+
 
 
 export const getAll = async (req, res) => {
@@ -41,7 +110,6 @@ export const getOne = async (req, res) => {
     });
   }
 };
-
 
 export const sortProducts = async (req, res) => {
 
@@ -98,8 +166,6 @@ export const sortProducts = async (req, res) => {
 
   
 };
-
-
 
 export const topProducts = async (req, res) => {
   try {

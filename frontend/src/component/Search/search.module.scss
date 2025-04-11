@@ -5,7 +5,9 @@
 
 .searchBtn {
   margin-right: 10px;
+  display: flex;
   svg {
+    margin: auto;
     width: 29px;
     height: 29px;
     transition: stroke .3s ease-in;

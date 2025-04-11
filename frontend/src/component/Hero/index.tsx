@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from './hero.module.scss';
 import gsap from 'gsap';
-// import { useGSAP } from '@gsap/react';
 import React from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 
 
 const Hero = () => {
@@ -11,7 +11,6 @@ const Hero = () => {
   function random (min: number, max: number) {
     return(Math.random() * (max - min)) + min;
   }
-  // gsap.registerPlugin(useGSAP);
   let str = 'Electric bicycles';
   const titleRef = React.useRef<HTMLHeadingElement | null>(null);
   const textRef = React.useRef<HTMLParagraphElement | null>(null);
@@ -55,45 +54,6 @@ const Hero = () => {
         });
     }, []);
 
-
-    // React.useEffect(() => {
-    //   // gsap.from(heroRefs.current, {
-    //     const tl = gsap.timeline({
-    //       scrollTrigger: {
-    //         trigger: heroRefs.current,
-    //         markers: true,
-    //         start: 'top top',
-    //         end: 'bottom bottom',
-    //         scrub: 1,
-    //       },
-    //     });
-
-    //     tl.from(heroRefs.current, {
-    //       // opacity: 0,
-    //       // scale: 0.5,
-    //       y: 0,
-    //       x: 0,
-
-    //       // duration: 4,
-    //       scale: 1,
-    //       ease: "power3.out",
-    //     }).to(heroRefs.current, {
-    //       scale: 2, 
-    //       y: 220,
-    //       opacity: 0
-    //     })
-          
-          // scrollTrigger: {
-          //   trigger: heroRefs.current,
-          //   scrub: true,
-          //   start: 'top 80%',
-          //   end: 'bottom 20%',
-          //   markers: true
-          // },
-          // scale: 2,
-      // })
-    // }, []);
-
     
   
   return (
@@ -118,7 +78,53 @@ const Hero = () => {
           <p  ref={textRef} className={styles.text}>
           The Cento10 Hybrid is a racing bicycle with pedal-assist electric drive, setting a new, exceptionally high standard for this category.
           </p>
-          <Link ref={btnRef} className={styles.link} to='/' >More details</Link>
+          <Link ref={btnRef} className={styles.link} to='/' >
+            {/* <motion.div
+             animate={{ scaleX: [0, 1]}}
+             transition={{
+               delay: 2,
+               repeat: Infinity,
+               repeatType: "reverse",
+               repeatDelay: 1,
+               duration: 4,
+             }}
+            whileHover={{
+              scale: 1.1
+            }}
+            className={styles.line}></motion.div> */}
+            More details
+
+            <motion.svg 
+              className={styles.icon} xmlns="http://www.w3.org/2000/svg"  
+              viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+              strokeLinejoin="round">
+
+              <motion.line
+                animate={{scaleY: 0.4,}}
+                transition={{
+                  delay: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  repeatDelay: 1,
+                  duration: 1,
+                }}
+                x1="6" x2="6" y1="4" y2="20"/>
+              <motion.polygon
+                animate={{scale: 1.3, translateX: 5, rotate: 180}}
+                transition={{
+                  repeatType: "reverse",
+                  type: "spring",
+                  repeatDelay: 1,
+                  repeat: Infinity,
+                  delay: 2,
+                  duration: 1,
+                }}
+                points="10,4 20,12 10,20"
+              />
+            </motion.svg>
+
+          </Link>
         </div>
       </div>
     </section>

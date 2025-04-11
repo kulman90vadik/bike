@@ -20,8 +20,6 @@ type Props = {
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
   const search = useSelector((state: RootState) => state.search.search);
 
-
-  console.log(search, 'search');
   
   const dispatch = useAppDispatch();
 
@@ -99,6 +97,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
           onClick={() => addToBasket(obj._id)}
         >{`${isInBasket ? "Remove from Basket" : "Add to Cart"}`}</button>
       </div>
+      
     </article>
   );
 

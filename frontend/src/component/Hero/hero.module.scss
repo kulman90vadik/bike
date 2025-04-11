@@ -40,9 +40,32 @@
   z-index: 1;
 }
 
+// .line {
+//   position: absolute;
+//   bottom: 7px;
+//   height: 1px;
+//   background-color: #fff;
+//   left: 10%;
+//   width: 80%;
+
+//   transform: translateX(-50%);
+//   transform-origin: center;
+// }
+
 .word {
   display: flex;
   margin-right: 7px;
+}
+
+.icon {
+  margin-left: 6px;
+  width: 55px;
+  height: 25px;
+  line {
+    // margin-right: 3px;
+    // transform: translateY(-13px);
+    // display: none;
+  }
 }
 
 .title {
@@ -72,7 +95,13 @@
 }
 
 .link {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
   background-color: var(--color-orange);
+  display: flex;
+  align-items: center;
   padding: 16px 45px;
   border-radius: 13px;
   font-size: 19px;

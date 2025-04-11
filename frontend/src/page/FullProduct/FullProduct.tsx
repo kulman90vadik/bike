@@ -2,72 +2,128 @@ import React from "react";
 import axios from "../../axios";
 import { useParams } from "react-router-dom";
 import { ProductProps } from "../../propstype";
-import styles from './fullproduct.module.scss';
+import styles from "./fullproduct.module.scss";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { fetchBasket } from "../../redux/slices/basket";
+import { useSelector } from "react-redux";
+import Review from "../../component/Review";
 // import Counter from "../../component/Counter";
 
 const FullProduct = () => {
-    const [data, setData] = React.useState<ProductProps | null>(null);
-    const {id} = useParams();
-    const [isLoading, setIsLoading] = React.useState(true);
-  
-   
-    React.useEffect(() => {  
-      axios.get(`./products/${id}`).then(res => {
-        setData(res.data); 
-        setIsLoading(false)
-      }).catch(err => {
-        console.warn(err);
-      })
-    }, [])
-  
-  
-    return (
-     <section className={styles.product}>
-      <div className="container">
+  const dispatch = useAppDispatch();
+  const [data, setData] = React.useState<ProductProps | null>(null);
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const basket = useSelector((state: RootState) => state.basket.data);
 
+  const addToBasket = (id: string) => {
+    dispatch(fetchBasket(id));
+  };
+
+  let price = data?.sale
+    ? Number(data?.price) * (1 - Number(data?.sale.replace(/%/g, "")) / 100)
+    : data?.price;
+
+  const isInBasket = basket?.some(
+    (item: ProductProps) => item._id === data?._id
+  );
+
+  React.useEffect(() => {
+    axios
+      .get(`./products/${id}`)
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }, []);
+
+if(isLoading) {
+  return <img
+  className={styles.loading}
+  src="/images/loading.gif"
+  alt="Loading"
+/>
+}
+
+
+  return (
+    <section className={styles.product}>
+      {/* {isLoading && (
+        
+      )} */}
+      <div className="container">
         <div className={styles.inner}>
-          {isLoading && 
-            <img className={styles.loading} src="/images/loading.gif" alt="Loading" />
-          }
           <div className={styles.left}>
             <img className={styles.image} src={data?.image} alt={data?.name} />
+            <ul className={styles.list}>
+              <li className={styles.imgitem}>
+                <img
+                  className={styles.smallimage}
+                  src={data?.image}
+                  alt={data?.name}
+                />
+              </li>
+              <li className={styles.imgitem}>
+                <img
+                  className={styles.smallimage}
+                  src={data?.image}
+                  alt={data?.name}
+                />
+              </li>
+            </ul>
           </div>
+
           <div className={styles.right}>
-            <h1>
-              {data?.name}
-            </h1>
+            <div className={styles.info}>
+              <h1>{data?.name}</h1>
+              <div className={styles.box}>
+                <img
+                  className={styles.flag}
+                  src={data?.flag}
+                  alt={data?.flag}
+                />
+                <div className={styles.price}>
+                  {Number(data?.sale) !== 0 && <span>{data?.price}</span>}
+                  {new Intl.NumberFormat("en-US", {
+                    useGrouping: true,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(Number(price)) + " €"}
+                </div>
+              </div>
+              <button
+                className={`${styles.btn} ${isInBasket ? styles.btngreen : ""}`}
+                type="button"
+                onClick={() => {
+                  if (data?._id) {
+                    addToBasket(data._id);
+                  }
+                }}
+              >{`${isInBasket ? "Remove from Basket" : "Add to Cart"}`}</button>
+            </div>
+
             {/* {
              data && 
              <div className={styles.counter}>
-               <Counter obj={data}/>
+             <Counter obj={data}/>
              </div>
-            } */}
-            </div>
+             } */}
+          </div>
         </div>
 
+
+
+
+       <Review data={data}/>
+
+
+
       </div>
-     </section>
-    );
-  }
-   
-  export default FullProduct;
+    </section>
+  );
+};
 
-//  const { slugOrId } = useParams(); // Приходит либо id, либо slug
-//   const navigate = useNavigate();
-//   const [product, setProduct] = useState(null);
-
-//   useEffect(() => {
-//     fetch(`http://localhost:5000/products/${slugOrId}`) // Запрос по ID
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setProduct(data);
-
-//         // 🟢 Если в URL id, меняем на slug
-//         if (slugOrId === data._id) {
-//           navigate(`/products/${data.slug}`, { replace: true });
-//         }
-//       })
-//       .catch((err) => console.error("Ошибка загрузки:", err));
-//   }, [slugOrId, navigate]);
-
-//   if (!product) return <p>Загрузка...</p>;
+export default FullProduct;

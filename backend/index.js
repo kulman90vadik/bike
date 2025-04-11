@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
 
+
 const storage = multer.diskStorage({
   // выполниться функция ниже с параметрами, пропускаем сейчас их
   // и выполняем ф-ию cb
@@ -27,6 +28,15 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 app.use('/uploads', express.static('uploads')); // если убрать то он не будет знать что лежит в папке с файлами. 
 
+
+// app.post('/uploads', checkAuth, upload.single('image'), (req, res) => {
+app.post('/uploads', upload.single('image'), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file.originalname}`
+  })
+})
+
+
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
@@ -36,6 +46,11 @@ app.get("/products/topproducts", ProductController.topProducts);
 app.get("/products/sort", ProductController.sortProducts);
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getOne);
+
+
+
+app.patch('/products/:id/comments', checkAuth, handleValidationErrors, ProductController.addComment);
+
 
 
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);

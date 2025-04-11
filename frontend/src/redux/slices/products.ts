@@ -11,7 +11,6 @@ export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProduct
 
 export const fetchSortProducts = createAsyncThunk<ProductProps[], string, { rejectValue: string }>(
     'auth/fetchSortProducts', async(queryString)=> {
-// console.log(`./products/sort?${queryString}`)
     const {data} = await axios.get<ProductProps[]>(`./products/sort?${queryString}`);
     return data;
 })
