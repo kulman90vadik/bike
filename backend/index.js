@@ -50,7 +50,7 @@ app.get('/products/:id', ProductController.getOne);
 
 
 app.patch('/products/:id/comments', checkAuth, handleValidationErrors, ProductController.addComment);
-
+app.delete('/products/:id/comments/:idComment', checkAuth, ProductController.removeComment);
 
 
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);

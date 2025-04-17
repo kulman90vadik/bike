@@ -7,6 +7,7 @@ import { topProductsReducer } from './slices/topproducts';
 import { basketReducer } from './slices/basket';
 import { favoritesReducer } from './slices/favorites';
 import { searchReducer } from './slices/search';
+import { fullProductReducer } from './slices/fullproduct';
 // import {postsReducer} from './slices/posts'
 
 
@@ -14,8 +15,9 @@ import { searchReducer } from './slices/search';
 const store = configureStore({
     reducer: {
         products: productsReducer,
+        fullproduct: fullProductReducer,
         auth: authReducer,
-        basket: basketReducer,
+        basket: basketReducer,   
         favorites: favoritesReducer,
         search: searchReducer,
         topproducts: topProductsReducer

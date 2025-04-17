@@ -57,7 +57,7 @@ export interface IComment {
   fullName: string,
   avatarUrl: string,
   text: string;
-  rating?: number;
+  rating: number;
   date?: Date;
 }
 
@@ -80,3 +80,6 @@ export interface BasketProps {
 }
 
 
+export interface FormReview {
+  text: string
+}

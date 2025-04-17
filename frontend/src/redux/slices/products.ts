@@ -15,6 +15,26 @@ export const fetchSortProducts = createAsyncThunk<ProductProps[], string, { reje
     return data;
 })
 
+// export const fetchReviewProducts = createAsyncThunk<ProductProps[], string, { rejectValue: string }>(
+//     'auth/fetchReviewProducts', async(arr)=> {
+//     const {data} = await axios.get<ProductProps[]>(`./products/${reviewProduct?._id}/comments`);
+//     return data;
+// })
+
+// axios
+//         .patch(`./products/${reviewProduct?._id}/comments`, {
+//           ...values,
+//           rating: starNumber,
+//         })
+//         .then((res) => {
+//           setReviewProduct(res.data);
+//         })
+//         .catch((err) => {
+//           console.warn(err);
+//         });
+
+
+
 
 type Props = {
     data: ProductProps[],

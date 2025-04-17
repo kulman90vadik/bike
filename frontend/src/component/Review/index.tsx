@@ -3,100 +3,154 @@ import styles from "./review.module.scss";
 import { selectIsAuth } from "../../redux/slices/auth";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { IComment, ProductProps } from "../../propstype";
+import { FormReview } from "../../propstype";
 import { motion } from "framer-motion";
-import axios from "../../axios";
+import { useForm } from "react-hook-form";
+import StarRating from "./StarRating";
+import ReviewList from "./ReviewList";
+import ProcentStarRating from "./ProcentStarRating";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { fetchProductComment } from "../../redux/slices/fullproduct";
 
-type Props = {
-  data: ProductProps | null
-}
-
-const Review = ({data}: Props) => {
-  const [m, setM] = React.useState<ProductProps | null>(data);
+const Review = () => {
+  const dispatch = useAppDispatch();
+  const formRef = React.useRef<HTMLFormElement | null>(null);
+  const [starNumber, setStarNumber] = React.useState(0);
+  const [rating, setRating] = React.useState(0);
+  const [errorStar, setErrorStar] = React.useState(true);
   const isAuth = useSelector(selectIsAuth);
   const navigate = useNavigate();
-  const[isForm, setIsForm] = React.useState(false)
 
-// console.log(isAuth, 'isAuth')
+  const reviewProduct = useSelector((state: RootState) => state.fullproduct.data);
 
+   const ratings = reviewProduct?.comments?.map(item => item.rating) || [];
+   const averageRating =
+    ratings.length > 0
+      ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+      : 0;
+    const roundedAverage = Math.round(averageRating * 10) / 10;
+
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid, errors },
+  } = useForm({
+    defaultValues: { text: "" },
+    mode: "onChange",
+  });
 
   const reviewHandler = () => {
     if (!isAuth) {
-      // navigate('/login');
-      navigate('/login?redirect=' + encodeURIComponent(location.pathname));
-      // setIsForm(true) 
+      navigate("/login?redirect=" + encodeURIComponent(location.pathname));
+    }
+  };
 
+  const onSubmit = async (values: FormReview) => {
+    if (starNumber > 0 && reviewProduct?._id) {
+      await dispatch(fetchProductComment({
+        id: reviewProduct?._id,
+        values,
+        rating: starNumber,
+      }));
+
+      reset();
+      setRating(0);
+      setErrorStar(false);
     } else {
-      setIsForm(true)
-      // логика для оставления отзыва
+      setErrorStar(false);
     }
-  }
+  };
 
+  const onChange = (n: number) => {
+    setStarNumber(n);
+    setErrorStar(false);
+  };
 
-  const test = () => {
-    let arr = {
-      "text": 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam natus officiis distinctio! Mollitia repellendus qui dignissimos ducimus ipsam ut officiis, labore quia!',
-      "rating": 2
+  React.useEffect(() => {
+    if (isAuth && formRef.current) {
+      window.scrollTo({
+        top: formRef.current.getBoundingClientRect().top + window.scrollY,
+        behavior: "smooth", 
+      });
     }
+  }, [isAuth, formRef.current]);
 
-     axios
-          .patch(`./products/${m?._id}/comments`, arr)
-          .then((res) => {
-            setM(res.data);
-            // setIsLoading(false);
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
-  }
-
-
-  console.log(m, 'm')
-
-  
   return (
     <div className={styles.review}>
       <div className={styles.top}>
-      <p>Bike reviews</p>
-      <button onClick={reviewHandler} className={styles.btn} type="button">
-        Add a review
-      </button>
+        <p className={styles.head}>Bike reviews ({ratings.length})</p>
+ 
+      
+         {ratings.length > 0 &&
+          <div className={styles.heading}>Product rating:
+            <ProcentStarRating rating={roundedAverage}/>
+          
+           {roundedAverage}
+           
+           </div>
+        }
+        
+        <button
+          onClick={reviewHandler}
+          className={styles.btn}
+          type="button"
+          disabled={isAuth}
+        >
+          Add a review
+        </button>
       </div>
 
-      <ul className={styles.reviewlist}>
-        {m?.comments.map((item: IComment) => {
-          return(
-            <li className={styles.reviewitem} key={item?._id}>
-              <div className={styles.reviewtop}>
-                <img className={styles.image} src={`http://localhost:5555${item.avatarUrl ? item.avatarUrl : '/uploads/d-person.png' }`} alt={item.fullName} />
-                <span className={styles.reviewname}>{item.fullName}</span>
-                <span className={styles.reviewdate}>{new Date(item.date).toLocaleDateString('de-DE')}</span>
-                <span className={styles.reviewrating}>{item.rating}</span>
-              </div>
-              <div className={styles.reviewtext}>{item.text}</div>
-            </li>
-          )
-        })}
-      </ul>
-      
-      <motion.form
-        initial={{ height: 0, opacity: 0 }}
-        animate={{
-          height: isForm ? "auto" : 0,
-          opacity: isForm ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-        className={styles.form}>
-            <span className={styles.title}>Leave your review {m?.name}</span>
-            <label htmlFor="text"></label>
-            <textarea className={styles.text} name="text" id="text" placeholder="....."></textarea>
-            <button onClick={test} className={styles.submit}>addddd</button>
-      </motion.form>
+      <ReviewList />
 
+      {isAuth && (
+        <motion.form
+          ref={formRef}
+          onSubmit={handleSubmit(onSubmit)}
+          // initial={{ height: 0, opacity: 0 }}
+          // animate={{
+          //   height: isForm ? "auto" : 0,
+          //   opacity: isForm ? 1 : 0,
+          // }}
+          // transition={{ duration: 0.3 }}
+          className={styles.form}
+        >
+          <span className={styles.title}>
+            Leave your review {reviewProduct?.name}
+          </span>
    
+          <StarRating
+            onChange={onChange}
+            rating={rating}
+            setRating={setRating}
+          />
 
+          <div className={styles.block}>
+            <textarea
+              className={styles.text}
+              placeholder="Enter your message"
+              id="text"
+              {...register("text", { required: "Please enter text" })}
+              ></textarea>
+              {/* <label htmlFor="text" className={styles.label}>Enter your message</label> */}
+          <div className={styles.error}>
+            {errors?.text && <p>{errors.text.message}</p>}
+          </div>
+          </div>
+
+          <button
+            type="submit"
+            className={styles.submit}
+            disabled={!isValid || errorStar}
+          >
+            Add a review
+          </button>
+        </motion.form>
+      )}
     </div>
   );
 };
+
 
 export default Review;

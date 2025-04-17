@@ -57,7 +57,8 @@ const ProductSchema = new mongoose.Schema({
       rating: {
         type: Number, // Можно добавить рейтинг, например от 1 до 5
         min: 1,
-        max: 5
+        max: 5,
+        required: true 
       },
       fullName: String,
       avatarUrl: String,

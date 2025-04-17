@@ -47,7 +47,7 @@ const Hero = () => {
               x: random(-500, 500),
               y: random(-500, 500),
               z: random(-500, 500),
-              delay: index * 0.1,
+              delay: index * 0.12,
               repeat: 0
             })
           }

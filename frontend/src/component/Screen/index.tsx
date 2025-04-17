@@ -28,7 +28,7 @@ const Screen = () => {
           scrollTrigger: {
             trigger: refFullwidthImage.current,
             start: "top top",
-            markers: true,
+            // markers: true,
             end: "+=300% bottom",
             scrub: true,
             pin: true,

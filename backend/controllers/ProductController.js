@@ -6,14 +6,16 @@ export const addComment = async (req, res) => {
     const { text, rating } = req.body;
     const productId = req.params.id;
     const userId = req.userId; // Получен из токена
-
     const user = await UserModel.findById(userId);
     const product = await ProductModel.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Продукт не найден' });
     }
+    // if (rating == 0) {
+    //   return res.status(404).json({ message: 'Рейтинг хуйня' });
+    // }
 
-    const updatedProduct = await ProductModel.updateOne(
+    const updatedProduct = await ProductModel.findByIdAndUpdate(
       { _id: productId },
       {
         $push: {
@@ -26,7 +28,8 @@ export const addComment = async (req, res) => {
             date: new Date(),
           },
         },
-      }
+      },
+      { runValidators: true }
     );
 
     if (updatedProduct.nModified === 0) {
@@ -44,28 +47,31 @@ export const addComment = async (req, res) => {
 };
 
 
-// export const addComment = async (req, res) => {
-// console.log('log')
-//   const { text, rating } = req.body;
-//   const productId = req.params.id;
-//   const userId = req.userId; // Получен из токена
+export const removeComment = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const reviewId = req.params.idComment;
+    console.log(productId)
 
-//   try {
-//     const product = await ProductModel.findById(productId);
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Продукт не найден' });
+    }
 
-//     // Добавляем новый комментарий
-//     product.comments.push({
-//       user: userId,
-//       text: text,
-//       rating: rating,
-//     });
+    await ProductModel.updateOne(
+      { _id: productId },
+      { $pull: { comments: { _id: reviewId } } }
+    );
 
-//     await product.save();
-// res.status(200).json(product); // <- возвращаем обновлённый продукт
-//   } catch (err) {
-//     res.status(500).json({ message: 'Ошибка при добавлении комментария', err });
-//   }
-// };
+    const updatedProduct = await ProductModel.findById(productId);
+    res.json(updatedProduct);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось удалить Комментарий',
+    });
+  }
+};
 
 
 

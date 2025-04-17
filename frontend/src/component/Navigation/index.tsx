@@ -1,10 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from './navigation.module.scss';
 import { PropsNav } from "../../propstype";
 import gsap from "gsap";
 import React from "react";
+import { LayoutGroup, motion } from "framer-motion";
 
 const Navigation = ({navigation, classNameNav}: PropsNav) => {
+  const[isSelected, setIsSelected] = React.useState(0);
+  const [isOpen, setIsOpen] = React.useState(false);
+
   const refLi = React.useRef<(HTMLLIElement | null)[]>([]);
   const addToRefs = (el: HTMLLIElement | null) => {
     if (el) {
@@ -28,29 +32,81 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
     );
   }, []);
 
+  const MotionNavLink = motion(NavLink);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const currentIndex = navigation.findIndex(
+      (link) => link.link === location.pathname
+    );
+    if (currentIndex !== -1) {
+      setIsSelected(currentIndex);
+    } else {
+      setIsSelected(0); 
+    }
+  }, [location.pathname]);
+
 
   return (
-    <nav className={styles[classNameNav]}>
-      <ul className={styles.list}>
-        {navigation.map((link) => {
+    <LayoutGroup >
+    <motion.nav
+     onClick={() => setIsOpen(!isOpen)}
+     layout 
+     className={`${styles[classNameNav]} ${isOpen ? styles.active : ""}`}
+     
+    >
+      <ul className={styles.list} >
+        {navigation.map((link, index) => {
           return (
-            <li
+            <motion.li
               ref={addToRefs} 
               className={styles.item} key={link.lebel}>
-              <NavLink
-                className={({ isActive }) => 
-                  isActive ? `${styles.link} ${styles.active}` : styles.link
-                }
+              <MotionNavLink
+                exit={{opacity: 0}}
+                onClick={() => setIsSelected(index)}     
+                animate={{
+                  color: isSelected === index ? '#000' : '#ffd700',
+                }}
+                className={styles.link}
                 to={link.link}
               >
                 {link.lebel}
-              </NavLink>
-            </li>
+                
+                {(isSelected === index ) && <BgSelector />}  
+                  
+              </MotionNavLink>
+            </motion.li>
           );
         })}
       </ul>
-    </nav>
+    </motion.nav>
+      <button className={styles.burger}>
+        X
+      </button>
+    </LayoutGroup>
   );
 };
+
+const BgSelector = () => {
+  return(
+    <motion.div
+      // layout 
+      layoutId="bg-selector"
+      // exit={{ width: 0 }}
+      // animate={{ width: '100%' }}
+      style={{
+        width: "100%",
+        height: "100%",
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: "-1",
+        backgroundColor: "#ffd700"
+      }}
+    
+    >
+    </motion.div>
+  )
+}
 
 export default Navigation;

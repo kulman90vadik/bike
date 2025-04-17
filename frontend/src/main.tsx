@@ -6,11 +6,14 @@ import App from './App.tsx'
 
 import "./global.css";
 import "./color.css";
+import RippleEffect from './component/RippleEffect';
+
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <RippleEffect />
     </BrowserRouter>
   </Provider>
 )

@@ -21,6 +21,10 @@
   line-height: 1;
   color: var(--color-white);
   font-size: 21px;
+  &:disabled  {
+    cursor:  no-drop;
+    opacity: 0.5;
+  }
 }
 
 .title {
@@ -40,6 +44,10 @@
   background-color: var(--color-orange);
   color: var(--color-black);
   font-size: 21px;
+  &:disabled  {
+    cursor:  no-drop;
+    opacity: 0.5;
+  }
 }
 
 .text {
@@ -48,17 +56,48 @@
   width: 100%;
   height: 200px;
   padding: 20px;
+  font-size: 21px;
   outline: transparent;
   border-radius: 20px;
-  background-color: rgba(#fff, 0.4);
+  // background-color: rgba(#fff, 0.4);
   transition: background-color 0.3s ease-in;
   &:focus {
     background-color: rgba(#fff, .8);
+    // + .label {
+      
+    //   background-color: rgba(#fff, .8);
+    //   transform-origin: left;
+    //   transform: translateY(-40px) scale(0.8);
+    // }
   }
 }
 
+.error {
+  position: absolute;
+  bottom: -5px;
+  font-weight: 700;
+  left: 18px;
+  color: red;
+}
+
+.block {
+  position: relative;
+}
+
+// .label {
+//   padding: 2px 4px;
+//   transform-origin: left;
+//   transition: transform 0.4s ease-in;
+//   transform: scale(1);
+//   position: absolute;
+//   color: var(--color-black);
+//   top: 20px;
+//   left: 18px;
+//   font-size: 18px;
+// }
+
 .form {
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: #1E293C;
@@ -68,52 +107,11 @@
   padding: 40px;
 }
 
-.reviewlist {
-   color: #fff;
-}
-
-.reviewitem {
-  &:not(:last-child) {
-    margin-bottom: 13px;
-  }
-  &:nth-child(even) {
-    padding-left: 57px;
-  }
-}
-
-
-.reviewtop {
-  margin-bottom: 5px;
-  align-items: center;  
+.heading {
   display: flex;
-}
-
-.image {
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  margin-right: 12px;
-}
-
-.reviewname {
-  font-size: 22px;
-  display: block;
-  margin-right: 12px;
-}
-
-.reviewtext {
-  width: 65%;
-  padding-left: 57px;
-  font-size: 21px;
-}
-
-.reviewrating,
-.reviewdate {
-  // margin-right: 12px;
-  display: block;
-}
-
-.reviewdate {
-  font-size: 20px;
-  margin-right: 12px;
+  align-items: center;
+  line-height: 1;
+  font-size: 18px;
+  margin-left: 2px;
+  margin-right: 20px;
 }

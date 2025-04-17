@@ -5,15 +5,16 @@ html {
 html,
 body {
     height: 100%;
-}
-#root {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-    flex-grow: 1;
+  }
+  #root {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* flex: 1; */
+  }
+  
+  main {
+    flex-grow: 1;
 }
 
 *,
@@ -120,3 +121,40 @@ body {
   justify-content: space-between;
 }
 
+
+
+
+
+
+
+
+
+
+.ripple-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.ripple {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.2); /* можно сделать ярче */
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
