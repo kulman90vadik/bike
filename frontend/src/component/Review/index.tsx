@@ -127,6 +127,7 @@ const Review = () => {
           />
 
           <div className={styles.block}>
+          <div className={styles.textarea}>
             <textarea
               className={styles.text}
               placeholder="Enter your message"
@@ -134,6 +135,7 @@ const Review = () => {
               {...register("text", { required: "Please enter text" })}
               ></textarea>
               {/* <label htmlFor="text" className={styles.label}>Enter your message</label> */}
+            </div>
           <div className={styles.error}>
             {errors?.text && <p>{errors.text.message}</p>}
           </div>

@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 
 const navigation = [
   { lebel: "Home", link: "/" },
+  { lebel: "About", link: "/about" },
   { lebel: "Favorites", link: "/favorites" },
   { lebel: "Basket", link: "/basket" }
 ];

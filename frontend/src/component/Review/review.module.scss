@@ -84,20 +84,11 @@
   position: relative;
 }
 
-// .label {
-//   padding: 2px 4px;
-//   transform-origin: left;
-//   transition: transform 0.4s ease-in;
-//   transform: scale(1);
-//   position: absolute;
-//   color: var(--color-black);
-//   top: 20px;
-//   left: 18px;
-//   font-size: 18px;
-// }
+.textarea {
+  position: relative;
+}
 
 .form {
-  // overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: #1E293C;

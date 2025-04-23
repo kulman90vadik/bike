@@ -13,6 +13,7 @@ import { fetchAllFavorites } from "./redux/slices/favorites";
 import FullProduct from "./page/FullProduct/FullProduct";
 import { fetchProducts } from "./redux/slices/products";
 import { fetchTopProducts } from "./redux/slices/topproducts";
+import About from "./page/About";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/products/:id" element={<FullProduct/>} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/basket" element={<Basket />} />
+          <Route path="/about" element={<About />} />
 
           <Route path="/favorites" element={<Favorites />} />
           

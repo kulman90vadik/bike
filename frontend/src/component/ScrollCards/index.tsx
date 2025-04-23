@@ -2,15 +2,89 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Card from "../Card";
 import styles from "./scroll.module.scss";
-import React from "react";
+import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "@studio-freight/lenis";
+
+interface LenisOptions {
+  duration?: number;
+  easing?: (t: number) => number; 
+  smooth?: boolean;
+}
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ScrollCards = () => {
-  gsap.registerPlugin(ScrollTrigger);
-  // const [products, setProducts] = React.useState<ProductProps[]>([]);
-  // const[loading, setLoading] = React.useState(false);
   const products = useSelector((state: RootState) => state.products.data);
+  const status = useSelector((state: RootState) => state.products.status);
+  let loaded = status == 'loaded';
+
+  const sectionRef = React.useRef<HTMLElement | null>(null);
+  const containerRef = React.useRef<HTMLUListElement | null>(null)
+  useEffect(() => {
+    const lenis = new Lenis({
+      smooth: true,
+    } as LenisOptions);
+  
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+  
+    requestAnimationFrame(raf);
+    const container = containerRef.current;
+    const section = sectionRef.current;
+
+    if (container && section) {
+      const scrollLength = container.scrollWidth - window.innerWidth;
+      gsap.to(container, {
+        x: () => `-${scrollLength}`, // Горизонтальная прокрутка
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",  // Начало анимации
+          end: () => `+=${scrollLength}`,  // Конец анимации
+          scrub: true,  // Связь с прокруткой
+          pin: true,    // Пиннинг секции
+          anticipatePin: 1,
+        },
+      });
+    }
+  
+    return () => {
+      lenis.destroy();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [loaded, products]);
+
+
+  return (
+    <section className={styles.section} ref={sectionRef}>
+      <div  className={styles.bgtop} 
+          style={{ backgroundImage: 'url(/images/paralax/first1.png)' }}
+      ></div>
+      <div className={styles.bgbottom} 
+          style={{ backgroundImage: 'url(/images/paralax/first1.png)' }}
+      ></div>
+       
+      <ul className={styles.list} ref={containerRef}>
+        {loaded &&
+        products.map((item) => {
+          return (
+            <li className={styles.item} key={item._id}>
+              <Card obj={item} isInBasket={false} isInFavorites={false} />
+            </li>
+          );
+        })
+      }
+      </ul>
+    </section>
+  );
+};
+
+export default ScrollCards;
+
   // React.useEffect(() => {  
   // const fetchData = async () => {
   //   try {
@@ -21,86 +95,11 @@ const ScrollCards = () => {
   //     console.warn('Error fetching products:', err);
   //   }
   // };
-
   // fetchData(); // вызываем асинхронную функцию
   // }, [])
-  
-  const sectionRef = React.useRef<HTMLElement | null>(null);
-  const containerRef = React.useRef<HTMLUListElement | null>(null);
-  const divRef = React.useRef<HTMLDivElement | null>(null);
-  const divlinieRef = React.useRef<SVGSVGElement | null>(null);
-  const refSvg = React.useRef<SVGSVGElement | null>(null);
-
-  const section = sectionRef.current;
-  const container = containerRef.current;
-
-  React.useLayoutEffect(() => { 
-    if (section && container && refSvg.current) {
-      const totalScroll = container.scrollWidth - window.innerWidth;
-
-      gsap.to(container, { 
-        x: -section.scrollWidth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "-40% -16%",
-          // markers: true,
-          end: ` +=${totalScroll}`,
-          scrub: true,
-          pin: true,
-        },
-      });
-
-      gsap.fromTo(refSvg.current, 
-        { x: -150 }, 
-        { 
-          x: () => window.innerWidth,  // движение до конца контейнера
-          ease: "none",  // без easing, чтобы скролл был плавным
-          scrollTrigger: {
-            trigger: section,
-            start: "-40% -16%", // начинает анимацию, когда верхняя часть секции попадает в верх экрана
-            end: ` +=${totalScroll}`,  // конец анимации после полной ширины контейнера
-            scrub: true,  // привязка анимации к скроллу
-          },
-        });
 
 
-      gsap.to(divRef.current, {    
-        scrollTrigger: {
-          trigger: section,
-          scrub: 1,
-          start: "-70% 16%",
-          end: ` +=${totalScroll}`,
-        },
-        duration: 1,
-        scale: 1.5,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          // markers: true,
-          start: "-40% -16%",
-          scrub: 1,
-        },
-      });
-
-      tl.from(divlinieRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-      }); 
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [section, window.innerWidth, container]);
-
-
-  return (
-    <section className={styles.section} ref={sectionRef}>
-      <div ref={divRef} className={styles.bg}></div>
+     {/* 
       <svg
         ref={refSvg}
         className={styles.images}
@@ -197,19 +196,68 @@ const ScrollCards = () => {
             y2="7.5"
           />
         </g>
-      </svg>
+      </svg> */}
 
-      <ul className={styles.list} ref={containerRef}>
-        {products.map((item) => {
-          return (
-            <li className={styles.item} key={item._id}>
-              <Card obj={item} isInBasket={false} isInFavorites={false} />
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
-};
 
-export default ScrollCards;
+      // React.useLayoutEffect(() => { 
+        //   if (section && container && refSvg.current) {
+        //     const totalScroll = container.scrollWidth - window.innerWidth;
+      
+        //     gsap.to(container, { 
+        //       x: -section.scrollWidth,
+        //       ease: "none",
+        //       scrollTrigger: {
+        //         trigger: section,
+        //         start: "-40% -16%",
+        //         // markers: true,
+        //         end: ` +=${totalScroll}`,
+        //         scrub: true,
+        //         pin: true,
+        //       },
+        //     });
+      
+        //     gsap.fromTo(refSvg.current, 
+        //       { x: -150 }, 
+        //       { 
+        //         x: () => window.innerWidth,  // движение до конца контейнера
+        //         ease: "none",  // без easing, чтобы скролл был плавным
+        //         scrollTrigger: {
+        //           trigger: section,
+        //           start: "-40% -16%", // начинает анимацию, когда верхняя часть секции попадает в верх экрана
+        //           end: ` +=${totalScroll}`,  // конец анимации после полной ширины контейнера
+        //           scrub: true,  // привязка анимации к скроллу
+        //         },
+        //       });
+      
+      
+        //     gsap.to(divRef.current, {    
+        //       scrollTrigger: {
+        //         trigger: section,
+        //         scrub: 1,
+        //         start: "-70% 16%",
+        //         end: ` +=${totalScroll}`,
+        //       },
+        //       duration: 1,
+        //       scale: 1.5,
+        //     });
+      
+        //     const tl = gsap.timeline({
+        //       scrollTrigger: {
+        //         trigger: section,
+        //         // markers: true,
+        //         start: "-40% -16%",
+        //         scrub: 1,
+        //       },
+        //     });
+      
+        //     tl.from(divlinieRef.current, {
+        //       opacity: 0,
+        //       duration: 0.5,
+        //       ease: "power3.out",
+        //     }); 
+        //   }
+      
+        //   return () => {
+        //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        //   };
+        // }, [section, window.innerWidth, container]);

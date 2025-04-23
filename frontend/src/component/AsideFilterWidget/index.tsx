@@ -29,6 +29,7 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
     initial={false} // --- при первой загрузке не танимации
     //exitBeforeEnter  --- сначала одна анимация потом вторая
     >
+      
       <motion.ul
         // initial={{ height: 0, opacity: 0 }}
         exit={{ height: 0, opacity: 0}}

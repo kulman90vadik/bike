@@ -6,6 +6,20 @@
 
 .header-nav {
   margin-right: 40px;
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+
+.active {
+  position: absolute;
+  background-color: rgba(#000, .6);
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  left: 0;
+  z-index: 111;
 }
 
 .item {

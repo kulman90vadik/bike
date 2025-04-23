@@ -39,13 +39,13 @@ const FullProduct = () => {
   return (
     <section className={styles.product}>
       {
-      // isLoading == "loading" ? (
-      //   <img
-      //     className={styles.loading}
-      //     src="/images/loading.gif"
-      //     alt="Loading"
-      //   />
-      // ) : (
+      isLoading == "loading" ? (
+        <img
+          className={styles.loading}
+          src="/images/loading.gif"
+          alt="Loading"
+        />
+      ) : (
        
           <div className="container">
             <div className={styles.inner}>
@@ -124,7 +124,7 @@ const FullProduct = () => {
 
 
           </div>
-      // )
+      )
       }
     </section>
   );

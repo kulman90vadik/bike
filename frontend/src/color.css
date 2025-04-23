@@ -3,11 +3,12 @@
   --color-black: #000;
   --color-white: #fff;
   --color-orange: #F57520;
-  --color-green: green;
+  --color-green: #008000;
   --color-red: red;
   --color-gold: #ffd700;
-  
   --color-grey: #E5E5E5;
+
+  --index: calc(1vw + 1vh);
 
   
   /* #2E2E2E */

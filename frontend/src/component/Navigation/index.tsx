@@ -8,6 +8,7 @@ import { LayoutGroup, motion } from "framer-motion";
 const Navigation = ({navigation, classNameNav}: PropsNav) => {
   const[isSelected, setIsSelected] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpenBurger, setIsOpenBurger] = React.useState(false);
 
   const refLi = React.useRef<(HTMLLIElement | null)[]>([]);
   const addToRefs = (el: HTMLLIElement | null) => {
@@ -50,7 +51,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
   return (
     <LayoutGroup >
     <motion.nav
-     onClick={() => setIsOpen(!isOpen)}
+   
      layout 
      className={`${styles[classNameNav]} ${isOpen ? styles.active : ""}`}
      
@@ -80,7 +81,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
         })}
       </ul>
     </motion.nav>
-      <button className={styles.burger}>
+      <button className={styles.burger}  onClick={() => setIsOpen(!isOpen)}>
         X
       </button>
     </LayoutGroup>
