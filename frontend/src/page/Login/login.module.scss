@@ -7,7 +7,7 @@
   background-size: cover;
   position: relative;
   &::after {
-    position: absolute;
+    // /position: absolute;
     content: '';
     inset: 0;
     z-index: 10;
@@ -24,6 +24,15 @@
   align-items: center;
 }
 
+.title {
+  margin-bottom: 14px;
+  font-size: 38px;
+  color: var(--color-orange);
+  text-align: center;
+  display: block;
+  font-weight: 700;
+}
+
 .form {
   position: relative;
   z-index: 20;
@@ -31,7 +40,11 @@
   width: 100%;
   padding: 20px;
   border-radius: 20px;
-  background-color: teal;
+
+  backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(1px); /* для Safari */
+  background-color: rgba(255, 255, 255, 0.2); /* немного прозрачности */
+ 
   margin: 0 auto;
 }
 
@@ -45,20 +58,24 @@
 .input {
   width: 100%;
   border: none;
-  padding: 3px;
-  height: 30px;
+  padding: 2px 10px;
+  height: 35px;
   outline: transparent;
+  border-radius: 17px;
+
   // margin-bottom: 20px;
 }
 
 .submit {
+  border-radius: 17px;
   text-align: center;
   width: 100%;
-  background-color: tomato;
+  background-color: var(--color-orange);
   padding: 10px 0;
   font-weight: 700;
   font-size: 20px;
   letter-spacing: 2px;
+  color: var(--color-white);
 }
 
 .block {

@@ -4,11 +4,11 @@ import { PropsNav } from "../../propstype";
 import gsap from "gsap";
 import React from "react";
 import { LayoutGroup, motion } from "framer-motion";
+import { Menu } from "lucide-react";
 
 const Navigation = ({navigation, classNameNav}: PropsNav) => {
   const[isSelected, setIsSelected] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isOpenBurger, setIsOpenBurger] = React.useState(false);
 
   const refLi = React.useRef<(HTMLLIElement | null)[]>([]);
   const addToRefs = (el: HTMLLIElement | null) => {
@@ -19,19 +19,40 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
     }
   };
 
-  React.useLayoutEffect(() => {
-    gsap.fromTo(
-      refLi.current,
-      { y: -150 }, 
-      {
-        y: 0,       
-        stagger: 0.15,
-        duration: 3,
-        delay: 2,
-        ease: 'power3.out',
-      }
-    );
-  }, []);
+
+  // React.useLayoutEffect(() => {
+  //   const mq = window.matchMedia('(min-width: 991px)');
+  //   if (mq.matches) {
+  //     gsap.fromTo(
+  //       refLi.current,
+  //       { y: -150 },
+  //       {
+  //         y: 0,
+  //         stagger: 0.15,
+  //         duration: 3,
+  //         delay: 2,
+  //         ease: 'power3.out',
+  //       }
+  //     );
+  //   }
+  // }, []);
+
+
+  // React.useLayoutEffect(() => {
+  //   if (window.innerWidth > 991) {
+  //     gsap.fromTo(
+  //       refLi.current,
+  //       { y: -150 }, 
+  //       {
+  //         y: 0,       
+  //         stagger: 0.15,
+  //         duration: 3,
+  //         delay: 2,
+  //         ease: 'power3.out',
+  //       }
+  //     );
+  //   }
+  // }, []);
 
   const MotionNavLink = motion(NavLink);
   const location = useLocation();
@@ -82,7 +103,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
       </ul>
     </motion.nav>
       <button className={styles.burger}  onClick={() => setIsOpen(!isOpen)}>
-        X
+        <Menu size={36} />
       </button>
     </LayoutGroup>
   );

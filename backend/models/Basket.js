@@ -21,6 +21,9 @@ const BasketSchema = new mongoose.Schema({
   flag: {
     type: String
   },
+  description: {
+    type: String
+  },
   country: {
     type: String
   },
@@ -42,6 +45,33 @@ const BasketSchema = new mongoose.Schema({
   image: {
     type: String
   },
+
+  comments: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId, // ID пользователя, который оставил комментарий
+          ref: 'User', // Ссылка на модель User
+          required: true
+        },
+        text: {
+          type: String,
+          required: true // Текст комментария
+        },
+        rating: {
+          type: Number, // Можно добавить рейтинг, например от 1 до 5
+          min: 1,
+          max: 5,
+          required: true 
+        },
+        fullName: String,
+        avatarUrl: String,
+        date: {
+          type: Date,
+          default: Date.now // Дата создания комментария
+        }
+      }
+    ]
+      ,
  
 }, {
   timestamps: true

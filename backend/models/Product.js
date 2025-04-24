@@ -36,6 +36,9 @@ const ProductSchema = new mongoose.Schema({
   image: {
     type: String
   },
+  description: {
+    type: String
+  },
 
   viewsCount: { // количесвто просмотров статьи
     type: Number,

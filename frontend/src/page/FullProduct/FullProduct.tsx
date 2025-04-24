@@ -75,7 +75,7 @@ const FullProduct = () => {
 
               <div className={styles.right}>
                 <div className={styles.info}>
-                  <h1>{fullProduct?.name}</h1>
+                  <h1  className={styles.title}>{fullProduct?.name}</h1>
                   <div className={styles.box}>
                     <img
                       className={styles.flag}
@@ -92,6 +92,9 @@ const FullProduct = () => {
                         maximumFractionDigits: 0,
                       }).format(Number(price)) + " €"}
                     </div>
+                  </div>
+                  <div className={styles.text}>
+                    {fullProduct?.description}
                   </div>
                   <button
                     className={`${styles.btn} ${

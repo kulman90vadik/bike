@@ -19,12 +19,12 @@ export const getAllBasket = async (req, res) => {
 export const addToBasket = async (req, res) => {
   try {
     const { id } = req.params; // Получаем ID товара
-
     // Проверяем, есть ли товар в корзине пользователя
     const existingProduct = await BasketModel.findOne({
       user: req.userId,
       _id: id, // Сравниваем ID продуктаa
     });
+    
     
     if (existingProduct) {
       // Удаляем товар из корзины, если он уже существует
@@ -32,7 +32,8 @@ export const addToBasket = async (req, res) => {
     } else {
       // Получаем данные товара из базы, если его нет в корзине
       const product = await ProductModel.findById(id);
-    
+
+
       if (!product) {
         return res.status(404).json({
           message: "Товар не найден",
@@ -52,7 +53,8 @@ export const addToBasket = async (req, res) => {
         newproduct: product.newproduct,
         counter: product.counter,
         sale: product.sale,
-        country: product.country
+        country: product.country,
+        comments: product.comments
       });
     
       // Сохраняем новый товар в корзину
@@ -61,7 +63,6 @@ export const addToBasket = async (req, res) => {
     
     // Возвращаем обновлённую корзину
     const basketItems = await BasketModel.find({ user: req.userId });
-    
     res.json(basketItems);
     
   } catch (err) {
@@ -109,6 +110,7 @@ export const counterBasket = async (req, res) => {
     console.error(err);
     res.status(500).json({
       message: "Ошибка при добавлении товара в корзину",
+      error: err.message,
     });
   }
 };

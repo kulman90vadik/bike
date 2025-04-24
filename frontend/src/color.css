@@ -2,7 +2,7 @@
 :root {
   --color-black: #000;
   --color-white: #fff;
-  --color-orange: #F57520;
+  --color-orange: rgb(245, 117, 32);
   --color-green: #008000;
   --color-red: red;
   --color-gold: #ffd700;

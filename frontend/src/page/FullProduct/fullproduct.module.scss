@@ -28,7 +28,7 @@
 .right {
   width: 50%;
   color: var(--color-white);
-  font-size: 33px;
+
 }
 
 .image {
@@ -93,8 +93,12 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 21px;
   transition: box-shadow 0.3s ease-in;
+
+  // backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px); /* для Safari */
+  // background-color: rgba(255, 255, 255, 0.57); /* немного прозрачности */
   &:hover {
     box-shadow: 0 0 12px var(--color-white);
   }
@@ -106,6 +110,15 @@
 .btngreen {
   color: var(--color-black);
   background-color: var(--color-green);
+}
+
+.text {
+  font-size: 19px;
+  margin-bottom: 21px;
+}
+
+.title {
+  font-size: 35px;
 }
 
 // .counter {

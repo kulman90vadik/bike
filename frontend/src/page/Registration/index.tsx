@@ -62,7 +62,7 @@ const Registration = () => {
     
 
     if (!mdata.payload) {
-      return alert('Не удалось зарегестрироваться')
+      return alert('Registration failed')
     }
 
     if (mdata?.payload && typeof mdata.payload === 'object' && 'token' in mdata.payload) {
@@ -81,7 +81,7 @@ const Registration = () => {
       <div className="container">
       <div className={styles.inner}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-       
+        <span className={styles.title}>Registration</span>
         <label className={styles.photo} >    
           {!preview &&
           <ImageUp />
@@ -104,7 +104,7 @@ const Registration = () => {
               className={styles.input}
               type="text"
               {...register("fullName", { 
-                required: "Укажите полное имя"
+                required: "Enter your full name"
                })}
               />
             <div className={styles.error}>{errors?.fullName && <p>{errors.fullName.message}</p>}</div>
@@ -115,10 +115,10 @@ const Registration = () => {
               className={styles.input}
               type="email"
               {...register("email", { 
-                required: "Укажите почту",
+                required: "Enter your email",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Введите корректный email"
+                  message: "Please enter a valid email"
                 }
                })}
               />
@@ -130,17 +130,17 @@ const Registration = () => {
             className={styles.input} 
             type="text" 
             {...register('password', {
-              required: "Укажите пароль",
+              required: "Enter your password",
               minLength: {
                 value: 5,
-                message: 'Минимум 5 символов'
+                message: 'Minimum 5 characters'
               }
             })}
           />
            <div className={styles.error}>{errors?.password && <p>{errors.password.message}</p>}</div>
         </div>
           <button disabled={!isValid} className={styles.submit} type="submit">
-           Зарегистрироваться
+          Register
           </button>
 
         </form>

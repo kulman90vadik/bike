@@ -89,6 +89,10 @@ const Catalog = () => {
 
   return (
     <section className={styles.catalog}>
+      <div
+              className={styles.bgtop}
+              style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
+            ></div>
       <div className="container">
         <div className={styles.wrapper}>
 

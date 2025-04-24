@@ -78,7 +78,7 @@ const Hero = () => {
           <p  ref={textRef} className={styles.text}>
           The Cento10 Hybrid is a racing bicycle with pedal-assist electric drive, setting a new, exceptionally high standard for this category.
           </p>
-          <Link ref={btnRef} className={styles.link} to='/' >
+          <Link ref={btnRef} className={styles.link} to='/about' >
             {/* <motion.div
              animate={{ scaleX: [0, 1]}}
              transition={{

@@ -47,6 +47,7 @@ export interface ProductProps {
   viewsCount: number;
   category: string;
   country: string;
+  description: string;
 
   comments: IComment[];
 }
@@ -75,6 +76,7 @@ export interface BasketProps {
   counter: number;
   viewsCount: number;
   country: string;
+  description: string;
 
   comments: IComment[];
 }

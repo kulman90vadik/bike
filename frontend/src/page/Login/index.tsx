@@ -53,16 +53,17 @@ const Login = () => {
 
        
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <span className={styles.title}>Login</span>
           <div className={styles.block}>
           <label className={styles.label}>Email</label>
             <input
               className={styles.input}
               type="email"
               {...register("email", { 
-                required: "Укажите почту",
+                required: "Enter your email",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Введите корректный email"
+                  message: "Please enter a valid email"
                 }
                })}
               />
@@ -74,10 +75,10 @@ const Login = () => {
             className={styles.input} 
             type="text" 
             {...register('password', {
-              required: "Укажите пароль",
+              required: "Please enter your password",
               minLength: {
                 value: 5,
-                message: 'Минимум 5 символов'
+                message: 'Minimum 5 characters'
               }
             })}
           />

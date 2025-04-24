@@ -80,9 +80,10 @@
 }
 
 .text {
-  max-width: 500px;
+  max-width: calc(var(--index) * 31.17);
   font-size: 18px;
   margin-bottom: 25px;
+  font-size: calc(var(--index) * 1.27);
 }
 
 .link {
@@ -90,13 +91,17 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
-  background-color: var(--color-orange);
   display: flex;
   align-items: center;
   padding: 16px 45px;
   border-radius: 13px;
   font-size: 19px;
   transition: box-shadow 0.3s ease-in;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* для Safari */
+  background-color: rgba(245, 117, 32, 0.2); /* немного прозрачности */
+
+
   &:hover {
     box-shadow: 0 0 15px var(--color-orange);
   }
