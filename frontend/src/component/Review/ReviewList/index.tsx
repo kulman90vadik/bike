@@ -34,11 +34,11 @@ const ReviewList = () => {
 
   // let iComment: IComment[] = fullProduct?.comments;
 
-  const funcActive = (commentUserId: string, likesUp: likesUp[]) => {
-    // console.log(authDataId, 'authDataId')
+  const funcActive = (authDataId: string | undefined, commentUserId: string, likesUp: likesUp[]) => {
+    console.log(authDataId, 'authDataId')
     console.log(commentUserId, 'commentUserId')
     console.log(likesUp, 'likesUp')
-    let active = likesUp.find(item => item.user === commentUserId);
+    let active = likesUp.find(item => item.user === authDataId);
     
     console.log(active, 'active')
 
@@ -105,7 +105,7 @@ const ReviewList = () => {
                     </>
                   )}
                   <button
-                    className={`${styles.button} ${styles.buttonlike} ${styles[funcActive( item.user, item.likesUp)]}`}
+                    className={`${styles.button} ${styles.buttonlike} ${styles[funcActive(authData?._id, item.user, item.likesUp)]}`}
 
 
                     disabled={!isAuth}

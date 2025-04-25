@@ -83,7 +83,7 @@ const Map = () => {
         <motion.ul className={styles.list}
          exit={{ height: 0, opacity: 0}}
          animate={{
-           borderColor: isFocused ? '#008000' : 'transparent',
+           borderColor: isFocused ? '#008000' : '#fff',
            height: isFocused ? "auto" : 0,
            opacity: isFocused ? 1 : 0,
           //  borderWidth: isFocused ? '2' : 0
@@ -104,7 +104,7 @@ const Map = () => {
               animate={{
                 opacity: isFocused ? 1 : 0, 
                 // pointerEvents: isFocused ? 'auto' : 'none', 
-                visibility: isFocused ? 'visible' : 'hidden', 
+                // visibility: isFocused ? 'visible' : 'hidden', 
               }}
               transition={{
                 duration: 0.1,
