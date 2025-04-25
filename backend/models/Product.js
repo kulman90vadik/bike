@@ -5,11 +5,11 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId, // так как есть id у пользователя в базе данных
-    ref: 'User', // связь или ссылка на пользователя 
-    required: true
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId, // так как есть id у пользователя в базе данных
+  //   ref: 'User', // связь или ссылка на пользователя 
+  //   required: false
+  // },
   price: {
     type: String,
     required: true
@@ -45,7 +45,6 @@ const ProductSchema = new mongoose.Schema({
     default: 0
   },
 
-
   comments: [
     {
       user: {
@@ -64,6 +63,33 @@ const ProductSchema = new mongoose.Schema({
         required: true 
       },
       fullName: String,
+
+      likesUp: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId, // ID пользователя, который оставил комментарий
+            ref: 'User', // Ссылка на модель User
+            required: true
+          },
+          like: {
+            type: Boolean
+          }
+        }
+      ],
+
+      likesDown: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId, // ID пользователя, который оставил комментарий
+            ref: 'User', // Ссылка на модель User
+            required: true
+          },
+          like: {
+            type: Boolean
+          }
+        }
+      ],
+
       avatarUrl: String,
       date: {
         type: Date,

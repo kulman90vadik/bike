@@ -43,7 +43,7 @@ const Review = () => {
 
   const reviewHandler = () => {
     if (!isAuth) {
-      navigate("/login?redirect=" + encodeURIComponent(location.pathname));
+      navigate("/registration?redirect=" + encodeURIComponent(location.pathname));
     }
   };
 
@@ -68,14 +68,14 @@ const Review = () => {
     setErrorStar(false);
   };
 
-  React.useEffect(() => {
-    if (isAuth && formRef.current) {
-      window.scrollTo({
-        top: formRef.current.getBoundingClientRect().top + window.scrollY,
-        behavior: "smooth", 
-      });
-    }
-  }, [isAuth, formRef.current]);
+  // React.useEffect(() => {
+  //   // if (isAuth && formRef.current) {
+  //   //   window.scrollTo({
+  //   //     top: formRef.current.getBoundingClientRect().top + window.scrollY,
+  //   //     behavior: "smooth", 
+  //   //   });
+  //   }
+  // }, [isAuth, formRef.current]);
 
   return (
     <div className={styles.review}>

@@ -52,6 +52,9 @@ app.get('/products/:id', ProductController.getOne);
 app.patch('/products/:id/comments', checkAuth, handleValidationErrors, ProductController.addComment);
 app.delete('/products/:id/comments/:idComment', checkAuth, ProductController.removeComment);
 
+app.patch('/products/:id/comments/:idComment/:action', checkAuth, ProductController.likeComment);
+
+
 
 app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
 app.post('/basket/counter/:id/:action', checkAuth, handleValidationErrors, BasketController.counterBasket);
@@ -63,7 +66,7 @@ app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
 
 
 app.listen(5555, (err) => {
-  if(err) {return console.log(err)}
+  if(err) {return console.log(err, '------------------------')}
   console.log('!!Server OK!! -- https://localhost:5555')
 })
 

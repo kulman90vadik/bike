@@ -35,7 +35,7 @@ const Login = () => {
   const onSubmit = async (values:FormValueslogin) => {
       const data = await dispatch(fetchAuth(values));
       if(!data.payload) {
-        return alert('Не удалось авторизоваться')
+        return alert('Failed to log in')
       }
     
       if (data?.payload && typeof data.payload === 'object' && 'token' in data.payload) {

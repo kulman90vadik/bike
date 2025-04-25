@@ -50,7 +50,7 @@ const Map = () => {
    
 
     if (filtered.length === 1) {
-      setZoom(7.6);
+      setZoom(9.6);
       setCenter(filtered[0].position as [number, number]);
     } else {
       setZoom(5.8);
@@ -94,10 +94,10 @@ const Map = () => {
           }}
         >
           {data
-          .map((item, index) => {
+          .map((item) => {
             return(
               <motion.li 
-              onClick={()=> { setInput(item.name); setZoom(7.6); setCenter(item.position as [number, number])}}
+              onClick={()=> { setInput(item.name); setZoom(9.6); setCenter(item.position as [number, number])}}
               className={styles.item} 
               key={item.id}
               exit={{ opacity: 0, visibility: "hidden" }}

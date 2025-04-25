@@ -17,6 +17,7 @@
   z-index: -1;
   position: absolute;
   animation: bg 15s ease infinite alternate;
+  will-change: background-image;
 }
 
 @keyframes bg {

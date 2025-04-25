@@ -46,6 +46,76 @@ export const addComment = async (req, res) => {
   }
 };
 
+// likeComment
+
+export const likeComment = async (req, res) => {
+  try {
+    const { id, action, idComment } = req.params; // Получаем ID товара и действие (плюс или минус)
+    const userId = req.userId; // Получен из токена
+    // const user = await UserModel.findById(userId);
+
+    if (!['likeUp', 'likeDown'].includes(action)) {
+      return res.status(400).json({ message: 'Неверное действие' });
+    }
+
+    const product = await ProductModel.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Продукт не найден' });
+    }
+
+    const comment = product.comments.find( (c) => c._id.toString() === idComment );
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Комментарий не найден' });
+    }
+
+    if (action === 'likeUp') {
+      // Проверяем, есть ли уже лайк от этого пользователя
+      const existingLike = comment.likesUp.find(like => like.user.toString() === userId);
+      if (existingLike) {
+        // Если лайк уже есть, удаляем его
+        comment.likesUp = comment.likesUp.filter(like => like.user.toString() !== userId);
+      } else {
+        // Если лайк не найден, добавляем новый лайк
+        comment.likesUp.push({ user: userId, like: true });
+      }
+    } 
+    // Логика для likesDown
+    else if (action === 'likeDown') {
+      // Проверяем, есть ли уже отрицательный лайк от этого пользователя
+      const existingLike = comment.likesDown.find(like => like.user.toString() === userId);
+      if (existingLike) {
+        // Если лайк уже есть, удаляем его
+        comment.likesDown = comment.likesDown.filter(like => like.user.toString() !== userId);
+      } else {
+        // Если лайк не найден, добавляем новый лайк
+        comment.likesDown.push({ user: userId, like: true });
+      }
+    } else {
+
+      return res.status(400).json({ message: 'Неверное действие' });
+      
+    }
+
+    await product.save(); // сохраняем продукт с обновленным комментарием
+
+    res.json(product); // возвращаем обновленный продукт
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Ошибка like",
+      error: err.message,
+    });
+  }
+};
+
+
+
+
+
+
 
 export const removeComment = async (req, res) => {
   try {
@@ -74,11 +144,9 @@ export const removeComment = async (req, res) => {
 };
 
 
-
-
 export const getAll = async (req, res) => {
   try {
-    const products = await ProductModel.find().populate('user').exec(); // для развёртывания usera информации
+    const products = await ProductModel.find().exec(); // для развёртывания usera информации
     res.json(products);
   }
 
@@ -100,7 +168,7 @@ export const getOne = async (req, res) => {
       { _id: productId },
       { $inc: { viewsCount: 1 } },
       { returnDocument: 'after' } // Возвращаем обновленный документ
-    ).populate('user')
+    )
     if (!doc) {
       return res.status(404).json({
         message: 'Продукт не найден',

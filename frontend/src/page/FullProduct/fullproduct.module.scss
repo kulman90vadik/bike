@@ -74,6 +74,7 @@
 .box {
   display: flex;
   align-items: center;
+  margin-bottom: 21px;
 }
 
 .flag {
@@ -113,13 +114,16 @@
 }
 
 .text {
-  font-size: 19px;
+  font-size: 22px;
+  line-height: 1.2;
   margin-bottom: 21px;
 }
 
 .title {
   font-size: 35px;
+  margin-bottom: 11px;
 }
+
 
 // .counter {
 //   color: var(--color-white);

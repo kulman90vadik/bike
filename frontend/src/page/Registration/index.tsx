@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import styles from "./registration.module.scss";
 import { useAppDispatch } from "../../redux/store";
 import { FormValuesRegister } from "../../propstype";
-import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { fetchRegister } from "../../redux/slices/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
 import { ImageUp } from "lucide-react";
 import React from "react";
 import axios from "../../axios";
@@ -19,10 +19,13 @@ type FormValues = {
 
 const Registration = () => {
   const [preview, setPreview] = React.useState<string | null>(null);
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const redirect = searchParams.get("redirect") || "/";
 
   const dispatch = useAppDispatch();
-  const isAuth = useSelector(selectIsAuth);
+  // const isAuth = useSelector(selectIsAuth);
   const { register, handleSubmit, watch, formState: { errors, isValid }} = useForm<FormValues>({
     defaultValues: {
       fullName: 'Tom',
@@ -31,7 +34,7 @@ const Registration = () => {
       avatarFile: undefined,
       avatarUrl: ''
     },
-    mode: 'all' // при либом изменении формы
+    mode: 'all' 
   })
 
   const avatarFile = watch("avatarFile") as FileList | undefined;
@@ -47,11 +50,9 @@ const Registration = () => {
     }
   }, [avatarFile]);
 
-  // будет выполняться после того как форм поймёт что валидация норм 
   const onSubmit = async (values:FormValuesRegister) => {
     const formData = new FormData();
     let avatarUrl = ''
-
     if (values.avatarFile?.[0]) {
       formData.append('image', values.avatarFile[0]); // важно: это массив! 
       const { data } = await axios.post('/uploads', formData);
@@ -68,13 +69,13 @@ const Registration = () => {
     if (mdata?.payload && typeof mdata.payload === 'object' && 'token' in mdata.payload) {
       window.localStorage.setItem('token', (mdata.payload as { token: string }).token);
     }
+
+    navigate(redirect);
   }
 
-  if (isAuth) {
-    return <Navigate to="/" />
-  }
-
-
+  // if (isAuth) {
+  //   return <Navigate to="/" />
+  // }
 
   return (
     <section className={styles.login}>
@@ -142,6 +143,9 @@ const Registration = () => {
           <button disabled={!isValid} className={styles.submit} type="submit">
           Register
           </button>
+          <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className={styles.account} >
+            Already have an account? Log in.
+          </Link>
 
         </form>
       </div>

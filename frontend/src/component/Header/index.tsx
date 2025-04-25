@@ -30,7 +30,7 @@ const Header = () => {
 
 
   const onClickLogout = () => {
-    if (window.confirm("Вы действительно хотите выйти?")) {
+    if (window.confirm("Are you sure you want to log out?")) {
       dispatch(logout());
       dispatch(fetchAllBasket())
       dispatch(fetchAllFavorites())

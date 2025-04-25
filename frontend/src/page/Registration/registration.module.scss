@@ -101,6 +101,7 @@
   font-size: 20px;
   letter-spacing: 2px;
   color: var(--color-white);
+  margin-bottom: 20px;
 }
 
 .block {
@@ -111,4 +112,16 @@
   color: var(--color-red);
   font-size: 13px;
   font-weight: 700;
+}
+
+.account {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-white);
+  text-align: center;
+  display: block;
+  transition: color 0.3s ease-in;
+  &:hover {
+    color: var(--color-orange);
+  }
 }

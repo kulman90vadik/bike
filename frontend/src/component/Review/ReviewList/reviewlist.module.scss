@@ -68,9 +68,10 @@
 
 .button {
   width: 20px;
+  position: relative;
   height: 20px;
   display: flex;
-  &:hover {
+  &:not([disabled]):hover {
     svg {
       fill: var(--color-orange);
       stroke: var(--color-black);
@@ -80,5 +81,33 @@
     stroke: var(--color-white);
     transition: fill 0.3s ease-in, stroke 0.3s ease-in;
     margin: auto;
+  }
+}
+
+.buttonlike {
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: no-drop;
+    // pointer-events: none;
+  }
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+  span {
+    color: var(--color-white);
+    font-weight: 700;
+    position: absolute;
+    bottom: -7px;
+    font-size: 9px;
+    right: -8px;
+  }
+}
+
+
+.active {
+  svg {
+    stroke: var(--color-orange);
+    fill: var(--color-black);
   }
 }

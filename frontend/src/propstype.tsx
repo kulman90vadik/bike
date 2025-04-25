@@ -48,7 +48,6 @@ export interface ProductProps {
   category: string;
   country: string;
   description: string;
-
   comments: IComment[];
 }
 
@@ -60,6 +59,18 @@ export interface IComment {
   text: string;
   rating: number;
   date?: Date;
+  likesUp: likesUp[];
+  likesDown: likesDown[],
+}
+
+export interface likesUp {
+  user: string, 
+  like: boolean
+}
+
+export interface likesDown {
+  user: string, 
+  like: boolean
 }
 
 

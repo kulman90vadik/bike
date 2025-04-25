@@ -70,6 +70,27 @@ const FullProduct = () => {
                       alt={fullProduct?.name}
                     />
                   </li>
+                  <li className={styles.imgitem}>
+                    <img
+                      className={styles.smallimage}
+                      src={fullProduct?.image}
+                      alt={fullProduct?.name}
+                    />
+                  </li>
+                  <li className={styles.imgitem}>
+                    <img
+                      className={styles.smallimage}
+                      src={fullProduct?.image}
+                      alt={fullProduct?.name}
+                    />
+                  </li>
+                  <li className={styles.imgitem}>
+                    <img
+                      className={styles.smallimage}
+                      src={fullProduct?.image}
+                      alt={fullProduct?.name}
+                    />
+                  </li>
                 </ul>
               </div>
 
@@ -82,7 +103,12 @@ const FullProduct = () => {
                       src={fullProduct?.flag}
                       alt={fullProduct?.flag}
                     />
-                    <div className={styles.price}>
+                    
+                  </div>
+                  <div className={styles.text}>
+                    {fullProduct?.description}
+                  </div>
+                  <div className={styles.price}>
                       {Number(fullProduct?.sale) !== 0 && (
                         <span>{fullProduct?.price}</span>
                       )}
@@ -92,10 +118,6 @@ const FullProduct = () => {
                         maximumFractionDigits: 0,
                       }).format(Number(price)) + " €"}
                     </div>
-                  </div>
-                  <div className={styles.text}>
-                    {fullProduct?.description}
-                  </div>
                   <button
                     className={`${styles.btn} ${
                       isInBasket ? styles.btngreen : ""
