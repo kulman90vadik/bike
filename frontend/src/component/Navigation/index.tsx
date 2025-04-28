@@ -84,7 +84,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
               ref={addToRefs} 
               className={styles.item} key={link.lebel}>
               <MotionNavLink
-                exit={{opacity: 0}}
+                exit={{opacity: 0, color: "#000 "}}
                 onClick={() => setIsSelected(index)}     
                 animate={{
                   color: isSelected === index ? '#000' : '#ffd700',
@@ -114,7 +114,7 @@ const BgSelector = () => {
     <motion.div
       // layout 
       layoutId="bg-selector"
-      // exit={{ width: 0 }}
+      // exit={{  color: "#FFF" }}
       // animate={{ width: '100%' }}
       style={{
         width: "100%",
@@ -123,7 +123,8 @@ const BgSelector = () => {
         top: 0,
         left: 0,
         zIndex: "-1",
-        backgroundColor: "#ffd700"
+        backgroundColor: "#ffd700",
+        // color: "#000"
       }}
     
     >

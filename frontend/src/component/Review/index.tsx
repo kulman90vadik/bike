@@ -3,14 +3,14 @@ import styles from "./review.module.scss";
 import { selectIsAuth } from "../../redux/slices/auth";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { FormReview } from "../../propstype";
+import { FormReview, PropsEditComment } from "../../propstype";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import StarRating from "./StarRating";
 import ReviewList from "./ReviewList";
 import ProcentStarRating from "./ProcentStarRating";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { fetchProductComment } from "../../redux/slices/fullproduct";
+import { fetchEditProductComment, fetchProduct, fetchProductComment } from "../../redux/slices/fullproduct";
 
 const Review = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,6 @@ const Review = () => {
   const [errorStar, setErrorStar] = React.useState(true);
   const isAuth = useSelector(selectIsAuth);
   const navigate = useNavigate();
-
   const reviewProduct = useSelector((state: RootState) => state.fullproduct.data);
 
    const ratings = reviewProduct?.comments?.map(item => item.rating) || [];
@@ -29,14 +28,16 @@ const Review = () => {
       ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
       : 0;
     const roundedAverage = Math.round(averageRating * 10) / 10;
+    const [editValue, setEditValue] = React.useState<PropsEditComment | null>(null);
+
+    const editPost = async (productId: string, reviewId: string, text: string, rating: number, isEdit: boolean) => {
+      setEditValue({ productId, reviewId, text, rating, isEdit });
+      setRating(rating)
+      setValue('text', text);
+    };
 
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isValid, errors },
-  } = useForm({
+  const { register, handleSubmit, reset, setValue, formState: { isValid, errors }} = useForm({
     defaultValues: { text: "" },
     mode: "onChange",
   });
@@ -48,7 +49,22 @@ const Review = () => {
   };
 
   const onSubmit = async (values: FormReview) => {
-    if (starNumber > 0 && reviewProduct?._id) {
+    if(editValue?.isEdit ) {
+      await dispatch(fetchEditProductComment({
+        productId: editValue.productId,
+        reviewId: editValue.reviewId,
+        text: values.text,
+        rating: rating
+      }));
+
+      reset();
+      setRating(0);
+      setErrorStar(false);
+    } else {
+      setErrorStar(false);
+    }
+
+    if ((starNumber > 0 && reviewProduct?._id) && !editValue?.isEdit) {
       await dispatch(fetchProductComment({
         id: reviewProduct?._id,
         values,
@@ -68,27 +84,15 @@ const Review = () => {
     setErrorStar(false);
   };
 
-  // React.useEffect(() => {
-  //   // if (isAuth && formRef.current) {
-  //   //   window.scrollTo({
-  //   //     top: formRef.current.getBoundingClientRect().top + window.scrollY,
-  //   //     behavior: "smooth", 
-  //   //   });
-  //   }
-  // }, [isAuth, formRef.current]);
-
   return (
     <div className={styles.review}>
       <div className={styles.top}>
         <p className={styles.head}>Bike reviews ({ratings.length})</p>
  
-      
          {ratings.length > 0 &&
           <div className={styles.heading}>Product rating:
             <ProcentStarRating rating={roundedAverage}/>
-          
-           {roundedAverage}
-           
+           {roundedAverage}  
            </div>
         }
         
@@ -102,7 +106,7 @@ const Review = () => {
         </button>
       </div>
 
-      <ReviewList />
+      <ReviewList editPost={editPost}/>
 
       {isAuth && (
         <motion.form
@@ -114,7 +118,7 @@ const Review = () => {
           //   opacity: isForm ? 1 : 0,
           // }}
           // transition={{ duration: 0.3 }}
-          className={styles.form}
+          className={styles.form}  
         >
           <span className={styles.title}>
             Leave your review {reviewProduct?.name}
@@ -146,7 +150,8 @@ const Review = () => {
             className={styles.submit}
             disabled={!isValid || errorStar}
           >
-            Add a review
+            {editValue?.isEdit ? 'Edit Review' : 'Add Review'}
+            
           </button>
         </motion.form>
       )}

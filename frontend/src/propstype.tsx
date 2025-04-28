@@ -96,3 +96,11 @@ export interface BasketProps {
 export interface FormReview {
   text: string
 }
+
+export interface PropsEditComment {
+  productId: string;
+  reviewId: string;
+  text: string;
+  rating: number;
+  isEdit: boolean;
+}

@@ -14,7 +14,6 @@ export const addComment = async (req, res) => {
     // if (rating == 0) {
     //   return res.status(404).json({ message: 'Рейтинг хуйня' });
     // }
-
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       { _id: productId },
       {
@@ -112,7 +111,36 @@ export const likeComment = async (req, res) => {
 };
 
 
+export const editComment = async (req, res) => {
+  try {
+    const { productId, reviewId } = req.params;
+    const { text, rating } = req.body;
 
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const comment = product.comments.id(reviewId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // Обновляем текст и рейтинг комментария
+    comment.text = text;
+    comment.rating = rating;
+
+    // Сохраняем изменения
+    await product.save();
+
+    // return res.status(200).json({ message: "Comment updated successfully", product });
+    return res.status(200).json({ message: "Comment updated successfully", updatedComment: comment });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
 
 
 
@@ -121,7 +149,6 @@ export const removeComment = async (req, res) => {
   try {
     const productId = req.params.id;
     const reviewId = req.params.idComment;
-    console.log(productId)
 
     const product = await ProductModel.findById(productId);
     if (!product) {
@@ -133,15 +160,19 @@ export const removeComment = async (req, res) => {
       { $pull: { comments: { _id: reviewId } } }
     );
 
-    const updatedProduct = await ProductModel.findById(productId);
-    res.json(updatedProduct);
+    // Возвращаем только id удалённого комментария
+    res.json({
+      message: 'Комментарий успешно удален',
+      deletedCommentId: reviewId, // 👈 Вот это фронтенду и нужно
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Не удалось удалить Комментарий',
+      message: 'Не удалось удалить комментарий',
     });
   }
 };
+
 
 
 export const getAll = async (req, res) => {

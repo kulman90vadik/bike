@@ -4,17 +4,18 @@ import styles from "./reviewlist.module.scss";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../redux/store";
 import { Pencil, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
-import {
-  fetchDelProductComment,
-  fetchLikeComment,
-} from "../../../redux/slices/fullproduct";
+import { fetchDelProductComment, fetchLikeComment } from "../../../redux/slices/fullproduct";
 import { selectIsAuth } from "../../../redux/slices/auth";
 
 const stars = Array.from({ length: 5 }, (_, i) => i + 1);
 const selectedIcon = "★";
 const deselectedIcon = "☆";
 
-const ReviewList = () => {
+type Props = {
+  editPost: (productId: string, reviewId: string, test: string, rating: number, isEdit: boolean) => void;
+}
+
+const ReviewList = ({editPost} : Props) => {
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useAppDispatch();
   const refUl = React.useRef<HTMLUListElement | null>(null);
@@ -30,24 +31,25 @@ const ReviewList = () => {
     await dispatch(fetchLikeComment({ id, idcomment, like }));
   };
 
-  console.log(fullProduct, "fullProduct");
-
-  // let iComment: IComment[] = fullProduct?.comments;
-
-  const funcActive = (authDataId: string | undefined, commentUserId: string, likesUp: likesUp[]) => {
-    console.log(authDataId, 'authDataId')
-    console.log(commentUserId, 'commentUserId')
-    console.log(likesUp, 'likesUp')
-    let active = likesUp.find(item => item.user === authDataId);
+  const funcActive = (authDataId: string | undefined, likes: likesUp[]) => {
+    let active = likes.find(item => item.user === authDataId);
     
-    console.log(active, 'active')
-
-    if(active ) {
+    if(active) {
       return 'active'
     } else {
-      return ''
+      return ' '
     }
   }
+  // const funcActiveDown = (authDataId: string | undefined, likesDown: likesDown[]) => {
+  //   let active = likesDown.find(item => item.user === authDataId);
+    
+  //   if(active) {
+  //     return 'activedown'
+  //   } else {
+  //     return ' '
+  //   }
+  // }
+
 
   return (
     <ul ref={refUl} className={styles.reviewlist}>
@@ -58,7 +60,7 @@ const ReviewList = () => {
           alt="Loading"
         />
       ) : (
-        fullProduct?.comments.map((item: IComment) => {
+        fullProduct?.comments?.map((item: IComment) => {
           return (
             <li className={styles.reviewitem} key={item?._id}>
               <div className={styles.reviewtop}>
@@ -92,7 +94,7 @@ const ReviewList = () => {
                   {authData?._id === item.user && (
                     <>
                       <button
-                        className={styles.button} // onClick={() => editPost(data._id, item._id)}
+                        className={styles.button}  onClick={() => editPost(fullProduct._id, item._id, item.text, item.rating, true)}
                       >
                         <Pencil size={20} />
                       </button>
@@ -105,9 +107,7 @@ const ReviewList = () => {
                     </>
                   )}
                   <button
-                    className={`${styles.button} ${styles.buttonlike} ${styles[funcActive(authData?._id, item.user, item.likesUp)]}`}
-
-
+                    className={`${styles.button} ${styles.buttonlike} ${styles[funcActive(authData?._id, item.likesUp)]}`}
                     disabled={!isAuth}
                     onClick={() =>
                       likeHandler(fullProduct._id, item._id, "likeUp")
@@ -115,19 +115,25 @@ const ReviewList = () => {
                   >
                     <ThumbsUp size={20} />
                   
-                    {/* <span className={`${item._id === item.likesUp.like }`}> */}
                     <span >
                       {
                         item.likesUp.length > 0 ? item.likesUp.length : '0'
                       }
                     </span>
                   </button>
-                  <button
-                    className={`${styles.button} ${styles.buttonlike}`}
-                    disabled={!isAuth}
-                  >
+                    <button
+                      className={`${styles.button} ${styles.buttonlike} ${styles[funcActive(authData?._id, item.likesDown)]}`}
+                      disabled={!isAuth}
+                      onClick={() =>
+                        likeHandler(fullProduct._id, item._id, "likeDown")
+                      }
+                    >
                     <ThumbsDown size={20} />
-                    <span>10</span>
+                    <span >
+                      {
+                        item.likesDown.length > 0 ? item.likesDown.length : '0'
+                      }
+                    </span>
                   </button>
                 </div>
               </div>

@@ -2,11 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
 // import { BasketProps } from '../../propstype';
 import { RootState } from "../store";
-import { FormReview, ProductProps } from "../../propstype";
+import { FormReview, IComment, ProductProps } from "../../propstype";
 
 type DeleteReviewPayload = {
   productId: string;
   reviewId: string;
+};
+
+type EditReviewPayload = {
+  productId: string;
+  reviewId: string;
+  text: string;
+  rating: number;
 };
 
 type reviewPayload = {
@@ -15,36 +22,47 @@ type reviewPayload = {
   rating: number;
 };
 
-export const fetchProduct = createAsyncThunk<
-  ProductProps,
-  string,
-  { state: RootState }
->("auth/fetchProduct", async (productId) => {
+export const fetchProduct = createAsyncThunk<ProductProps, string, { state: RootState }>("auth/fetchProduct", async (productId) => {
   const { data } = await axios.get<ProductProps>(`./products/${productId}`);
   return data;
 });
 
+// export const fetchDelProductComment = createAsyncThunk< ProductProps, DeleteReviewPayload, { state: RootState }>("auth/fetchDelProductComment", async ({ productId, reviewId }) => {
+//   const { data } = await axios.delete<ProductProps>( `./products/${productId}/comments/${reviewId}` );
+//   return data;
+// });
+
+
 export const fetchDelProductComment = createAsyncThunk<
-  ProductProps,
-  DeleteReviewPayload,
-  { state: RootState }
+  { deletedCommentId: string }, // <--- Ответ от сервера (payload от fulfilled)
+  { productId: string; reviewId: string } // <--- Аргументы, которые ты передаёшь в thunk
 >("auth/fetchDelProductComment", async ({ productId, reviewId }) => {
-  const { data } = await axios.delete<ProductProps>(
-    `./products/${productId}/comments/${reviewId}`
-  );
+  const { data } = await axios.delete<{ deletedCommentId: string }>(`/products/${productId}/comments/${reviewId}`);
   return data;
 });
 
-export const fetchProductComment = createAsyncThunk<
-  ProductProps,
-  reviewPayload,
+
+
+
+
+
+export const fetchEditProductComment = createAsyncThunk<
+  { updatedComment: IComment }, // типизируем ответ
+  EditReviewPayload,
   { state: RootState }
->("auth/fetchProductComment", async ({ id, values, rating }) => {
+>(
+  "auth/fetchEditProductComment",
+  async ({ productId, reviewId, text, rating }) => {
+    const { data } = await axios.patch(`/products/${productId}/comments/${reviewId}`, { text, rating });
+    return data;
+  }
+);
+
+
+
+export const fetchProductComment = createAsyncThunk< ProductProps, reviewPayload, { state: RootState }>("auth/fetchProductComment", async ({ id, values, rating }) => {
   const payload = { ...values, rating };
-  const { data } = await axios.patch<ProductProps>(
-    `/products/${id}/comments`,
-    payload
-  );
+  const { data } = await axios.patch<ProductProps>(`/products/${id}/comments`, payload);
   return data;
 });
 
@@ -97,8 +115,16 @@ const fullProductSlice = createSlice({
     });
     builder.addCase(fetchDelProductComment.fulfilled, (state, action) => {
       state.status = "loaded";
-      state.data = action.payload;
+    
+      const deletedCommentId = action.payload.deletedCommentId;
+    
+      if (state.data) {
+        state.data.comments = state.data.comments.filter(
+          (comment) => comment._id !== deletedCommentId
+        );
+      }
     });
+    
     builder.addCase(fetchDelProductComment.rejected, (state) => {
       state.status = "error";
       state.data = null;
@@ -130,6 +156,36 @@ const fullProductSlice = createSlice({
       state.data = action.payload;
     });
     builder.addCase(fetchLikeComment.rejected, (state) => {
+      state.status = "error";
+      state.data = null;
+    });
+
+    // fetchEditProductComment
+
+    builder.addCase(fetchEditProductComment.pending, (state) => {
+      state.status = "loading";
+      // state.data = [];
+    });
+
+
+    builder.addCase(fetchEditProductComment.fulfilled, (state, action) => {
+      state.status = "loaded";
+    
+      const updatedComment = action.payload.updatedComment;
+    
+      if (state.data) {
+        const commentIndex = state.data.comments.findIndex((comment) => comment._id === updatedComment._id // Вот здесь правильно
+        );
+    
+        if (commentIndex !== -1) {
+          state.data.comments[commentIndex] = updatedComment;
+        }
+      }
+    });
+
+    
+
+    builder.addCase(fetchEditProductComment.rejected, (state) => {
       state.status = "error";
       state.data = null;
     });

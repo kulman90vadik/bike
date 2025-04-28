@@ -50,7 +50,9 @@ app.get('/products/:id', ProductController.getOne);
 
 
 app.patch('/products/:id/comments', checkAuth, handleValidationErrors, ProductController.addComment);
+app.patch('/products/:productId/comments/:reviewId', checkAuth, ProductController.editComment);
 app.delete('/products/:id/comments/:idComment', checkAuth, ProductController.removeComment);
+// handleValidationErrors
 
 app.patch('/products/:id/comments/:idComment/:action', checkAuth, ProductController.likeComment);
 
