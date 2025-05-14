@@ -10,7 +10,7 @@ import StarRating from "./StarRating";
 import ReviewList from "./ReviewList";
 import ProcentStarRating from "./ProcentStarRating";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { fetchEditProductComment, fetchProduct, fetchProductComment } from "../../redux/slices/fullproduct";
+import { fetchEditProductComment, fetchProductComment } from "../../redux/slices/fullproduct";
 
 const Review = () => {
   const dispatch = useAppDispatch();

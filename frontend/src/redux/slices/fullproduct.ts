@@ -4,10 +4,10 @@ import axios from "../../axios";
 import { RootState } from "../store";
 import { FormReview, IComment, ProductProps } from "../../propstype";
 
-type DeleteReviewPayload = {
-  productId: string;
-  reviewId: string;
-};
+// type DeleteReviewPayload = {
+//   productId: string;
+//   reviewId: string;
+// };
 
 type EditReviewPayload = {
   productId: string;
