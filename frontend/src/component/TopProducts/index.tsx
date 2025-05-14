@@ -1,7 +1,7 @@
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import styles from './topProducts.module.scss';
+import styles from './topproducts.module.scss';
 import "swiper/css";
 import Card from "../Card";
 import { Autoplay } from "swiper/modules";
