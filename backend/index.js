@@ -69,10 +69,15 @@ app.post('/favorites/:id', checkAuth, handleValidationErrors, FavoritesControlle
 app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
 
 
-app.listen(PORT, (err) => {
-  if(err) {return console.log(err, '------------------------')}
-  console.log(`!!Server OK!! -- https://localhost:${PORT}`)
-})
+// app.listen(PORT, (err) => {
+//   if(err) {return console.log(err, '------------------------')}
+//   console.log(`!!Server OK!! -- https://localhost:${PORT}`)
+// })
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`!!Server OK!! -- http://0.0.0.0:${PORT}`);
+});
+
 
 // mongoose
 // .connect('mongodb://vkuhlmann:Vadik1990@cluster123-shard-00-00.dwucc.mongodb.net:27017,cluster123-shard-00-01.dwucc.mongodb.net:27017,cluster123-shard-00-02.dwucc.mongodb.net:27017/proj?ssl=true&replicaSet=atlas-gr7xm8-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster123')
