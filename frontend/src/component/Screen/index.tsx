@@ -79,7 +79,7 @@ const Screen = () => {
           of the #OutdoorLiving.
         </p>
       </div>
-      <img ref={refImage} src="./public/images/vel.jpg" />
+      <img ref={refImage} src="/images/vel.jpg" />
     </section>
   );
 };
