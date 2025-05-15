@@ -13,16 +13,16 @@ dotenv.config();
 
 const app = express();
 app.use(express.json()); // научили понимать json файлы
-// app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
-const allowedOrigins = [
-  'https://bike-ten.vercel.app',
-  // можно добавить другие домены если нужно
-];
+app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
+// const allowedOrigins = [
+//   'https://bike-ten.vercel.app',
+//   // можно добавить другие домены если нужно
+// ];
 
-app.use(cors({
-  origin: allowedOrigins,
-  // credentials: true, // если используешь куки или авторизацию
-}));
+// app.use(cors({
+//   origin: allowedOrigins,
+//   // credentials: true, // если используешь куки или авторизацию
+// }));
 
 
 const PORT = process.env.PORT || 5555;
