@@ -25,6 +25,9 @@ app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫ
 // }));
 
 
+console.log('JWT_SECRET:', process.env.JWT_SECRET); // ВОТ СЮДА!
+
+
 const PORT = process.env.PORT || 5555;
 
 

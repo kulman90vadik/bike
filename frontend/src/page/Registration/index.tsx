@@ -60,8 +60,6 @@ const Registration = () => {
     }
     let { avatarFile, ...restOfValues } = values;
     let mdata = await dispatch(fetchRegister({ ...restOfValues, avatarUrl }));
-    
-    console.log(mdata, 'mdata')
 
 
     if (!mdata.payload) {
