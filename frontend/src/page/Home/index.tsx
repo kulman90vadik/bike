@@ -18,6 +18,7 @@ const Home = () => {
         <Catalog />
         {/* <ScrollCards /> */}
         <AboutUs />
+        
 
         <Screen />
         <TopProducts />
