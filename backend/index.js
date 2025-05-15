@@ -79,9 +79,9 @@ app.listen(PORT, (err) => {
 // .then(() => console.log('db okkkkkk'))
 // .catch((err) => console.log(`Error ${err}`))
 
-const uri = "mongodb://vkuhlmann:Vadik1990@cluster123-shard-00-00.dwucc.mongodb.net:27017,cluster123-shard-00-01.dwucc.mongodb.net:27017,cluster123-shard-00-02.dwucc.mongodb.net:27017/proj?ssl=true&replicaSet=atlas-gr7xm8-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster123";
+// const uri = "mongodb://vkuhlmann:Vadik1990@cluster123-shard-00-00.dwucc.mongodb.net:27017,cluster123-shard-00-01.dwucc.mongodb.net:27017,cluster123-shard-00-02.dwucc.mongodb.net:27017/proj?ssl=true&replicaSet=atlas-gr7xm8-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster123";
 mongoose
-  .connect(uri)
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("Успешное подключение"))
   .catch(err => console.error("Ошибка подключения: к базе", err));
 
