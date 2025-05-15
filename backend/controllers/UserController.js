@@ -28,21 +28,21 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); // ← Добавь это �
 
     const user = await doc.save();
 
-    // const token = jwt.sign(
-    //   {
-    //     _id: user._id,
-    //   },
-    //   process.env.JWT_SECRET, // 
-    //   {
-    //     expiresIn: "30d", // окен будет действителен в течение 30 дней.
-    //   }
-    // );
-
     const token = jwt.sign(
-  { _id: user._id },
-  process.env.JWT_SECRET || 'myTempHardcodedSecret',
-  { expiresIn: '30d' }
-);
+      {
+        _id: user._id,
+      },
+      process.env.JWT_SECRET, // 
+      {
+        expiresIn: "30d", // окен будет действителен в течение 30 дней.
+      }
+    );
+
+//     const token = jwt.sign(
+//   { _id: user._id },
+//   process.env.JWT_SECRET || 'myTempHardcodedSecret',
+//   { expiresIn: '30d' }
+// );
 
     const { passwordHash, ...userData } = user._doc;
 
