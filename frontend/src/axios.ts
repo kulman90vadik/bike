@@ -12,3 +12,8 @@ instance.interceptors.request.use((config) => {
 })
 
 export default instance;
+
+
+  //  "rewrites": [
+  //   { "source": "/(.*)", "destination": "/" }
+  // ]
