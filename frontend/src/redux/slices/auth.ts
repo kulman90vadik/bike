@@ -12,6 +12,7 @@ export const fetchAuth = createAsyncThunk<Registerprops, FormValueslogin>('auth/
 export const fetchRegister = createAsyncThunk<Registerprops, FormValuesRegister>('auth/fetchRegister', async(params: FormValuesRegister) => {
     const {data} = await axios.post<Registerprops>('./auth/register', params);
     return data;
+
 })
 
 export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async() => {

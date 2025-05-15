@@ -7,6 +7,10 @@ import { registerValidation, loginValidation } from './validations.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
 import { UserController, ProductController, BasketController, FavoritesController } from './controllers/index.js';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
@@ -40,7 +44,11 @@ app.post('/uploads', upload.single('image'), (req, res) => {
 
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
-app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
+// app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
+app.post('/auth/register', (req, res) => {
+  console.log('Зашли в /auth/register без валидации');
+  res.json({ message: 'test' });
+});
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 

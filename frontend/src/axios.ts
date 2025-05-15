@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://honest-bikeapp.up.railway.app'
+    baseURL: import.meta.env.VITE_API_BASE_URL
 })
 
 

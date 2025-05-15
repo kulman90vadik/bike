@@ -7,6 +7,12 @@ import 'dotenv/config';
 // ВЫПОЛНЯ.ТСЯ ЭТИ ФУНКЦИИ ЗАПРОШЕННЫЕ ИЗ ФРОНТЕНДА!
 
 export const register = async (req, res) => {
+
+  console.log('Вызов /auth/register с телом:', req.body);
+console.log('JWT_SECRET:', process.env.JWT_SECRET);
+
+
+
   try {
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10); // алгоритм шифрования
@@ -42,6 +48,7 @@ export const register = async (req, res) => {
     res.status(500).json({
       message: "Не удалось зарегиться",
     });
+
   }
 };
 
