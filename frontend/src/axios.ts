@@ -1,8 +1,8 @@
 
 import axios from 'axios';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv/config';
 
-dotenv.config();
+// dotenv.config();
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL
