@@ -44,11 +44,11 @@ app.post('/uploads', upload.single('image'), (req, res) => {
 
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
-// app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
-app.post('/auth/register', (req, res) => {
-  console.log('Зашли в /auth/register без валидации');
-  res.json({ message: 'test' });
-});
+app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
+// app.post('/auth/register', (req, res) => {
+//   console.log('Зашли в /auth/register без валидации');
+//   res.json({ message: 'test' });
+// });
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 
