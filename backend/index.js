@@ -74,6 +74,11 @@ app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
 //   console.log(`!!Server OK!! -- https://localhost:${PORT}`)
 // })
 
+app.get('/', (req, res) => {
+  res.send('🚴‍♂️ BikeApp API работает!');
+});
+
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`!!Server OK!! -- http://0.0.0.0:${PORT}`);
 });
