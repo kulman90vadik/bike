@@ -11,6 +11,8 @@ const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
 
+const PORT = process.env.PORT || 5555;
+
 
 const storage = multer.diskStorage({
   // выполниться функция ниже с параметрами, пропускаем сейчас их
@@ -67,9 +69,9 @@ app.post('/favorites/:id', checkAuth, handleValidationErrors, FavoritesControlle
 app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
 
 
-app.listen(5555, (err) => {
+app.listen(PORT, (err) => {
   if(err) {return console.log(err, '------------------------')}
-  console.log('!!Server OK!! -- https://localhost:5555')
+  console.log(`!!Server OK!! -- https://localhost:${PORT}`)
 })
 
 // mongoose
