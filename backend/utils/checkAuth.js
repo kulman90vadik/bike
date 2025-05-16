@@ -9,7 +9,12 @@ export default (req, res, next) => {
   if(token) {
     // console.log('Authorization Header:', req.headers.authorization);
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token,
+        
+        "secret1234",
+        // process.env.JWT_SECRET
+      
+      );
       req.userId = decoded._id;
       // console.log(req.userId = decoded._id);
       return next();
