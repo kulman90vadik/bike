@@ -1,12 +1,5 @@
 {
   "version": 2,
-
-
-"rewrites": [
-    { "source": "/(.*)", "destination": "/dist/index.html" }
-  ],
-
-
   "builds": [
     {
       "src": "frontend/package.json",
@@ -16,11 +9,9 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "dest": "/index.html"
     }
-  ]
-
+  ],
+  "rewrites": [],
+  "outputDirectory": "frontend/dist"
 }
-
-
-
