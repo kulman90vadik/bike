@@ -30,6 +30,9 @@
   width: 85px;
   height: 45px;
   display: flex;
+  @media (max-width: 450px) {
+    width: 65px;
+  }
 }
 
 .logo {
@@ -79,6 +82,10 @@
   align-items: center;
   margin-left: 10px;
   margin-right: 10px;
+  @media (max-width: 450px) {
+    margin-right: 3px;
+    margin-left: 3px;
+  }
   &:hover path {
     stroke: var(--color-orange);
   }

@@ -85,7 +85,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
               className={styles.item} key={link.lebel}>
               <MotionNavLink
                 exit={{opacity: 0, color: "#000 "}}
-                onClick={() => setIsSelected(index)}     
+                onClick={() => (setIsSelected(index), setIsOpen(false))}     
                 animate={{
                   color: isSelected === index ? '#000' : '#ffd700',
                 }}

@@ -14,7 +14,7 @@ const FullProduct = () => {
   const basket = useSelector((state: RootState) => state.basket.data);
   const fullProduct = useSelector((state: RootState) => state.fullproduct.data);
   const isLoading = useSelector((state: RootState) => state.fullproduct.status);
-
+  // const statusId = useSelector((state: RootState ) => state.basket.statusId);
   React.useEffect(() => {
     const fetchData = async () => {
       if (id) {
@@ -24,133 +24,116 @@ const FullProduct = () => {
     fetchData();
   }, [id, dispatch]);
 
+  const addToBasket = (id: string) => {
+    dispatch(fetchBasket(id));
+  };
 
-  const addToBasket = (id: string) => { dispatch(fetchBasket(id)) };
-  
   let price = fullProduct?.sale
-    ? Number(fullProduct?.price) * (1 - Number(fullProduct?.sale.replace(/%/g, "")) / 100)
+    ? Number(fullProduct?.price) *
+      (1 - Number(fullProduct?.sale.replace(/%/g, "")) / 100)
     : fullProduct?.price;
   const isInBasket = basket?.some(
     (item: ProductProps) => item._id === fullProduct?._id
   );
 
-
-
   return (
     <section className={styles.product}>
-      {
-      isLoading == "loading" ? (
+      {isLoading == "loading" ? (
         <img
           className={styles.loading}
           src="/images/loading.gif"
           alt="Loading"
         />
       ) : (
-       
-          <div className="container">
-            <div className={styles.inner}>
-              <div className={styles.left}>
-                <img
-                  className={styles.image}
-                  src={fullProduct?.image}
-                  alt={fullProduct?.name}
-                />
-                <ul className={styles.list}>
-                  <li className={styles.imgitem}>
-                    <img
-                      className={styles.smallimage}
-                      src={fullProduct?.image}
-                      alt={fullProduct?.name}
-                    />
-                  </li>
-                  <li className={styles.imgitem}>
-                    <img
-                      className={styles.smallimage}
-                      src={fullProduct?.image}
-                      alt={fullProduct?.name}
-                    />
-                  </li>
-                  <li className={styles.imgitem}>
-                    <img
-                      className={styles.smallimage}
-                      src={fullProduct?.image}
-                      alt={fullProduct?.name}
-                    />
-                  </li>
-                  <li className={styles.imgitem}>
-                    <img
-                      className={styles.smallimage}
-                      src={fullProduct?.image}
-                      alt={fullProduct?.name}
-                    />
-                  </li>
-                  <li className={styles.imgitem}>
-                    <img
-                      className={styles.smallimage}
-                      src={fullProduct?.image}
-                      alt={fullProduct?.name}
-                    />
-                  </li>
-                </ul>
-              </div>
-
-              <div className={styles.right}>
-                <div className={styles.info}>
-                  <h1  className={styles.title}>{fullProduct?.name}</h1>
-                  <div className={styles.box}>
-                    <img
-                      className={styles.flag}
-                      src={fullProduct?.flag}
-                      alt={fullProduct?.flag}
-                    />
-                    
-                  </div>
-                  <div className={styles.text}>
-                    {fullProduct?.description}
-                  </div>
-                  <div className={styles.price}>
-                      {Number(fullProduct?.sale) !== 0 && (
-                        <span>{fullProduct?.price}</span>
-                      )}
-                      {new Intl.NumberFormat("en-US", {
-                        useGrouping: true,
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      }).format(Number(price)) + " €"}
-                    </div>
-                  <button
-                    className={`${styles.btn} ${
-                      isInBasket ? styles.btngreen : ""
-                    }`}
-                    type="button"
-                    onClick={() => {
-                      if (fullProduct?._id) {
-                        addToBasket(fullProduct._id);
-                      }
-                    }}
-                  >{`${
-                    isInBasket ? "Remove from Basket" : "Add to Cart"
-                  }`}</button>
-                </div>
-
-                {/* {
-             data && 
-             <div className={styles.counter}>
-             <Counter obj={data}/>
-             </div>
-             } */}
-              </div>
+        <div className="container">
+          <div className={styles.inner}>
+           
+            <div className={styles.left}>
+              <img
+                className={styles.image}
+                src={fullProduct?.image}
+                alt={fullProduct?.name}
+              />
+              <ul className={styles.list}>
+                <li className={styles.imgitem}>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </li>
+                <li className={styles.imgitem}>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </li>
+                <li className={styles.imgitem}>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </li>
+                <li className={styles.imgitem}>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </li>
+                <li className={styles.imgitem}>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </li>
+              </ul>
             </div>
 
-
-            {fullProduct && !Array.isArray(fullProduct) && (
-              <Review />
-            )}
-
-
+            <div className={styles.right}>
+              <div className={styles.info}>
+                <h1 className={styles.title}>{fullProduct?.name}</h1>
+                <div className={styles.box}>
+                  <img
+                    className={styles.flag}
+                    src={fullProduct?.flag}
+                    alt={fullProduct?.flag}
+                  />
+                </div>
+                <div className={styles.text}>{fullProduct?.description}</div>
+                <div className={styles.price}>
+                  {Number(fullProduct?.sale) !== 0 && (
+                    <span>{fullProduct?.price}</span>
+                  )}
+                  {new Intl.NumberFormat("en-US", {
+                    useGrouping: true,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(Number(price)) + " €"}
+                </div>
+                <button
+                  className={`${styles.btn} ${
+                    isInBasket ? styles.btngreen : ""
+                  }`}
+                  type="button"
+                  onClick={() => {
+                    if (fullProduct?._id) {
+                      addToBasket(fullProduct._id);
+                    }
+                  }}
+                >
+                  {`${isInBasket ? "Remove from Basket" : "Add to Cart"}`}
+                </button>
+              </div>
+            </div>
           </div>
-      )
-      }
+
+          {fullProduct && !Array.isArray(fullProduct) && <Review />}
+        </div>
+      )}
     </section>
   );
 };

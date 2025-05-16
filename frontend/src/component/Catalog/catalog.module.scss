@@ -16,24 +16,37 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
+  @media (max-width: 850px) {
+    flex-direction: column;
+  } 
 }
 
 .right {
   width: 80%;
+  @media (max-width: 1050px)  {
+    width: 78%;
+  }
+   @media (max-width: 850px) {
+    width: 100%;
+   }
 }
 
 .it {
   display: block; 
   position: relative; 
   width: 100%; 
+    border-top-left-radius: 15px;
 }
 
 .list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 25px;
-  @media (max-width: 991px) {
+  @media (max-width: 1050px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 650px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 

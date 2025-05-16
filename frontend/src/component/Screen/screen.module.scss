@@ -38,6 +38,10 @@
   z-index: 3;
   color: white;
   max-width: 70%;
+   @media (max-width: 850px) {
+    max-width: 90%;
+    // position: static;
+   }
 }
 
 .fullwidthImage h2 {
