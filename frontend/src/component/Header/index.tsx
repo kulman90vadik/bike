@@ -103,12 +103,13 @@ const Header = () => {
                 >
                   
                   {auth?.avatarUrl != '' ?
-                    <img className={styles.smallimg} src={`http://localhost:5555${auth?.avatarUrl}`} alt={user} />
+                    <img className={styles.smallimg} src={`${import.meta.env.VITE_API_BASE_URL}${auth?.avatarUrl}`}alt={user} />
                     :
-                    <img className={styles.smallimg} src={`http://localhost:5555/uploads/d-person.png`} alt="Person" />
+                    <img className={styles.smallimg} src={`${import.meta.env.VITE_API_BASE_URL}/uploads/d-person.png`} alt="Person" />
                   }
                   {/* <LogOut /> */}
                   {user}
+
 
                 </button>
               </>

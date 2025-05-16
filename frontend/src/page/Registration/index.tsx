@@ -93,6 +93,7 @@ const Registration = () => {
           }
           <input 
             type="file"
+            accept="image/png, image/jpeg"
             // onChange={(event) => handleChangeFile(event)} 
             hidden 
             {...register("avatarFile")}
