@@ -82,13 +82,19 @@ export const fetchAllBasket =  createAsyncThunk<BasketProps[], void, { state: Ro
 
 type Props = {
     data: BasketProps[],
-    status: string
+    status: string,
+   
+    statusId: {
+    [key: string]: 'loading' | 'loaded' | 'error' | undefined;
+    
+    }
 }
 
 
 const initialState: Props = {
     data: [],
-    status: 'loading'
+    status: 'loading',
+     statusId: {},
 }
 
 
@@ -103,16 +109,20 @@ const basketSlice = createSlice({
     },
 
     extraReducers: (builder) => {
-        builder.addCase(fetchBasket.pending, (state) => {
-            state.status = 'loading'
+        builder.addCase(fetchBasket.pending, (state, action) => {
             // state.data = [];
+           const itemId = action.meta.arg;
+            state.statusId[itemId] = 'loading'
+
         });
         builder.addCase(fetchBasket.fulfilled, (state, action) => {
-            state.status = 'loaded'
+             const itemId = action.meta.arg;
+            state.statusId[itemId] = 'loaded';
             state.data = action.payload;
         });
-        builder.addCase(fetchBasket.rejected, (state) => {
-            state.status = 'error'
+        builder.addCase(fetchBasket.rejected, (state, action) => {
+            const itemId = action.meta.arg;
+            state.statusId[itemId] = 'error';
             state.data = [];
         });
 

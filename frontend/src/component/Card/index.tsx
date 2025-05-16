@@ -19,9 +19,10 @@ type Props = {
 
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
   const search = useSelector((state: RootState) => state.search.search);
-  const status = useSelector((state: RootState) => state.basket.status);
 
-  console.log(status);
+const statusId = useSelector((state: RootState ) => state.basket.statusId);
+
+  // console.log(status);
 
   const dispatch = useAppDispatch();
 
@@ -43,7 +44,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
     const regex = new RegExp(`(${search})`, "gi");
     const parts = obj.name.split(regex);
 
-
+const isLoading = statusId[obj._id] === 'loading';
 
   return (
     <article className={styles.item}>
@@ -97,9 +98,12 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
           className={`${styles.btn} ${isInBasket ? styles.btngreen : ""}`}
           type="button"
           onClick={() => addToBasket(obj._id)}
-        >{`${isInBasket ? "Remove from Basket" : "Add to Cart"}`}
+        >
+          
+          {/* {`${isLoading ? "Remove from Basket" : "Add to Cart"}`}
+          {isLoading ? '' : 'Добавить в корзину'} */}
         
-        { status === 'loading' &&
+        { isLoading ?
           <svg 
           className={styles.loading}
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="200" height="200" ><g><g transform="rotate(0 50 50)">
@@ -153,6 +157,8 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
           </g><g></g></g>
           
           </svg>
+      :
+              <span>{isInBasket ? 'Remove from Basket' : 'Add to Cart'}</span>
         }
         </button>
       </div>
