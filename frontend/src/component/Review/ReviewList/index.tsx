@@ -66,9 +66,10 @@ const ReviewList = ({editPost} : Props) => {
               <div className={styles.reviewtop}>
                 <img
                   className={styles.image}
-                  src={`http://localhost:5555${
+                  src={`${import.meta.env.VITE_API_BASE_URL}${
                     item.avatarUrl ? item.avatarUrl : "/uploads/d-person.png"
                   }`}
+                  
                   alt={item.fullName}
                 />
                 <span className={styles.reviewname}>{item.fullName}</span>

@@ -99,22 +99,13 @@ const Header = () => {
                   className={styles.exit}
                   onClick={onClickLogout}
                   type="button"
-
-
-
-                  
-                  
                 >
-                  
                   {auth?.avatarUrl != '' ?
                     <img className={styles.smallimg} src={`${import.meta.env.VITE_API_BASE_URL}${auth?.avatarUrl}`}alt={user} />
                     :
                     <img className={styles.smallimg} src={`${import.meta.env.VITE_API_BASE_URL}/uploads/d-person.png`} alt="Person" />
                   }
-                  {/* <LogOut /> */}
                   {user}
-
-
                 </button>
               </>
             ) : (
