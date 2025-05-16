@@ -32,8 +32,8 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); // ← Добавь это �
       {
         _id: user._id,
       },
-      // process.env.JWT_SECRET, // 
-      "secret1234",
+      process.env.JWT_SECRET, // 
+      // "secret1234",
       {
         expiresIn: "30d", // окен будет действителен в течение 30 дней.
       }
