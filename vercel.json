@@ -1,5 +1,8 @@
 {
   "version": 2,
+  
+ "rewrites": [{ "source": "/(.*)", "destination": "/" }] ,
+
 
   "builds": [
     {
@@ -10,7 +13,7 @@
   "routes": [
     {
       "src": "/(.*)",
-       "dest": "/index.html"
+      "dest": "/frontend/$1"
     }
   ]
 
