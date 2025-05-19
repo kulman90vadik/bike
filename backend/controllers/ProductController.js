@@ -72,6 +72,17 @@ export const likeComment = async (req, res) => {
     if (action === 'likeUp') {
       // Проверяем, есть ли уже лайк от этого пользователя
       const existingLike = comment.likesUp.find(like => like.user.toString() === userId);
+      
+
+
+      const existingLikeDown = comment.likesDown.find(like => like.user.toString() === userId);
+      if (existingLikeDown) {
+        // Если лайк уже есть, удаляем его
+        comment.likesDown = comment.likesDown.filter(like => like.user.toString() !== userId);
+      }
+
+
+
       if (existingLike) {
         // Если лайк уже есть, удаляем его
         comment.likesUp = comment.likesUp.filter(like => like.user.toString() !== userId);
@@ -84,6 +95,16 @@ export const likeComment = async (req, res) => {
     else if (action === 'likeDown') {
       // Проверяем, есть ли уже отрицательный лайк от этого пользователя
       const existingLike = comment.likesDown.find(like => like.user.toString() === userId);
+
+
+      const existingLikeUp = comment.likesUp.find(like => like.user.toString() === userId);
+      if (existingLikeUp) {
+        // Если лайк уже есть, удаляем его
+        comment.likesUp = comment.likesUp.filter(like => like.user.toString() !== userId);
+      }
+
+
+
       if (existingLike) {
         // Если лайк уже есть, удаляем его
         comment.likesDown = comment.likesDown.filter(like => like.user.toString() !== userId);

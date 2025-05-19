@@ -18,22 +18,21 @@ const TopProducts = () => {
       <h1 className={styles.title}>Top Viewed Products</h1>
         <Swiper
           breakpoints={{
-            // 991: {
-            //   slidesPerView: 4,
-            //   // spaceBetween: 20,
-            // },
-            // 650: {
-            //   slidesPerView: 2.5,
-            // },
-            // 450: {
-            //   slidesPerView: 2.5,
-            //   spaceBetween: 10,
-            // },
+            1050: {
+              slidesPerView: 3.5,
+            },
+            650: {
+              slidesPerView: 2.5,
+            },
+            450: {
+              slidesPerView: 1.65,
+            },
           }}
 
+
           className={styles.slider}
-          spaceBetween={30}
-          slidesPerView={3.5}
+          spaceBetween={20}
+          slidesPerView={1.25}
           loop={true}
           modules={[Autoplay]}
           autoplay={{
@@ -41,7 +40,6 @@ const TopProducts = () => {
             disableOnInteraction: false,
           }}
           onSwiper={(swiper) => {
-            // Явно запускаем автоплей при инициализации
             swiper.autoplay.start();
           }}
           // onSlideChange={() => console.log('slide change')}

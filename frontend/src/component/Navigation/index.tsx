@@ -1,10 +1,10 @@
 import { NavLink, useLocation } from "react-router-dom";
 import styles from './navigation.module.scss';
 import { PropsNav } from "../../propstype";
-import gsap from "gsap";
+// import gsap from "gsap";
 import React from "react";
-import { LayoutGroup, motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Navigation = ({navigation, classNameNav}: PropsNav) => {
   const[isSelected, setIsSelected] = React.useState(0);
@@ -70,7 +70,7 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
 
 
   return (
-    <LayoutGroup >
+    <>
     <motion.nav
    
      layout 
@@ -102,10 +102,19 @@ const Navigation = ({navigation, classNameNav}: PropsNav) => {
         })}
       </ul>
     </motion.nav>
-      <button className={styles.burger}  onClick={() => setIsOpen(!isOpen)}>
-        <Menu size={36} />
+      <button className={`${styles.burger}`}  onClick={() => setIsOpen(!isOpen)}>
+        {!isOpen ? 
+        <div className={`${styles.rotateY }` }>
+          <Menu size={36} />
+        </div>
+          : 
+          <div className={` ${styles.rotateX}` }>
+            <X size={36}/>
+          </div>
+      }
       </button>
-    </LayoutGroup>
+    </>
+
   );
 };
 

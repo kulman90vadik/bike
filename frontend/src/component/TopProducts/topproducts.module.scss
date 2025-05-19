@@ -14,5 +14,8 @@
   font-weight: 700;
   margin-bottom: 40px;
   color: var(--color-white);
+  @media (max-width: 720px) {
+    font-size: 25px;
+  }
 }
 

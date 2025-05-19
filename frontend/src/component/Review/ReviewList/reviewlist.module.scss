@@ -20,7 +20,8 @@
 }
 
 .reviewtop {
-  width: 100%;
+width: 100%;
+line-height: 1;
  align-items: center;  
  display: flex;
 }
@@ -33,6 +34,7 @@
 }
 
 .reviewname {
+  text-transform: capitalize;
  font-size: 22px;
  display: block;
  margin-right: 12px;
@@ -50,7 +52,7 @@
 }
 
 .reviewdate {
- font-size: 20px;
+ font-size: 17px;
  margin-right: 12px;
 }
 

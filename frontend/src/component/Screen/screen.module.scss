@@ -6,8 +6,13 @@
   width: 100%;
   overflow: hidden;
   clip-path: polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%);
-
   background-color: var(--color-black);
+   @media (max-width: 991px) {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
 }
 
 .fullwidthImage img {
@@ -17,8 +22,10 @@
   top: 0;
   left: 0;
   transform-origin: center;
-
-  /* transform: translateY(-20%); */
+   @media (max-width: 991px) {
+    height: 100%;
+    object-fit: cover;
+   }
 }
 
 .fullwidthImageOverlay {
@@ -38,9 +45,10 @@
   z-index: 3;
   color: white;
   max-width: 70%;
-   @media (max-width: 850px) {
-    max-width: 90%;
-    // position: static;
+   @media (max-width: 991px) {
+    max-width: 80%;
+    position: static;
+    transform: none;
    }
 }
 

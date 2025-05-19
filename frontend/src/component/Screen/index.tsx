@@ -72,11 +72,11 @@ const Screen = () => {
         className={styles.fullwidthImageOverlay}
       ></div>
       <div className={styles.fullwidthImageText}>
-        <h2>2023 collection</h2>
+        <h2>2025 Collection</h2>
         <p>
           Our new collection is everything you need for your next adventure.
           Made to be flexible, breathable and long lasting so you can enjoy more
-          of the #OutdoorLiving.
+          of the OutdoorLiving.
         </p>
       </div>
       <img ref={refImage} src="/images/vel.jpg" />
