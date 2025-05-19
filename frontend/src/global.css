@@ -166,3 +166,31 @@ body {
   }
 }
 
+
+
+.leaflet-tooltip.custom-tooltip {
+  background-color: #333;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 5px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
+  color: #fff!important;
+  background:rgba(0,0,0,0.7) !important;
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  text-align: center;
+}
+
+.leaflet-popup-close-button {
+  color: red !important;
+}

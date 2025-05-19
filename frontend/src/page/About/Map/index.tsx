@@ -1,6 +1,8 @@
+import '../../../global.css';
+
 import styles from "./map.module.scss";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import germanyGeoJson from "./germany.json";
 import { markersData } from "./data";
@@ -8,6 +10,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import React from "react";
+
+
+
 
 
 const svgHtmlIcon = L.divIcon({
@@ -22,7 +27,7 @@ const svgHtmlIcon = L.divIcon({
 
 const Map = () => {
   const [data, setData] = useState(markersData);
-  const [originalData, setOriginalData] = useState(markersData);
+  // const [originalData, setOriginalData] = useState(markersData);
 
   const [isFocused, setIsFocused] = useState(false);
   const [zoom, setZoom] = useState(5.8);
@@ -44,7 +49,7 @@ const Map = () => {
 
 
   React.useEffect(() => {
-    const filtered = originalData.filter(item =>
+    const filtered = markersData.filter(item =>
       item.name.toLowerCase().includes(input.toLowerCase())
     );
    
@@ -57,7 +62,7 @@ const Map = () => {
       setCenter([51.1657, 10.4515]);
     } 
     setData(filtered);
-  }, [input, originalData]);
+  }, [input, markersData]);
 
 
   return (
@@ -137,13 +142,16 @@ const Map = () => {
       {markersData
       .filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
       .map((marker) => (
-        <Marker  icon={svgHtmlIcon} key={marker.id} position={(marker.position ?? [0, 0]) as [number, number]}>
+        <Marker icon={svgHtmlIcon} key={marker.id} position={(marker.position ?? [0, 0]) as [number, number]}>
+         <Tooltip
+         className="leaflet-tooltip custom-tooltip"
+           direction="bottom" offset={[10, 0]} permanent>
+          <span>{marker.name}</span>
+        </Tooltip>
           <Popup>
-            <button
-              className={styles.text}
-            >
-              {marker.name}
-            </button>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, fugiat!
+            </p>
           </Popup>
         </Marker>
       ))}

@@ -9,5 +9,6 @@ export const markersData = [
   { id: 6, name: "Stuttgart", position: [48.7758, 9.1829], type: "city" },
   { id: 7, name: "Hannover", position: [52.3759, 9.7320], type: "city" },
   { id: 8, name: "Düsseldorf", position: [51.2277, 6.7735], type: "city" },
-  { id: 9, name: "Köln", position: [50.9375, 6.9603], type: "city" },
+  { id: 9, name: "Leipzig", position: [51.3397, 12.3731], type: "city" },
+  { id: 10, name: "Hamburg", position: [53.5511, 9.9937], type: "city" }
 ];

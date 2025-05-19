@@ -36,6 +36,17 @@
   width: 250px;
   bottom: -50px;
   right: 0;
+  
+  @media (max-width: 720px) {
+    width: 90%;
+    position: fixed;
+    top: 60px;
+    bottom: auto;
+    right: auto;
+    left: 50%;
+    height: 35px;
+    transform: translateX(-50%);
+  }
 }
 
 .input {
@@ -53,6 +64,9 @@
   font-weight: 700;
   &::placeholder {
     transition: color .2s ease-in;
+    @media (max-width: 720px) {
+      font-size: 16px;
+    }
   }
   &:focus {
     background-color: rgba(#fff, 0.7);
