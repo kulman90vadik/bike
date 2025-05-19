@@ -59,4 +59,7 @@
 
 .fullwidthImage p {
   font-size: 32px;
+   @media (max-width: 991px) {
+    font-size: 19px;
+   }
 }

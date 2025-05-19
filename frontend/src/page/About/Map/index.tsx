@@ -79,6 +79,7 @@ const Map = () => {
             >
               <X />
           </button>
+
         }
         <motion.ul className={styles.list}
          exit={{ height: 0, opacity: 0}}

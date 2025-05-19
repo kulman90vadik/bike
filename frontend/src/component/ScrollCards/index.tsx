@@ -16,6 +16,9 @@ interface LenisOptions {
 
 gsap.registerPlugin(ScrollTrigger);
 
+const isMobile = window.innerWidth < 768;
+
+
 const ScrollCards = () => {
   const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
@@ -27,6 +30,8 @@ const ScrollCards = () => {
   const containerRef = React.useRef<HTMLUListElement | null>(null);
 
   useLayoutEffect(() => {
+    if (isMobile) return; 
+
     const lenis = new Lenis({
       smooth: true,
     } as LenisOptions);
@@ -56,6 +61,7 @@ const ScrollCards = () => {
         },
       });
     }
+
 
     return () => {
       lenis.destroy();
