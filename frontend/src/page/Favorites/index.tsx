@@ -34,7 +34,9 @@ const Favorites = () => {
             const isInBasket = basket?.some((item: ProductProps) => item.productId === id);
             const isInFavorites = favorites?.some((item: ProductProps) => item.productId === id);
 
+            
             return (
+
               <Card 
                 obj={{ ...obj, _id: id }} // <-- перезаписываем _id на настоящий ID товара
                 key={id}

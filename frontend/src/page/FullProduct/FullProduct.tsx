@@ -31,10 +31,12 @@ const FullProduct = () => {
   let price = fullProduct?.sale
     ? Number(fullProduct?.price) *
       (1 - Number(fullProduct?.sale.replace(/%/g, "")) / 100)
+      
     : fullProduct?.price;
-  const isInBasket = basket?.some(
-    (item: ProductProps) => item._id === fullProduct?._id
-  );
+
+    const isInBasket = basket?.some(
+      (item: ProductProps) => item.productId === fullProduct?._id
+    );
 
   return (
     <section className={styles.product}>

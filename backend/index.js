@@ -23,20 +23,41 @@ const storage = multer.diskStorage({
     cb(null, 'uploads'); // НЕ получает ошибок и сохраняет данный в папку uploads
   },
   // прежде чем как сохранить он скажет как называется файл
+  // filename: (_, file, cb) => {
+  //   cb(null, file.originalname); // НЕ получает ошибок и сохраняет данный в папку uploads
+  // },
   filename: (_, file, cb) => {
-    cb(null, file.originalname); // НЕ получает ошибок и сохраняет данный в папку uploads
-  },
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const extension = file.originalname.split('.').pop();
+    cb(null, `${file.fieldname}-${uniqueSuffix}.${extension}`);
+  }
 });
 
-const upload = multer({storage});
+const upload = multer({
+  storage,
+   fileFilter: (_, file, cb) => {
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true); // файл принят
+    } else {
+      cb(new Error('Недопустимый тип файла. Разрешены только изображения.'));
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024, // ограничение размера: 5 МБ
+  }, 
+});
 app.use('/uploads', express.static('uploads')); // если убрать то он не будет знать что лежит в папке с файлами. 
 
 
 // app.post('/uploads', checkAuth, upload.single('image'), (req, res) => {
 app.post('/uploads', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'Файл не загружен' });
+  }
   res.json({
-    url: `/uploads/${req.file.originalname}`
-  })
+    url: `/uploads/${req.file.filename}`,
+  });
 })
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
