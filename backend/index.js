@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import { registerValidation, loginValidation } from './validations.js';
+import { readLimiter } from './ratelimit.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
 import { UserController, ProductController, BasketController, FavoritesController } from './controllers/index.js';
 
@@ -12,12 +13,6 @@ dotenv.config();
 const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
-// const allowedOrigins = [
-//   'https://bike-ten.vercel.app',
-//   // можно добавить другие домены если нужно
-// ];
-
-console.log('JWT_SECRET:', process.env.JWT_SECRET); 
 
 const PORT = process.env.PORT || 5555;
 const storage = multer.diskStorage({
@@ -49,24 +44,24 @@ app.post('/auth/register', registerValidation, handleValidationErrors, UserContr
 
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.get("/products/topproducts", ProductController.topProducts);
-app.get("/products/sort", ProductController.sortProducts);
-app.get('/products', ProductController.getAll);
-app.get('/products/:id', ProductController.getOne);
+app.get("/products/topproducts", readLimiter, ProductController.topProducts);
+app.get("/products/sort", readLimiter, ProductController.sortProducts);
+app.get('/products', readLimiter, ProductController.getAll);
+app.get('/products/:id', readLimiter, ProductController.getOne);
 
-app.patch('/products/:id/comments', checkAuth, handleValidationErrors, ProductController.addComment);
+app.patch('/products/:id/comments', checkAuth, handleValidationErrors, readLimiter, ProductController.addComment);
 app.patch('/products/:productId/comments/:reviewId', checkAuth, ProductController.editComment);
 app.delete('/products/:id/comments/:idComment', checkAuth, ProductController.removeComment);
 // handleValidationErrors
 
 app.patch('/products/:id/comments/:idComment/:action', checkAuth, ProductController.likeComment);
 
-app.post('/basket/:id', checkAuth, handleValidationErrors, BasketController.addToBasket);
+app.post('/basket/:id', checkAuth, readLimiter, handleValidationErrors, BasketController.addToBasket);
 app.post('/basket/counter/:id/:action', checkAuth, handleValidationErrors, BasketController.counterBasket);
-app.get('/basket', checkAuth, BasketController.getAllBasket);
+app.get('/basket', checkAuth, readLimiter, BasketController.getAllBasket);
 
-app.post('/favorites/:id', checkAuth, handleValidationErrors, FavoritesController.addToFavorites);
-app.get('/favorites', checkAuth, FavoritesController.getAllFavorites);
+app.post('/favorites/:id', checkAuth, readLimiter, handleValidationErrors, FavoritesController.addToFavorites);
+app.get('/favorites', checkAuth, readLimiter, FavoritesController.getAllFavorites);
 
 // app.listen(PORT, (err) => {
 //   if(err) {return console.log(err, '------------------------')}

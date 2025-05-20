@@ -5,8 +5,8 @@ const BasketSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId, // так как есть id у пользователя в базе данных
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, // так как есть id у пользователя в базе данных
     ref: 'User', // связь или ссылка на пользователя 
     required: true
   },
@@ -39,9 +39,9 @@ const BasketSchema = new mongoose.Schema({
   basePrice: {
     type: Number
   },
-  _id: {
-    type: String
-  },
+  // _id: {
+  //   type: String
+  // },
   image: {
     type: String
   },

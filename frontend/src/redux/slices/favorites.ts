@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { isAxiosError  } from 'axios';
 import axios from '../../axios';
 import { ProductProps } from '../../propstype';
 import { RootState } from '../store';
@@ -18,9 +19,20 @@ export const fetchFavorites = createAsyncThunk<ProductProps[], string, { state: 
             const product = products.find((p) => p._id === id);
             if (!product) return []; 
             let favoritesStorage = JSON.parse(localStorage.getItem('favorites') || '[]');
-            const productIndex = favoritesStorage.findIndex((item: ProductProps) => item._id === id);
+            const productIndex = favoritesStorage.findIndex((item: ProductProps) => item.productId === id);
             if (productIndex !== -1) {favoritesStorage.splice(productIndex, 1); 
-            } else {favoritesStorage.push({...product, basePrice: Number(product.price)});}
+            } else {
+
+                
+           favoritesStorage.push({
+                productId: product._id,   // <-- добавляем productId
+                ...product,
+                basePrice: Number(product.price)
+            });
+                
+                // favoritesStorage.push({...product, basePrice: Number(product.price)});
+        
+            }
             localStorage.setItem('favorites', JSON.stringify(favoritesStorage));
             return favoritesStorage; 
         }
@@ -28,17 +40,25 @@ export const fetchFavorites = createAsyncThunk<ProductProps[], string, { state: 
 
 
 
-export const fetchAllFavorites = createAsyncThunk<ProductProps[], void, { state: RootState }>(
-    'auth/fetchAllFavorites', async(_, { getState }) => {
+export const fetchAllFavorites = createAsyncThunk<ProductProps[], void, { state: RootState; rejectValue: string }>(
+    'auth/fetchAllFavorites', async(_, { getState, rejectWithValue  }) => {
         const state = getState(); // Берем текущее состояние Redux
         const isAuth = Boolean(state.auth.data); // Проверяем авторизацию
-        if(isAuth) {
-            const {data} = await axios.get<ProductProps[]>('./favorites');
-            return data;
-        }
-        else {
-            let favoritesStorage = JSON.parse(localStorage.getItem('favorites') || '[]');
-            return favoritesStorage;
+
+        try {     
+            if(isAuth) {
+                const {data} = await axios.get<ProductProps[]>('./favorites');
+                return data;
+            }
+            else {
+                let favoritesStorage = JSON.parse(localStorage.getItem('favorites') || '[]');
+                return favoritesStorage;
+            }
+        } catch (error) {
+            if (isAxiosError(error) && error.response?.status === 429) {
+                return rejectWithValue('Too many requests. Please try again later');
+            }
+            return rejectWithValue('Ошибка загрузки избранного');
         }
 })
 
@@ -47,13 +67,15 @@ export const fetchAllFavorites = createAsyncThunk<ProductProps[], void, { state:
 
 type Props = {
     data: ProductProps[],
-    status: string
+    status: string,
+    errorMessage: string | null;
 }
 
 
 const initialState: Props = {
     data: [],
-    status: 'loading'
+    status: 'loading',
+    errorMessage: null,
 }
 
 
@@ -90,9 +112,14 @@ const favoritesSlice = createSlice({
             state.status = 'loaded'
             state.data = action.payload;
         });
-        builder.addCase(fetchAllFavorites.rejected, (state) => {
+        builder.addCase(fetchAllFavorites.rejected, (state, action) => {
             state.status = 'error'
             state.data = [];
+              if (action.payload) {
+                    state.errorMessage = action.payload;
+                } else {
+                    state.errorMessage = 'Неизвестная ошибка';
+                }
         });
    
     }

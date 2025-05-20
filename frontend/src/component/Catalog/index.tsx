@@ -131,10 +131,10 @@ const Catalog = () => {
                     
                     .map((obj: ProductProps) => {
                       const isInBasket = basket?.some(
-                        (item: ProductProps) => item._id === obj._id
+                        (item: ProductProps) => item.productId === obj._id
                       );
                       const isInFavorites = favorites?.some(
-                        (item: ProductProps) => item._id === obj._id
+                        (item: ProductProps) => item.productId === obj._id
                       );
 
                       return (

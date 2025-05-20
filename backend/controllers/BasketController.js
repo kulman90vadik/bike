@@ -22,7 +22,7 @@ export const addToBasket = async (req, res) => {
     // Проверяем, есть ли товар в корзине пользователя
     const existingProduct = await BasketModel.findOne({
       user: req.userId,
-      _id: id, // Сравниваем ID продуктаa
+      productId: id, // Сравниваем ID продуктаa
     });
     
     
@@ -42,7 +42,7 @@ export const addToBasket = async (req, res) => {
     
       // Создаём новый объект товара для корзины
       const newBasketItem = new BasketModel({
-        _id: id,
+        productId: id, // <-- сохраняем ID товара отдельно
         user: req.userId,
         name: product.name,
         category: product.category,

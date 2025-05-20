@@ -195,7 +195,6 @@ export const removeComment = async (req, res) => {
 };
 
 
-
 export const getAll = async (req, res) => {
   try {
     const products = await ProductModel.find().exec(); // для развёртывания usera информации

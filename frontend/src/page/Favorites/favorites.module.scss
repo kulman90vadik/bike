@@ -31,3 +31,17 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+.error {
+  position: absolute;
+  z-index: 100;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(#000, 0.4);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-white);
+  font-size: 35px;
+  text-align: center;
+}

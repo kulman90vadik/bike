@@ -21,7 +21,7 @@ export const addToFavorites = async (req, res) => {
     const { id } = req.params; // Получаем ID товара
     const existingProduct = await FavoritesModel.findOne({
       user: req.userId,
-      _id: id, // Сравниваем ID продуктаa
+      productId: id, // Сравниваем ID продуктаa
     });
     
     if (existingProduct) {
@@ -38,7 +38,7 @@ export const addToFavorites = async (req, res) => {
     
       // Создаём новый объект товара для корзины
       const newFavoritesItem = new FavoritesModel({
-        _id: id,
+        productId: id,
         user: req.userId,
         name: product.name,
         category: product.category,

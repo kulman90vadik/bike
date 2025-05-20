@@ -36,6 +36,7 @@ export interface Registerprops {
 
 export interface ProductProps {
   _id: string;
+  productId?: string;
   name: string;
   flag: string;
   image: string;
@@ -76,6 +77,7 @@ export interface likesDown {
 
 export interface BasketProps {
   _id: string;
+  productId?: string;
   category: string
   name: string;
   flag: string;

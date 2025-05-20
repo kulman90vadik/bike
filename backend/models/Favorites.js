@@ -5,6 +5,7 @@ const FavoritesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
   user: {
     type: mongoose.Schema.Types.ObjectId, // так как есть id у пользователя в базе данных
     ref: 'User', // связь или ссылка на пользователя 

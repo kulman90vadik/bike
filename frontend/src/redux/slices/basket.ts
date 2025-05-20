@@ -12,14 +12,30 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: Root
         return data;
     } else {
         const products = state.products.data; 
+
+
+        console.log(products, 'products')
+        console.log(id, 'id')
+
+
+
+
         const product = products.find((p) => p._id === id);
         if (!product) return []; 
         let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
-        const productIndex = basketStorage.findIndex((item: BasketProps) => item._id === id);
+        const productIndex = basketStorage.findIndex((item: BasketProps) => item.productId  === id);
         if (productIndex !== -1) {
           basketStorage.splice(productIndex, 1); 
         } else {
-          basketStorage.push({...product, basePrice: Number(product.price)}); 
+
+
+           basketStorage.push({
+                productId: product._id,   // <-- добавляем productId
+                ...product,
+                basePrice: Number(product.price)
+            });
+
+
         }
         localStorage.setItem('basket', JSON.stringify(basketStorage));
         return basketStorage; 

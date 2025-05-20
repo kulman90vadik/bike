@@ -47,8 +47,8 @@ const TopProducts = () => {
         >
           {topProducts
           .map((obj: ProductProps) => {
-            const isInBasket = basket?.some((item: ProductProps) => item._id === obj._id  );
-            const isInFavorites = favorites?.some((item: ProductProps) => item._id === obj._id );
+            const isInBasket = basket?.some((item: ProductProps) => item.productId === obj._id  );
+            const isInFavorites = favorites?.some((item: ProductProps) => item.productId === obj._id );
             return (
               <SwiperSlide key={obj._id}>
                   <Card obj={obj} isInBasket={!!isInBasket} isInFavorites={!!isInFavorites}/>
