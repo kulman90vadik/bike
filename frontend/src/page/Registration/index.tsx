@@ -67,10 +67,10 @@ const Registration = () => {
         if (isAxiosError(error) && error.response) {
           // alert(error.response.data.message); // Показать ошибку пользователю
           setError(error.response.data.message)
-          setPreview(null)
+          // setPreview(null)
         } else {
           setError('Произошла неизвестная ошибка при загрузке файла.')
-          setPreview(null)
+          // setPreview(null)
           // alert('Произошла неизвестная ошибка при загрузке файла.');
         }
 
