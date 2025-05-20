@@ -40,7 +40,8 @@ const upload = multer({
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true); // файл принят
     } else {
-      cb(new Error('Недопустимый тип файла. Разрешены только изображения.'));
+      cb(new Error('Invalid file type. Only image files are allowed.'));
+      
     }
   },
   limits: {
@@ -51,14 +52,25 @@ app.use('/uploads', express.static('uploads')); // если убрать то о
 
 
 // app.post('/uploads', checkAuth, upload.single('image'), (req, res) => {
-app.post('/uploads', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'Файл не загружен' });
-  }
-  res.json({
-    url: `/uploads/${req.file.filename}`,
+app.post('/uploads', (req, res, next) => {
+  upload.single('image')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      // Ошибка Multer (например, слишком большой файл)
+      return res.status(400).json({ message: err.message });
+    } else if (err) {
+      // Другая ошибка (например, неверный тип файла)
+      return res.status(400).json({ message: err.message });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'Файл не загружен.' });
+    }
+
+    res.json({
+      url: `/uploads/${req.file.filename}`,
+    });
   });
-})
+});
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
