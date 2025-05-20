@@ -56,6 +56,8 @@ const Registration = () => {
   const onSubmit = async (values:FormValuesRegister) => {
     const formData = new FormData();
     let avatarUrl = ''
+
+
     if (values.avatarFile?.[0]) {
       formData.append('image', values.avatarFile[0]); // важно: это массив! 
     
@@ -67,12 +69,13 @@ const Registration = () => {
         if (isAxiosError(error) && error.response) {
           // alert(error.response.data.message); // Показать ошибку пользователю
           setError(error.response.data.message)
-          // setPreview(null)
+          setPreview(null)
         } else {
           setError('Произошла неизвестная ошибка при загрузке файла.')
-          // setPreview(null)
+          setPreview(null)
           // alert('Произошла неизвестная ошибка при загрузке файла.');
         }
+        return;
 
 
       }
