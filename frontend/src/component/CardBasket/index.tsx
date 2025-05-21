@@ -27,7 +27,9 @@ const CardBasket = ({ obj }: Props) => {
         <img className={styles.image} src={obj.image} alt={obj.name} />
       </div>
       <div className={styles.name}>{obj.name}</div>
+
       <Counter obj={obj}/>
+
       <div className={styles.price}>
           {new Intl.NumberFormat('en-US', {
             useGrouping: true,

@@ -12,14 +12,6 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: Root
         return data;
     } else {
         const products = state.products.data; 
-
-
-        console.log(products, 'products')
-        console.log(id, 'id')
-
-
-
-
         const product = products.find((p) => p._id === id);
         if (!product) return []; 
         let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');

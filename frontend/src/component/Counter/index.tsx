@@ -8,6 +8,7 @@ type Props = {
   obj: BasketProps
 }
 
+
 const Counter = ({obj}: Props) => {
   const dispatch = useAppDispatch(); 
   const counter = (id: string, str: string) => {
@@ -20,7 +21,7 @@ const Counter = ({obj}: Props) => {
       <button className={styles.nummber}>{obj.counter}</button>
       <button className={styles.plus} onClick={() => counter(obj._id, 'plus')}>+</button>
     </div>
-  );
+  ); 
 }
  
 export default Counter;

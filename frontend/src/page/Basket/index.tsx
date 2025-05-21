@@ -41,6 +41,7 @@ const Basket = () => {
               <ul className={styles.list}>
                 {basket.map((obj: BasketProps) => {
                   const id = obj.productId || obj._id; 
+                  
                   return <CardBasket obj={{ ...obj, _id: id }} key={obj._id} />
                 }
                 )}

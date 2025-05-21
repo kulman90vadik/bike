@@ -74,15 +74,15 @@ export const addToBasket = async (req, res) => {
 };
 
 
+
 export const counterBasket = async (req, res) => {
   try {
     const { id, action } = req.params; // Получаем ID товара и действие (плюс или минус)
 
-    // Проверяем, есть ли товар в корзине пользователя
-    const existingProduct = await BasketModel.findOne({
-      user: req.userId,
-      _id: id,
-    });
+const existingProduct = await BasketModel.findOne({
+  user: req.userId,
+  productId: id,
+});
 
     if (existingProduct) {
       // Если товар есть в корзине, увеличиваем/уменьшаем счетчик и цену
