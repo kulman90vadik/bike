@@ -8,7 +8,19 @@ import { useSelector } from "react-redux";
 import Review from "../../component/Review";
 import { fetchProduct } from "../../redux/slices/fullproduct";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperClass } from "swiper";
+
+// Import Swiper styles
+import "swiper/swiper-bundle.css";
+
+import { FreeMode, Thumbs } from "swiper/modules";
+
 const FullProduct = () => {
+  const [thumbsSwiper, setThumbsSwiper] = React.useState<SwiperClass | null>(
+    null
+  );
+
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const basket = useSelector((state: RootState) => state.basket.data);
@@ -31,12 +43,11 @@ const FullProduct = () => {
   let price = fullProduct?.sale
     ? Number(fullProduct?.price) *
       (1 - Number(fullProduct?.sale.replace(/%/g, "")) / 100)
-      
     : fullProduct?.price;
 
-    const isInBasket = basket?.some(
-      (item: ProductProps) => item.productId === fullProduct?._id
-    );
+  const isInBasket = basket?.some(
+    (item: ProductProps) => item.productId === fullProduct?._id
+  );
 
   return (
     <section className={styles.product}>
@@ -49,14 +60,102 @@ const FullProduct = () => {
       ) : (
         <div className="container">
           <div className={styles.inner}>
-           
             <div className={styles.left}>
-              <img
-                className={styles.image}
-                src={fullProduct?.image}
-                alt={fullProduct?.name}
-              />
-              <ul className={styles.list}>
+              <Swiper
+                spaceBetween={10}
+                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                modules={[FreeMode, Thumbs]}
+                className="mySwiper2"
+              >
+                <SwiperSlide>
+                  <img
+                    className={styles.image}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+               
+                <SwiperSlide>
+                  <img
+                    className={styles.image}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <img
+                    className={styles.image}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <img
+                    className={styles.image}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className={styles.image}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+              </Swiper>
+
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={5}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Thumbs]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+               
+                <SwiperSlide>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+              
+                <SwiperSlide>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+              
+                <SwiperSlide>
+                  <img
+                    className={styles.smallimage}
+                    src={fullProduct?.image}
+                    alt={fullProduct?.name}
+                  />
+                </SwiperSlide>
+              </Swiper>
+              {/* <ul className={styles.list}>
                 <li className={styles.imgitem}>
                   <img
                     className={styles.smallimage}
@@ -92,7 +191,7 @@ const FullProduct = () => {
                     alt={fullProduct?.name}
                   />
                 </li>
-              </ul>
+              </ul> */}
             </div>
 
             <div className={styles.right}>

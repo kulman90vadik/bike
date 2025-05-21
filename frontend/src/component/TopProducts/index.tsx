@@ -2,7 +2,7 @@ import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './topproducts.module.scss';
-import "swiper/css";
+import "swiper/swiper-bundle.css";
 import Card from "../Card";
 import { Autoplay } from "swiper/modules";
 import { ProductProps } from "../../propstype";

@@ -45,14 +45,13 @@
   grid-template-columns: repeat(5, 1fr);
 }
 
-.imgitem {
-  cursor: pointer;
-  border-radius: 15px;
-}
-
 .smallimage {
   border-radius: 15px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in;
 }
+
 
 .info {
   padding: 20px;
