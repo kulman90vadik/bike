@@ -203,3 +203,10 @@ body {
   opacity: 1;
   transition: opacity 0.3s ease-in;
 }
+
+
+.iiz__btn.iiz__hint {
+  bottom: 15px;
+  border-radius: 10px;
+  background: rgba(245, 117, 32, 0.7);
+}

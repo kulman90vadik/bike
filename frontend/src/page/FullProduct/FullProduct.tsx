@@ -15,6 +15,10 @@ import type { Swiper as SwiperClass } from "swiper";
 import "swiper/swiper-bundle.css";
 
 import { FreeMode, Thumbs } from "swiper/modules";
+// import SimpleZoom from "../../component/SimpleZoom";
+import InnerImageZoom from "react-inner-image-zoom";
+
+import "react-inner-image-zoom/lib/styles.min.css";
 
 const FullProduct = () => {
   const [thumbsSwiper, setThumbsSwiper] = React.useState<SwiperClass | null>(
@@ -63,48 +67,56 @@ const FullProduct = () => {
             <div className={styles.left}>
               <Swiper
                 spaceBetween={10}
-                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                thumbs={{
+                  swiper:
+                    thumbsSwiper && !thumbsSwiper.destroyed
+                      ? thumbsSwiper
+                      : null,
+                }}
                 modules={[FreeMode, Thumbs]}
                 className="mySwiper2"
+                style={{marginBottom: '10px'}}
               >
                 <SwiperSlide>
-                  <img
-                    className={styles.image}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </SwiperSlide>
-               
-                <SwiperSlide>
-                  <img
-                    className={styles.image}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
+                  {fullProduct?.image && (
+                    <InnerImageZoom
+                      className={styles.image}
+                      zoomScale={1.6}
+                      src={fullProduct?.image}
+                    />
+                  )}
                 </SwiperSlide>
 
                 <SwiperSlide>
-                  <img
-                    className={styles.image}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
+                  {fullProduct?.image && (
+                    <InnerImageZoom
+                      className={styles.image}
+                      zoomScale={1.6}
+                      src={fullProduct?.image}
+                    />
+                  )}
                 </SwiperSlide>
 
                 <SwiperSlide>
-                  <img
-                    className={styles.image}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
+                  {fullProduct?.image && (
+                    <InnerImageZoom
+                      className={styles.image}
+                      zoomScale={1.6}
+                      src={fullProduct?.image}
+                    />
+                  )}
                 </SwiperSlide>
+
                 <SwiperSlide>
-                  <img
-                    className={styles.image}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
+                  {fullProduct?.image && (
+                    <InnerImageZoom
+                      className={styles.image}
+                      zoomScale={1.6}
+                      src={fullProduct?.image}
+                    />
+                  )}
                 </SwiperSlide>
+
               </Swiper>
 
               <Swiper
@@ -130,7 +142,7 @@ const FullProduct = () => {
                     alt={fullProduct?.name}
                   />
                 </SwiperSlide>
-               
+
                 <SwiperSlide>
                   <img
                     className={styles.smallimage}
@@ -138,7 +150,7 @@ const FullProduct = () => {
                     alt={fullProduct?.name}
                   />
                 </SwiperSlide>
-              
+
                 <SwiperSlide>
                   <img
                     className={styles.smallimage}
@@ -146,7 +158,7 @@ const FullProduct = () => {
                     alt={fullProduct?.name}
                   />
                 </SwiperSlide>
-              
+
                 <SwiperSlide>
                   <img
                     className={styles.smallimage}

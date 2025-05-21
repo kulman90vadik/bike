@@ -1,0 +1,83 @@
+.fullwidthImage {
+  position: relative;
+  z-index: 100;
+  height: 800px;
+  width: 100%;
+  overflow: hidden;
+  -webkit-clip-path: polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%);
+          clip-path: polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%);
+  background-color: var(--color-black);
+}
+@media (max-width: 991px) {
+  .fullwidthImage {
+    height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+.fullwidthImage img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+}
+@media (max-width: 991px) {
+  .fullwidthImage img {
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+
+.fullwidthImageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: black;
+  opacity: 0;
+}
+
+.fullwidthImageText {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 3;
+  color: white;
+  max-width: 70%;
+}
+@media (max-width: 991px) {
+  .fullwidthImageText {
+    max-width: 80%;
+    position: static;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+.fullwidthImage h2 {
+  font-size: 53px;
+  margin-bottom: 1.6rem;
+}
+
+.fullwidthImage p {
+  font-size: 32px;
+}
+@media (max-width: 991px) {
+  .fullwidthImage p {
+    font-size: 19px;
+  }
+}/*# sourceMappingURL=screen.module.css.map */

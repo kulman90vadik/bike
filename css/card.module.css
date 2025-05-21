@@ -1,0 +1,201 @@
+.item {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 0 12px #ccc;
+          box-shadow: 0 0 12px #ccc;
+}
+
+.green {
+  color: var(--color-green);
+}
+
+.loading {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.inner {
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
+
+.red {
+  color: var(--color-red);
+}
+
+.top {
+  position: absolute;
+  border-top-left-radius: 15px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 100;
+}
+
+.flag {
+  width: 72px;
+  height: 38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-top-left-radius: 11px;
+}
+
+.heart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: auto;
+  margin-right: 15px;
+}
+.heart svg {
+  -webkit-transition: stroke 0.3s ease-in, fill 0.3s ease-in;
+  transition: stroke 0.3s ease-in, fill 0.3s ease-in;
+}
+.heart:hover svg {
+  stroke: var(--color-orange);
+}
+
+.name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 21px;
+  margin-bottom: auto;
+}
+
+.price {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+.price span {
+  color: var(--color-red);
+  display: inline-block;
+  margin-right: 3px;
+  text-decoration: line-through;
+}
+
+.photo {
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  height: 205px;
+  background-color: var(--color-white);
+}
+
+.image {
+  max-width: 235px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.btn {
+  position: relative;
+  height: 48px;
+  background-color: var(--color-orange);
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  -webkit-transition: -webkit-box-shadow 0.3s ease-in;
+  transition: -webkit-box-shadow 0.3s ease-in;
+  transition: box-shadow 0.3s ease-in;
+  transition: box-shadow 0.3s ease-in, -webkit-box-shadow 0.3s ease-in;
+}
+.btn:hover {
+  -webkit-box-shadow: 0 0 12px var(--color-orange);
+          box-shadow: 0 0 12px var(--color-orange);
+}
+.btn:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.stocked {
+  padding: 3px 5px;
+  display: block;
+  text-transform: uppercase;
+  margin-right: 12px;
+  color: var(--color-white);
+  font-weight: 700;
+  background-color: var(--color-green);
+  font-weight: 500;
+}
+
+.sale {
+  padding: 3px 5px;
+  display: block;
+  text-transform: uppercase;
+  margin-right: 12px;
+  color: var(--color-white);
+  font-weight: 700;
+  background-color: var(--color-red);
+  font-weight: 500;
+}
+
+.btngreen {
+  background-color: var(--color-green);
+  -webkit-box-shadow: var(--color-green);
+          box-shadow: var(--color-green);
+}
+.btngreen:hover {
+  -webkit-box-shadow: 0 0 12px var(--color-green);
+          box-shadow: 0 0 12px var(--color-green);
+}
+
+.btnorange svg {
+  fill: var(--color-orange);
+  stroke: var(--color-orange);
+}
+
+.highlight {
+  background-color: var(--color-orange);
+  font-weight: 700;
+  border-radius: 3px;
+  color: var(--color-black);
+}/*# sourceMappingURL=card.module.css.map */

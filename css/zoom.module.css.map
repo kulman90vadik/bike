@@ -1,0 +1,1 @@
+{"version":3,"sources":["../frontend/src/component/SimpleZoom/zoom.module.scss","zoom.module.css"],"names":[],"mappings":"AAAA;EACE,oBAAA;EAAA,oBAAA;EAAA,aAAA;EACA,SAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,mBAAA;EACA,kBAAA;ACCF;;ADEA;EACE,WAAA;EACA,kBAAA;EACC,qBAAA;ACCH;;ADEA;EAIE,YAAA;EACA,aAAA;EACA,gBAAA;EACA,sBAAA;ACFF","file":"zoom.module.css"}

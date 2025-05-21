@@ -1,0 +1,114 @@
+.review {
+  padding: 50px 0;
+}
+
+.top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 25px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 25px;
+  color: var(--color-white);
+}
+.top p {
+  margin-right: 20px;
+}
+
+.btn {
+  border: 1px solid var(--color-white);
+  border-radius: 25px;
+  padding: 6px 25px;
+  line-height: 1;
+  color: var(--color-white);
+  font-size: 21px;
+}
+.btn:disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
+.title {
+  color: var(--color-white);
+  display: block;
+  margin-bottom: 14px;
+  font-size: 27px;
+  text-align: center;
+}
+
+.submit {
+  margin-left: auto;
+  border-radius: 25px;
+  padding: 6px 25px;
+  line-height: 1;
+  border: 1px solid var(--color-orange);
+  background-color: var(--color-orange);
+  color: var(--color-black);
+  font-size: 21px;
+}
+.submit:disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
+.text {
+  margin-bottom: 11px;
+  resize: none;
+  width: 100%;
+  height: 200px;
+  padding: 20px;
+  font-size: 21px;
+  outline: transparent;
+  border-radius: 20px;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+.text:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.error {
+  position: absolute;
+  bottom: -5px;
+  font-weight: 700;
+  left: 18px;
+  color: red;
+}
+
+.block {
+  position: relative;
+}
+
+.textarea {
+  position: relative;
+}
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #1E293C;
+  margin: 0 auto;
+  width: 70%;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 1;
+  font-size: 18px;
+  margin-left: 2px;
+  margin-right: 20px;
+}/*# sourceMappingURL=review.module.css.map */

@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  gap: 20px; 
+  align-items: center;
+  position: relative;
+}
+
+.inner {
+  width: 100%;
+  position: relative;
+   display: inline-block 
+}
+
+.imagezoom {
+  // position: relative;
+  // top: 0;
+  // left: 0;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}

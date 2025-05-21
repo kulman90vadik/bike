@@ -1,0 +1,126 @@
+@charset "UTF-8";
+.section {
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.section::after {
+  position: absolute;
+  content: "";
+  top: -40px;
+  height: 40px;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(black));
+  background: linear-gradient(to bottom, transparent, black);
+}
+
+.inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.list {
+  position: relative;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content; /* важно! */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 100%;
+  z-index: 10;
+  padding-left: 20vw;
+}
+@media (max-width: 991px) {
+  .list {
+    padding-left: 5vw;
+    overflow-x: auto;
+    -ms-scroll-snap-type: x mandatory;
+        scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.bgbottom,
+.bgtop {
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+.bgtop {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  top: 0;
+}
+
+.bgbottom {
+  bottom: 0;
+}
+
+.item {
+  min-width: 300px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  margin-right: 2rem;
+  height: 365px;
+}
+
+.linie {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-orange);
+}
+
+.svg {
+  position: absolute;
+  top: 50px;
+  stroke-width: 3px;
+  stroke: var(--color-orange);
+}
+
+.images {
+  width: 130px;
+  height: 75px;
+  position: absolute;
+  top: 50px;
+  fill: var(--color-orange);
+  stroke: var(--color-orange);
+}
+.images path {
+  stroke: var(--color-orange);
+  fill: var(--color-orange);
+}/*# sourceMappingURL=scroll.module.css.map */

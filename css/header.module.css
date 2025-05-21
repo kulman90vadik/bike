@@ -1,0 +1,224 @@
+.header {
+  padding: 20px 0;
+  position: fixed;
+  z-index: 300;
+  width: 100%;
+  top: 0;
+  -webkit-transition: background-color 0.2s ease-in, padding 0.3s ease-in;
+  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
+  left: 0;
+}
+
+.active {
+  padding: 10px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-transition: background-color 0.2s ease-in, padding 0.3s ease-in;
+  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.link_logo {
+  width: 85px;
+  height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+@media (max-width: 450px) {
+  .link_logo {
+    width: 65px;
+  }
+}
+
+.logo {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.exit {
+  color: var(--color-white);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 10px;
+}
+.exit svg {
+  margin-right: 5px;
+  width: 29px;
+  height: 29px;
+}
+.exit svg path {
+  -webkit-transition: stroke 0.3s ease-in;
+  transition: stroke 0.3s ease-in;
+  fill: var(--color-orange);
+}
+.exit:hover path {
+  stroke: var(--color-orange);
+}
+
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.smallimg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 9px;
+  border: 2px solid var(--color-white);
+}
+
+.login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media (max-width: 450px) {
+  .login {
+    margin-right: 3px;
+    margin-left: 3px;
+  }
+}
+.login:hover path {
+  stroke: var(--color-orange);
+}
+.login svg {
+  width: 29px;
+  height: 29px;
+  fill: var(--color-orange);
+  stroke: var(--color-white);
+}
+.login svg path {
+  fill: var(--color-orange);
+  -webkit-transition: stroke 0.3s ease-in;
+  transition: stroke 0.3s ease-in;
+}
+
+.card {
+  position: relative;
+}
+.card svg {
+  width: 29px;
+  height: 29px;
+  stroke: var(--color-orange);
+}
+.card svg path {
+  -webkit-transition: stroke 0.3s ease-in;
+  transition: stroke 0.3s ease-in;
+  stroke: var(--color-white);
+}
+.card:hover path {
+  stroke: var(--color-orange);
+}
+.card span {
+  position: absolute;
+  top: 0;
+  right: -9px;
+  border-radius: 50%;
+  line-height: 1;
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 13px;
+  width: 15px;
+  height: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: var(--color-orange);
+}
+
+.heart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--color-white);
+  margin-right: 15px;
+  position: relative;
+}
+.heart svg {
+  width: 27px;
+  height: 27px;
+}
+.heart path {
+  -webkit-transition: stroke 0.3s ease-in;
+  transition: stroke 0.3s ease-in;
+}
+.heart:hover path {
+  stroke: var(--color-orange);
+}
+.heart span {
+  position: absolute;
+  top: 0;
+  right: -9px;
+  border-radius: 50%;
+  line-height: 1;
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 13px;
+  width: 15px;
+  height: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: var(--color-orange);
+}/*# sourceMappingURL=header.module.css.map */

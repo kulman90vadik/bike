@@ -1,0 +1,1 @@
+{"version":3,"sources":["../frontend/src/component/TopProducts/topproducts.module.scss","topproducts.module.css"],"names":[],"mappings":"AAEA;EACE,4CAAA;EACA,iBAAA;EACA,oBAAA;ACDF;;ADKA;EACE,yBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;EACA,mBAAA;EACA,yBAAA;ACFF;ADGE;EAPF;IAQI,eAAA;ECAF;AACF","file":"topproducts.module.css"}

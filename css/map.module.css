@@ -1,0 +1,90 @@
+.maps {
+  height: 73vh;
+  position: relative;
+}
+
+.map {
+  height: 100%;
+}
+
+.inputs {
+  width: 300px;
+  z-index: 1000;
+  height: 45px;
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  background-color: var(--color-white);
+  border-radius: 11px;
+}
+
+.input {
+  border: 2px solid var(--color-orange);
+  padding: 10px;
+  outline: transparent;
+  height: 100%;
+  width: 100%;
+  border-radius: 11px;
+  -webkit-transition: border-color 0.2s ease-in, border-radius 0.2s ease-in;
+  transition: border-color 0.2s ease-in, border-radius 0.2s ease-in;
+}
+.input:focus {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: var(--color-green);
+}
+.input:not(:-moz-placeholder-shown) ~ .label {
+  transform: translate(-4px, -30px);
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+.input:not(:-ms-input-placeholder) ~ .label {
+  transform: translate(-4px, -30px);
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+.input:focus ~ .label, .input:not(:placeholder-shown) ~ .label {
+  -webkit-transform: translate(-4px, -30px);
+          transform: translate(-4px, -30px);
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 10px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  -webkit-transition: font-size 200ms ease-in, -webkit-transform 200ms ease-in;
+  transition: font-size 200ms ease-in, -webkit-transform 200ms ease-in;
+  transition: transform 200ms ease-in, font-size 200ms ease-in;
+  transition: transform 200ms ease-in, font-size 200ms ease-in, -webkit-transform 200ms ease-in;
+  background-color: var(--color-white);
+}
+
+.list {
+  -webkit-transition: border-color 0.3s ease-in;
+  transition: border-color 0.3s ease-in;
+  border: 2px solid transparent;
+  border-top: none;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+  background-color: var(--color-white);
+}
+
+.item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn {
+  position: absolute;
+  right: 6px;
+  color: red;
+  top: 50%;
+  -webkit-transform: translateY(-49%);
+          transform: translateY(-49%);
+}/*# sourceMappingURL=map.module.css.map */

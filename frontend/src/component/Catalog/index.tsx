@@ -15,16 +15,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Catalog = () => {
   gsap.registerPlugin(ScrollTrigger);
+  const {  data: products, status, sortOrder, branding, sales, preisRange, country} = useSelector((state: RootState) => state.products);
   const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
-  const products = useSelector((state: RootState) => state.products.data);
+  // const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
   const search = useSelector((state: RootState) => state.search.search);
-  const status = useSelector((state: RootState) => state.products.status);
+  // const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
-  const {sortOrder, branding, sales, preisRange, country} = useSelector((state: RootState) => state.products);
 
+  console.log('render catalog');
+  
 
     React.useEffect(() => {
         const categoryParam = branding ? `category=${branding}` : 'category=allbranding';
@@ -87,6 +89,18 @@ const Catalog = () => {
 
 
 
+    const filteredProducts = React.useMemo(() => {
+  return products
+    .filter(item => {
+      if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange);
+      const priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, "")) / 100));
+      return priceSale >= Number(preisRange);
+    })
+    .filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+}, [products, preisRange, search]);
+
+
+
   return (
     <section className={styles.catalog}>
       <div
@@ -116,7 +130,8 @@ const Catalog = () => {
 
                 return products.length > 0 ? (
                   <ul className={styles.list}>
-                    {products
+                    {
+                    /* {products
                     .filter(item => {
                       if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange) 
                       let priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, ""))/100));
@@ -128,7 +143,9 @@ const Catalog = () => {
                     .filter((item: ProductProps) =>
                       item.name.toLowerCase().includes(search.toLowerCase())
                     )
-                    
+                     */
+
+                filteredProducts
                     .map((obj: ProductProps) => {
                       const isInBasket = basket?.some(
                         (item: ProductProps) => item.productId === obj._id

@@ -1,0 +1,61 @@
+.procentstar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 25px;
+  gap: 4px;
+  margin-right: 5px;
+  margin-left: 2px;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  color: var(--color-white);
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+}
+
+.starleer {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.starvoll {
+  color: var(--color-orange);
+  position: absolute;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+.staricon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 25px;
+  height: 25px;
+  color: var(--color-orange);
+}/*# sourceMappingURL=procentstarrating.module.css.map */

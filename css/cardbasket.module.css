@@ -1,0 +1,119 @@
+.card {
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.72);
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  color: var(--color-black);
+  -webkit-box-shadow: 0 0 10px var(--color-white);
+          box-shadow: 0 0 10px var(--color-white);
+}
+.card:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+@media (max-width: 575px) {
+  .card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.photo {
+  grid-column: 1/4;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+.photo:hover .image {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+@media (max-width: 575px) {
+  .photo {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.image {
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+  width: 70%;
+  height: auto;
+}
+
+.name {
+  font-size: 22px;
+  grid-column: 4/7;
+  align-self: center;
+  text-align: center;
+  padding: 0 15px;
+}
+@media (max-width: 575px) {
+  .name {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.price {
+  grid-column: 9/11;
+  align-self: center;
+  justify-self: center;
+  font-weight: 700;
+  font-size: 24px;
+}
+@media (max-width: 575px) {
+  .price {
+    margin-bottom: 10px;
+  }
+}
+
+.btn {
+  grid-column: 11/13;
+  align-self: center;
+  justify-self: center;
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+}
+.btn:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+.btn:hover svg {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+.btn svg {
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+  stroke: var(--color-black);
+}
+@media (max-width: 575px) {
+  .btn {
+    margin-bottom: 10px;
+  }
+}/*# sourceMappingURL=cardbasket.module.css.map */

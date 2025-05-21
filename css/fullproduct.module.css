@@ -1,8 +1,5 @@
-
-
 .product {
   background-color: #000;
-  // height: 100vh;
   height: 100%;
   padding-top: 120px;
 }
@@ -11,12 +8,15 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 250px;
   height: 200px;
 }
 
 .inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
 }
@@ -28,13 +28,13 @@
 .right {
   width: 50%;
   color: var(--color-white);
-
 }
 
 .image {
   width: 100%;
   height: 450px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 45px;
   margin-bottom: 15px;
 }
@@ -49,9 +49,9 @@
   border-radius: 15px;
   cursor: pointer;
   opacity: 0.5;
+  -webkit-transition: opacity 0.3s ease-in;
   transition: opacity 0.3s ease-in;
 }
-
 
 .info {
   padding: 20px;
@@ -62,17 +62,21 @@
   font-weight: 700;
   font-size: 25px;
   margin-bottom: 15px;
-  span {
-    color: var(--color-red);
-    display: inline-block;
-    margin-right: 3px;
-    text-decoration: line-through;
-  }
+}
+.price span {
+  color: var(--color-red);
+  display: inline-block;
+  margin-right: 3px;
+  text-decoration: line-through;
 }
 
 .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 21px;
 }
 
@@ -80,8 +84,11 @@
   margin-right: 20px;
   width: 72px;
   height: 38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-top-left-radius: 11px;
 }
 
@@ -94,13 +101,18 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   border-radius: 21px;
+  -webkit-transition: -webkit-box-shadow 0.3s ease-in;
+  transition: -webkit-box-shadow 0.3s ease-in;
   transition: box-shadow 0.3s ease-in;
-  &:hover {
-    box-shadow: 0 0 12px var(--color-white);
-  }
-  &:active {
-    box-shadow: none;
-  }
+  transition: box-shadow 0.3s ease-in, -webkit-box-shadow 0.3s ease-in;
+}
+.btn:hover {
+  -webkit-box-shadow: 0 0 12px var(--color-white);
+          box-shadow: 0 0 12px var(--color-white);
+}
+.btn:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .btngreen {
@@ -117,5 +129,4 @@
 .title {
   font-size: 35px;
   margin-bottom: 11px;
-}
-
+}/*# sourceMappingURL=fullproduct.module.css.map */
