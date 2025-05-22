@@ -11,7 +11,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', true);  // вот сюда
 
+app.get('/list-uploads', (req, res) => {
+  const uploadDir = path.join(__dirname, 'uploads');
+  fs.readdir(uploadDir, (err, files) => {
+    if (err) {
+      return res.status(500).send('Ошибка чтения папки uploads');
+    }
+    res.json(files);
+  });
+});
 
 // app.use(express.static(path.join(__dirname, 'build')));
 
