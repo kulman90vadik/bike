@@ -135,7 +135,7 @@ const Catalog = () => {
               </ul>
             ) : status === "loaded" ? (
               (() => {
-                return products.length > 0 ? (
+                return products?.length > 0 ? (
                   <>
                     <ul className={styles.list}>
                       {products

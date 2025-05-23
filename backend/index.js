@@ -11,18 +11,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', true);  // вот сюда
-
-app.get('/list-uploads', (req, res) => {
-  const uploadDir = path.join(__dirname, 'uploads');
-  fs.readdir(uploadDir, (err, files) => {
-    if (err) {
-      return res.status(500).send('Ошибка чтения папки uploads');
-    }
-    res.json(files);
-  });
-});
-
 // app.use(express.static(path.join(__dirname, 'build')));
 
 // // Для всех остальных маршрутов (кроме API) отдаем index.html
@@ -98,7 +86,12 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.get("/products/topproducts", readLimiter, ProductController.topProducts);
 app.get("/products/sort", readLimiter, ProductController.sortProducts);
+
+
 app.get('/products', readLimiter, ProductController.getAll);
+app.get('/productspag', readLimiter, ProductController.getPagination);
+
+
 app.get('/products/:id', readLimiter, ProductController.getOne);
 
 app.patch('/products/:id/comments', checkAuth, handleValidationErrors, readLimiter, ProductController.addComment);

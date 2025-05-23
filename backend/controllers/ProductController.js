@@ -163,9 +163,6 @@ export const editComment = async (req, res) => {
   }
 }
 
-
-
-
 export const removeComment = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -195,6 +192,31 @@ export const removeComment = async (req, res) => {
 };
 
 
+
+export const getPagination = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 3;
+  const skip = (page - 1) * limit;
+
+  try {
+    const [products, total] = await Promise.all([
+      ProductModel.find().skip(skip).limit(limit),
+      ProductModel.countDocuments()
+    ]);
+
+    res.json({
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      totalItems: total,
+      products,
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};
+
+
 export const getAll = async (req, res) => {
   try {
     const products = await ProductModel.find().exec(); // для развёртывания usera информации
@@ -208,6 +230,7 @@ export const getAll = async (req, res) => {
     });
   }
 }
+
 
 export const getOne = async (req, res) => {
   try {
@@ -236,61 +259,162 @@ export const getOne = async (req, res) => {
   }
 };
 
-export const sortProducts = async (req, res) => {
+// export const sortProducts = async (req, res) => {
 
+//   try {
+//     const { sort, filter, category, branding, country } = req.query;
+//     // Определяем порядок сортировки
+//     const sortOrder = sort === "asc" ? 1 : sort === "desc" ? -1 : null;
+//     // Формируем фильтр
+//     let filterCondition = {};
+//     // Обрабатываем параметр категории
+//     if (category) {
+//       const categoryName = category.trim().replace(/\s+/g, ''); // Убираем пробелы
+//       if (categoryName === 'allbranding') {
+//         filterCondition.category = { $exists: true }; // Все товары
+//       } else {
+//         filterCondition.category = categoryName; // Фильтруем по категории
+//       }
+//     }
+
+//     // Применяем фильтр по полю sale
+//     if (filter === "sale") {
+//       filterCondition.sale = { $ne: "0" }; // Оставляем только товары, где sale НЕ "0%"
+//     } else if (filter === "new") {
+//       filterCondition.newproduct = true; // Фильтруем по новинкам
+//     }
+
+//     // Обрабатываем параметр branding (один бренд)
+//     if (branding) {
+//       const brandingValue = branding.trim().replace(/\s+/g, ''); // Убираем пробелы из branding
+//       if (brandingValue === "allbranding") {
+//         filterCondition.brand = { $exists: true }; // Все бренды
+//       } else {
+//         filterCondition.brand = brandingValue; // Фильтруем по одному бренду
+//       }
+//     }
+
+//     if (country) {
+//       const countryName = country.trim().replace(/с/g, "c");
+//       if (countryName.toLowerCase() === "allcountry") {
+//         filterCondition.country = { $exists: true };
+//       } else {
+//         filterCondition.country = { $regex: new RegExp(`^${countryName}$`, "i") }; // Игнорирование регистра
+//       }
+//     }
+
+//     const query = ProductModel.find(filterCondition);
+//     if (sortOrder) query.sort({ price: sortOrder });
+
+//     const products = await query;
+//     res.json(products);
+//   } catch (error) {
+//     res.status(500).json({ error: "Ошибка сервера" });
+//   }
+
+  
+// };
+
+export const sortProducts = async (req, res) => {
   try {
-    const { sort, filter, category, branding, country } = req.query;
-    // Определяем порядок сортировки
+    const { sort, filter, category, branding, country, page = 1, limit, price } = req.query;
+
     const sortOrder = sort === "asc" ? 1 : sort === "desc" ? -1 : null;
-    // Формируем фильтр
+
     let filterCondition = {};
+
     // Обрабатываем параметр категории
     if (category) {
-      const categoryName = category.trim().replace(/\s+/g, ''); // Убираем пробелы
-      if (categoryName === 'allbranding') {
-        filterCondition.category = { $exists: true }; // Все товары
-      } else {
-        filterCondition.category = categoryName; // Фильтруем по категории
-      }
+      const categoryName = category.trim().replace(/\s+/g, '');
+      filterCondition.category = categoryName === 'allbranding'
+        ? { $exists: true }
+        : categoryName;
     }
 
-    // Применяем фильтр по полю sale
+    // Обрабатываем фильтр по скидке или новизне
     if (filter === "sale") {
-      filterCondition.sale = { $ne: "0" }; // Оставляем только товары, где sale НЕ "0%"
+      filterCondition.sale = { $ne: "0" };
     } else if (filter === "new") {
-      filterCondition.newproduct = true; // Фильтруем по новинкам
+      filterCondition.newproduct = true;
     }
 
-    // Обрабатываем параметр branding (один бренд)
+    // Обрабатываем бренд
     if (branding) {
-      const brandingValue = branding.trim().replace(/\s+/g, ''); // Убираем пробелы из branding
-      if (brandingValue === "allbranding") {
-        filterCondition.brand = { $exists: true }; // Все бренды
-      } else {
-        filterCondition.brand = brandingValue; // Фильтруем по одному бренду
-      }
+      const brandingValue = branding.trim().replace(/\s+/g, '');
+      filterCondition.brand = brandingValue === "allbranding"
+        ? { $exists: true }
+        : brandingValue;
     }
 
+    // Обрабатываем страну
     if (country) {
       const countryName = country.trim().replace(/с/g, "c");
-      if (countryName.toLowerCase() === "allcountry") {
-        filterCondition.country = { $exists: true };
-      } else {
-        filterCondition.country = { $regex: new RegExp(`^${countryName}$`, "i") }; // Игнорирование регистра
-      }
+      filterCondition.country = countryName.toLowerCase() === "allcountry"
+        ? { $exists: true }
+        : { $regex: new RegExp(`^${countryName}$`, "i") };
     }
 
-    const query = ProductModel.find(filterCondition);
-    if (sortOrder) query.sort({ price: sortOrder });
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+    const skip = (pageNumber - 1) * limitNumber;
+    const preisRange = parseFloat(price) || 0;
 
-    const products = await query;
-    res.json(products);
+
+
+
+    // const total = await ProductModel.countDocuments(filterCondition);
+
+    // const products = await ProductModel.find(filterCondition)
+    //   .sort(sortOrder ? { price: sortOrder } : {})
+    //   .skip(skip)
+    //   .limit(limitNumber);
+
+    // res.json({
+    //   page: pageNumber,
+    //   limit: limitNumber,
+    //   totalPages: Math.ceil(total / limitNumber),
+    //   totalItems: total,
+    //   products,
+    // });
+
+    const allProducts = await ProductModel.find(filterCondition);
+
+    // Фильтрация по цене (учитывая скидку)
+    const filtered = allProducts.filter(product => {
+      const basePrice = parseFloat(product.price);
+      const sale = parseFloat(product.sale?.replace('%', '') || '0');
+      const finalPrice = basePrice - (basePrice * sale / 100);
+      return finalPrice >= preisRange;
+    });
+
+    const total = filtered.length;
+    const sorted = sortOrder
+      ? filtered.sort((a, b) => {
+          const aPrice = parseFloat(a.price) - (parseFloat(a.price) * parseFloat(a.sale?.replace('%', '') || '0') / 100);
+          const bPrice = parseFloat(b.price) - (parseFloat(b.price) * parseFloat(b.sale?.replace('%', '') || '0') / 100);
+          return sortOrder === 1 ? aPrice - bPrice : bPrice - aPrice;
+        })
+      : filtered;
+
+    const paginated = sorted.slice(skip, skip + limitNumber);
+
+    res.json({
+      page: pageNumber,
+      limit: limitNumber,
+      totalPages: Math.ceil(total / limitNumber),
+      totalItems: total,
+      products: paginated,
+    });
+
+
+    
   } catch (error) {
     res.status(500).json({ error: "Ошибка сервера" });
   }
-
-  
 };
+
+
+
 
 export const topProducts = async (req, res) => {
   try {
