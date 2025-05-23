@@ -10,49 +10,78 @@ import TopFilter from "../TopFilter";
 import { fetchSortProducts } from "../../redux/slices/products";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-
+import Pagination from "../Pagination";
 
 const Catalog = () => {
   gsap.registerPlugin(ScrollTrigger);
-  const {  data: products, status, sortOrder, branding, sales, preisRange, country} = useSelector((state: RootState) => state.products);
+  
+  const {
+    data: products, status, sortOrder, branding, sales,
+    country, totalPages, page, limit, price
+   } = useSelector((state: RootState) => state.products);
   const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
-  // const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
   const search = useSelector((state: RootState) => state.search.search);
-  // const status = useSelector((state: RootState) => state.products.status);
   const isLoading = status === "loading";
 
-  console.log('render catalog');
+
+  // React.useEffect(() => {
+  //   const categoryParam = branding
+  //     ? `category=${branding}`
+  //     : "category=allbranding";
+  //   const countryParam = country ? `country=${country}` : "country=allcountry";
+  //   const sortParam = sortOrder ? `sort=${sortOrder}` : "";
+  //   const saleParam = sales ? `filter=${sales}` : "";
+  //   const queryString = `${categoryParam}${
+  //     categoryParam && sortParam ? "&" : ""
+  //   }${sortParam}${
+  //     (categoryParam || sortParam) && saleParam ? "&" : ""
+  //   }${saleParam}${countryParam ? `&${countryParam}` : ""}`;
+  //   dispatch(fetchSortProducts(queryString));
+  // }, [branding, country, sortOrder, sales]);
+  React.useEffect(() => {
+  const categoryParam = branding
+    ? `category=${branding}`
+    : "category=allbranding";
+  const countryParam = country ? `country=${country}` : "country=allcountry";
+  const sortParam = sortOrder ? `sort=${sortOrder}` : "";
+  const saleParam = sales ? `filter=${sales}` : "";
+  const pageParam = `page=${page}`;
+  const limitParam = `limit=${limit}`;
+  const priceParam = price ? `price=${price}` : "";
+
+  const queryParts = [
+    categoryParam,
+    countryParam,
+    sortParam,
+    saleParam,
+    priceParam,
+    pageParam,
+    limitParam
+  ].filter(Boolean); // удаляет пустые строки
+
+  const queryString = queryParts.join("&");
+
+  console.log(queryString);
   
 
-    React.useEffect(() => {
-        const categoryParam = branding ? `category=${branding}` : 'category=allbranding';
-        const countryParam = country ? `country=${country}` : 'country=allcountry';
-        const sortParam = sortOrder ? `sort=${sortOrder}` : '';
-        const saleParam = sales ? `filter=${sales}` : '';
-        const queryString = `${categoryParam}${categoryParam && sortParam ? '&' : ''}${sortParam}${(categoryParam || sortParam) && saleParam ? '&' : ''}${saleParam}${countryParam ? `&${countryParam}` : ''}`;  
-        dispatch(fetchSortProducts(queryString));
-    }, [branding, country, sortOrder, sales]);
+  dispatch(fetchSortProducts(queryString));
+}, [branding, country, sortOrder, sales, page, limit, price]);
 
 
 
-
-    const addToRefs = (el: HTMLLIElement | null) => {
-      if (el) {
-        if (!cardRefs.current.includes(el)) {
-          cardRefs.current.push(el);
-        }
+  const addToRefs = (el: HTMLLIElement | null) => {
+    if (el) {
+      if (!cardRefs.current.includes(el)) {
+        cardRefs.current.push(el);
       }
-    };
-  
-    React.useLayoutEffect(() => {
+    }
+  };
 
-      const ctx = gsap.context(() => {
-
-
+  React.useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
       if (status === "loaded") {
         cardRefs.current.forEach((ref) => {
           if (ref) {
@@ -66,7 +95,7 @@ const Catalog = () => {
                 // scrub: 1, // ползунок тоде в теме
               },
             });
-    
+
             tl.from(ref, {
               opacity: 0,
               // scale: 0.5,
@@ -77,48 +106,28 @@ const Catalog = () => {
           }
         });
       }
-
     });
-
     return () => ctx.revert();
-
-
-
-    
-    }, [status]); 
-
-
-
-    const filteredProducts = React.useMemo(() => {
-  return products
-    .filter(item => {
-      if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange);
-      const priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, "")) / 100));
-      return priceSale >= Number(preisRange);
-    })
-    .filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
-}, [products, preisRange, search]);
+  }, [status]);
 
 
 
   return (
     <section className={styles.catalog}>
       <div
-              className={styles.bgtop}
-              style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
-            ></div>
+        className={styles.bgtop}
+        style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
+      ></div>
       <div className="container">
         <div className={styles.wrapper}>
-
           <AsideFilter />
 
           <div className={styles.right}>
-
             <TopFilter />
 
             {isLoading ? (
               <ul className={styles.list}>
-                {[...Array(5)].map((_, index) => (
+                {[...Array(3)].map((_, index) => (
                   <li className={styles.loadercard} key={index}>
                     <Loader />
                   </li>
@@ -126,46 +135,55 @@ const Catalog = () => {
               </ul>
             ) : status === "loaded" ? (
               (() => {
-               
-
                 return products.length > 0 ? (
-                  <ul className={styles.list}>
-                    {
-                    /* {products
-                    .filter(item => {
-                      if(Number(item.sale) == 0) return Number(item.price) >= Number(preisRange) 
-                      let priceSale = Number(item.price) - (Number(item.price) * (Number(item.sale?.replace(/%/g, ""))/100));
-                      if(priceSale >= Number(preisRange)) {
-                        return item
-                      }
-                    })
-                    
-                    .filter((item: ProductProps) =>
-                      item.name.toLowerCase().includes(search.toLowerCase())
-                    )
-                     */
+                  <>
+                    <ul className={styles.list}>
+                      {products
+                        // .filter((item) => {
+                        //   if (Number(item.sale) == 0) {
+                            
+                        //     if(Number(item.price) >= Number(preisRange)) {
+                        //       // console.log(products.length);
+                              
+                        //       // dispatch(setPage(products.length))
+                        //       return item
+                        //     }
+                        //   }
+                        //   let priceSale = Number(item.price) - Number(item.price) * (Number(item.sale?.replace(/%/g, "")) / 100);
+                        //   if (priceSale >= Number(preisRange)) {
+                        //     return item;
+                        //   }
+                        // })
 
-                filteredProducts
-                    .map((obj: ProductProps) => {
-                      const isInBasket = basket?.some(
-                        (item: ProductProps) => item.productId === obj._id
-                      );
-                      const isInFavorites = favorites?.some(
-                        (item: ProductProps) => item.productId === obj._id
-                      );
+                        .filter((item: ProductProps) =>
+                          item.name.toLowerCase().includes(search.toLowerCase())
+                        )
 
-                      return (
-                        <li key={obj._id} ref={addToRefs} className={styles.it} >
-                        <Card 
-                          obj={obj}
-                          isInBasket={!!isInBasket}
-                          isInFavorites={!!isInFavorites}
-                        />
-                     
-                        </li>
-                      );
-                    })}
-                  </ul>
+                        .map((obj: ProductProps) => {
+                          const isInBasket = basket?.some(
+                            (item: ProductProps) => item.productId === obj._id
+                          );
+                          const isInFavorites = favorites?.some(
+                            (item: ProductProps) => item.productId === obj._id
+                          );
+
+                          return (
+                            <li
+                              key={obj._id}
+                              ref={addToRefs}
+                              className={styles.it}
+                            >
+                              <Card
+                                obj={obj}
+                                isInBasket={!!isInBasket}
+                                isInFavorites={!!isInFavorites}
+                              />
+                            </li>
+                          );
+                        })}
+                    </ul>
+                    <Pagination totalPages={totalPages} page={page} />
+                  </>
                 ) : (
                   <p className={styles.notFound}>Nothing found.</p>
                 );

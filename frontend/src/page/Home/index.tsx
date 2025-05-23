@@ -11,8 +11,6 @@ import useLenis from "../../useLenis";
 
 const Home = () => {
   useLenis();
-
-    console.log('render home');
   return (
       <>
         <Hero />

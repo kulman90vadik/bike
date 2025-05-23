@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { useAppDispatch } from "../../redux/store";
-import { setRangePrice } from "../../redux/slices/products";
+import { setPrice } from "../../redux/slices/products";
+
+import { debounce } from "lodash";
+import React from "react";
+
 
 type Props = {
   isLoading: boolean;
@@ -9,19 +13,31 @@ type Props = {
   min: number;
 }
 
+
+
 const AsideRangePrice = ({isLoading, max, min}: Props) => {
+  const [value, setValue] = useState(String(Math.trunc(min)));
     const dispatch = useAppDispatch();
+
+
+    const debouncedDispatch = React.useMemo( () =>
+        debounce((val: number) => {
+          dispatch(setPrice(val));
+        }, 400), // 300 мс задержка
+      [dispatch]
+    );
+
     let n = Math.trunc(min);
     useEffect(() => {
       setValue(String(n));
     }, [min])
 
-  const [value, setValue] = useState(String(Math.trunc(min)));
-  const changePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setRangePrice(e.target.value))
-    setValue(e.target.value);
-  };
 
+ const changePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value);
+    setValue(e.target.value);
+    debouncedDispatch(val);
+  };
 
   return (
     <div className={styles.range}>
@@ -61,3 +77,7 @@ const AsideRangePrice = ({isLoading, max, min}: Props) => {
 };
 
 export default AsideRangePrice;
+function sortProducts(arg0: { price: number; }): any {
+  throw new Error("Function not implemented.");
+}
+

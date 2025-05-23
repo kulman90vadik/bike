@@ -34,6 +34,15 @@ export interface Registerprops {
     avatarUrl?: string;
 }
 
+ export interface PaginatedResponse {
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalItems: number;
+  products: ProductProps[];
+}
+
+
 export interface ProductProps {
   _id: string;
   productId?: string;
