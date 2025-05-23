@@ -12,7 +12,7 @@ interface FetchParams {
 export const fetchProductsPag = createAsyncThunk<PaginatedResponse, FetchParams | undefined>(
   'auth/fetchProductsPag',
   async (params = {}) => {
-    const { page = 1, limit = 3} = params;
+    const { page = 1, limit = 6} = params;
     const { data } = await axios.get<PaginatedResponse>(`/productspag?page=${page}&limit=${limit}`);
     return data;
   }

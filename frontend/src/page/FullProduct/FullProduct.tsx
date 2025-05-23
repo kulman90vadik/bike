@@ -61,6 +61,7 @@ const FullProduct = () => {
           src="/images/loading.gif"
           alt="Loading"
         /> 
+        
       ) : (
         <div className="container">
           <div className={styles.inner}>

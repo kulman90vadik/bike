@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { ProductProps } from "../../propstype";
+import axios from "../../axios";
 
 interface LenisOptions {
   duration?: number;
@@ -18,19 +19,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 const isMobile = window.innerWidth < 768;
 
-
 const ScrollCards = () => {
-  const products = useSelector((state: RootState) => state.products.data);
+  // const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
-  const status = useSelector((state: RootState) => state.products.status);
-  let loaded = status == "loaded";
-
+  // const status = useSelector((state: RootState) => state.products.status);
+  // let loaded = status == "loaded";
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const containerRef = React.useRef<HTMLUListElement | null>(null);
 
+  const [products, setProducts] = React.useState<ProductProps[] | null>(null);
+  const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
+
+  React.useEffect(() => {
+      setStatus("loading");
+      axios
+        .get<ProductProps[]>("/products")
+        .then((res) => {
+          setProducts(res.data);
+          setStatus("success");
+        })
+        .catch((err) => {
+          console.warn(err);
+          setStatus("error");
+        });
+    }, []);
+
   useLayoutEffect(() => {
-    if (isMobile) return; 
+    if (isMobile) return;
 
     const lenis = new Lenis({
       smooth: true,
@@ -62,12 +78,11 @@ const ScrollCards = () => {
       });
     }
 
-
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [loaded, products]);
+  }, [status, products]);
 
   return (
     <section className={styles.section} ref={sectionRef}>
@@ -80,10 +95,26 @@ const ScrollCards = () => {
         style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
       ></div>
 
-      <ul className={styles.list} ref={containerRef}>
-        {loaded &&
-          products.map((obj) => {
+       {status === "loading" && 
+         <img
+          className={styles.loading}
+          src="/images/loading.gif"
+          alt="Loading"
+        /> 
+       }
+      {status === "error" && <div className={styles.error}>
+        Error loading
+        <img
+          width={55}
+          height={55}
+          src="/images/err.svg"
+          alt="Error"
+        /> 
+        </div>}
 
+      <ul className={styles.list} ref={containerRef}>
+        {
+          status === "success" && products?.map((obj) => {
             const isInBasket = basket?.some(
               (item: ProductProps) => item.productId === obj._id
             );
