@@ -1,6 +1,7 @@
 import Map from "./Map/index";
 import ScrollCards from "../../component/ScrollCards";
 import Layers from "./Layers";
+import FaqAccordion from "../../component/FaqAccordion";
 
 const About = () => {
   // useLenis();
@@ -41,6 +42,8 @@ const About = () => {
       <Layers />
 
       <ScrollCards />
+
+      <FaqAccordion />
 
       <Map />
     </>

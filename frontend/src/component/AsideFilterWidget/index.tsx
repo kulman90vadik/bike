@@ -22,6 +22,7 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
       onClick={() => setOpenWidget(!openWidget)}
     >
       
+      
       {title}
       <ChevronDown />
     </button>

@@ -24,6 +24,7 @@ const AsideFilter = () => {
       .get<ProductProps[]>(`./products`)
       .then((res) => {
         let data = res.data;
+        
 
         if (Array.isArray(data)) {
           const categories = [

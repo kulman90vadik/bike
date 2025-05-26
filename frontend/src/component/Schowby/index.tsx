@@ -20,6 +20,7 @@ const Schowby = ({ schowArr }: Props) => {
   
   // console.log(count);
 
+
   return (
     <div className={styles.block}>
       Show:
