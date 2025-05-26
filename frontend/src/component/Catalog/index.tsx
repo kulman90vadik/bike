@@ -11,14 +11,25 @@ import { fetchSortProducts } from "../../redux/slices/products";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Pagination from "../Pagination";
+import Schowby from "../Schowby";
 
 const Catalog = () => {
   gsap.registerPlugin(ScrollTrigger);
-  
+  const paginationRefs = React.useRef<HTMLDivElement | null>(null);
+
   const {
-    data: products, status, sortOrder, branding, sales,
-    country, totalPages, page, limit, price
-   } = useSelector((state: RootState) => state.products);
+    data: products,
+    status,
+    sortOrder,
+    branding,
+    sales,
+    country,
+    totalPages,
+    page,
+    limit,
+    price,
+    totalItems,
+  } = useSelector((state: RootState) => state.products);
   const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
   const basket = useSelector((state: RootState) => state.basket.data);
@@ -26,51 +37,31 @@ const Catalog = () => {
   const search = useSelector((state: RootState) => state.search.search);
   const isLoading = status === "loading";
 
-
-  // React.useEffect(() => {
-  //   const categoryParam = branding
-  //     ? `category=${branding}`
-  //     : "category=allbranding";
-  //   const countryParam = country ? `country=${country}` : "country=allcountry";
-  //   const sortParam = sortOrder ? `sort=${sortOrder}` : "";
-  //   const saleParam = sales ? `filter=${sales}` : "";
-  //   const queryString = `${categoryParam}${
-  //     categoryParam && sortParam ? "&" : ""
-  //   }${sortParam}${
-  //     (categoryParam || sortParam) && saleParam ? "&" : ""
-  //   }${saleParam}${countryParam ? `&${countryParam}` : ""}`;
-  //   dispatch(fetchSortProducts(queryString));
-  // }, [branding, country, sortOrder, sales]);
   React.useEffect(() => {
-  const categoryParam = branding
-    ? `category=${branding}`
-    : "category=allbranding";
-  const countryParam = country ? `country=${country}` : "country=allcountry";
-  const sortParam = sortOrder ? `sort=${sortOrder}` : "";
-  const saleParam = sales ? `filter=${sales}` : "";
-  const pageParam = `page=${page}`;
-  const limitParam = `limit=${limit}`;
-  const priceParam = price ? `price=${price}` : "";
+    const categoryParam = branding
+      ? `category=${branding}`
+      : "category=allbranding";
+    const countryParam = country ? `country=${country}` : "country=allcountry";
+    const sortParam = sortOrder ? `sort=${sortOrder}` : "";
+    const saleParam = sales ? `filter=${sales}` : "";
+    const pageParam = `page=${page}`;
+    const limitParam = `limit=${limit}`;
+    const priceParam = price ? `price=${price}` : "";
 
-  const queryParts = [
-    categoryParam,
-    countryParam,
-    sortParam,
-    saleParam,
-    priceParam,
-    pageParam,
-    limitParam
-  ].filter(Boolean); // удаляет пустые строки
+    const queryParts = [
+      categoryParam,
+      countryParam,
+      sortParam,
+      saleParam,
+      priceParam,
+      pageParam,
+      limitParam,
+    ].filter(Boolean); // удаляет пустые строки
 
-  const queryString = queryParts.join("&");
+    const queryString = queryParts.join("&");
 
-  console.log(queryString);
-  
-
-  dispatch(fetchSortProducts(queryString));
-}, [branding, country, sortOrder, sales, page, limit, price]);
-
-
+    dispatch(fetchSortProducts(queryString));
+  }, [branding, country, sortOrder, sales, page, limit, price]);
 
   const addToRefs = (el: HTMLLIElement | null) => {
     if (el) {
@@ -80,6 +71,14 @@ const Catalog = () => {
     }
   };
 
+
+  let schowArr = Array.from(
+    { length: Math.floor(totalItems / 3) },
+    (_, i) => (i + 1) * 3
+  );
+
+
+  
   React.useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       if (status === "loaded") {
@@ -89,16 +88,13 @@ const Catalog = () => {
               scrollTrigger: {
                 trigger: ref,
                 // markers: true,
-                // pin: true,
                 start: "top 95%",
                 end: "top 40%",
-                // scrub: 1, // ползунок тоде в теме
               },
             });
 
             tl.from(ref, {
               opacity: 0,
-              // scale: 0.5,
               y: 160,
               duration: 4,
               ease: "power3.out",
@@ -106,9 +102,26 @@ const Catalog = () => {
           }
         });
       }
+
+      if (paginationRefs.current) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: paginationRefs.current,
+            start: "top 95%",
+            end: "top 40%",
+          },
+        });
+
+        tl.from(paginationRefs.current, {
+          opacity: 0,
+          y: 160,
+          duration: 4,
+          ease: "power3.out",
+        });
+      }
     });
     return () => ctx.revert();
-  }, [status]);
+  }, [status, totalPages, totalItems]);
 
 
 
@@ -139,22 +152,6 @@ const Catalog = () => {
                   <>
                     <ul className={styles.list}>
                       {products
-                        // .filter((item) => {
-                        //   if (Number(item.sale) == 0) {
-                            
-                        //     if(Number(item.price) >= Number(preisRange)) {
-                        //       // console.log(products.length);
-                              
-                        //       // dispatch(setPage(products.length))
-                        //       return item
-                        //     }
-                        //   }
-                        //   let priceSale = Number(item.price) - Number(item.price) * (Number(item.sale?.replace(/%/g, "")) / 100);
-                        //   if (priceSale >= Number(preisRange)) {
-                        //     return item;
-                        //   }
-                        // })
-
                         .filter((item: ProductProps) =>
                           item.name.toLowerCase().includes(search.toLowerCase())
                         )
@@ -182,7 +179,11 @@ const Catalog = () => {
                           );
                         })}
                     </ul>
-                    <Pagination totalPages={totalPages} page={page} />
+
+                    <div ref={paginationRefs} className={styles.bottom}>
+                      <Schowby schowArr={schowArr} />
+                      <Pagination totalPages={totalPages} page={page} />
+                    </div>
                   </>
                 ) : (
                   <p className={styles.notFound}>Nothing found.</p>

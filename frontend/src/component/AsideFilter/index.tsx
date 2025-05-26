@@ -26,7 +26,6 @@ const AsideFilter = () => {
         let data = res.data;
 
         if (Array.isArray(data)) {
-          console.log(data);
           const categories = [
             "all Branding",
             ...new Set(

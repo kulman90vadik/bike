@@ -1,65 +1,65 @@
 
-.fullwidthImage {
-  position: relative;
-  z-index: 100;
-  height: 800px;
-  width: 100%;
-  overflow: hidden;
-  clip-path: polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%);
-  background-color: var(--color-black);
-   @media (max-width: 991px) {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   }
-}
+// .fullwidthImage {
+//   position: relative;
+//   z-index: 100;
+//   height: 800px;
+//   width: 100%;
+//   overflow: hidden;
+//   clip-path: polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%);
+//   background-color: var(--color-black);
+//    @media (max-width: 991px) {
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//    }
+// }
 
-.fullwidthImage img {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: center;
-   @media (max-width: 991px) {
-    height: 100%;
-    object-fit: cover;
-   }
-}
+// .fullwidthImage img {
+//   width: 100%;
+//   height: auto;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   transform-origin: center;
+//    @media (max-width: 991px) {
+//     height: 100%;
+//     object-fit: cover;
+//    }
+// }
 
-.fullwidthImageOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-color: black;
-  opacity: 0;
-}
+// .fullwidthImageOverlay {
+//   position: absolute;
+//   inset: 0;
+//   z-index: 2;
+//   background-color: black;
+//   opacity: 0;
+// }
 
-.fullwidthImageText {
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  color: white;
-  max-width: 70%;
-   @media (max-width: 991px) {
-    max-width: 80%;
-    position: static;
-    transform: none;
-   }
-}
+// .fullwidthImageText {
+//   text-align: center;
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 3;
+//   color: white;
+//   max-width: 70%;
+//    @media (max-width: 991px) {
+//     max-width: 80%;
+//     position: static;
+//     transform: none;
+//    }
+// }
 
-.fullwidthImage h2 {
-  font-size: 53px;
-  margin-bottom: 1.6rem;
-}
+// .fullwidthImage h2 {
+//   font-size: 53px;
+//   margin-bottom: 1.6rem;
+// }
 
-.fullwidthImage p {
-  font-size: 32px;
-   @media (max-width: 991px) {
-    font-size: 19px;
-   }
-}
+// .fullwidthImage p {
+//   font-size: 32px;
+//    @media (max-width: 991px) {
+//     font-size: 19px;
+//    }
+// }

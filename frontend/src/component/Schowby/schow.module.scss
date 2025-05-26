@@ -1,0 +1,33 @@
+
+
+.block {
+  margin-right: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  margin: 0 3px;
+}
+
+.item {
+  padding: 2px;
+ 
+}
+
+.btn {
+    padding: 3px;
+    color: var(--color-orange);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease-in;
+    // &:hover {
+    //   // color: var(--color-orange);
+    // }
+  }
+  
+// .active {
+//   transition: border-color 0.3s ease-in;
+//  border-color: var(--color-orange);
+// }
