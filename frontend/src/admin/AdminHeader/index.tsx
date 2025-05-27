@@ -16,9 +16,6 @@ const navigation = [
 
 const AdminHeader = () => {
   const auth = useSelector((state: RootState) => state.auth.data);
-
-
-  console.log(auth);
   
   return (
     <header className={styles.header}>
