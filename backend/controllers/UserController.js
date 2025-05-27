@@ -1,29 +1,24 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import UserModel from '../models/User.js';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import UserModel from "../models/User.js";
 
-import 'dotenv/config';
+import "dotenv/config";
 
 // ВЫПОЛНЯ.ТСЯ ЭТИ ФУНКЦИИ ЗАПРОШЕННЫЕ ИЗ ФРОНТЕНДА!
 
 export const register = async (req, res) => {
-
-  console.log('Вызов /auth/register с телом:', req.body);
-console.log('JWT_SECRET:', process.env.JWT_SECRET); // ← Добавь это прямо тут
-
-
-
   try {
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10); // алгоритм шифрования
     const hash = await bcrypt.hash(password, salt);
 
-// запись данных в бекенд
+    // запись данных в бекенд
     const doc = new UserModel({
       email: req.body.email,
       fullName: req.body.fullName,
       passwordHash: hash, // пароль теперь зашифрован!!!
       avatarUrl: req.body.avatarUrl,
+      role: 'user'
     });
 
     const user = await doc.save();
@@ -32,30 +27,22 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); // ← Добавь это �
       {
         _id: user._id,
       },
-      // process.env.JWT_SECRET, // 
+      // process.env.JWT_SECRET, //
       "secret1234",
       {
         expiresIn: "30d", // окен будет действителен в течение 30 дней.
       }
     );
 
-//     const token = jwt.sign(
-//   { _id: user._id },
-//   process.env.JWT_SECRET || 'myTempHardcodedSecret',
-//   { expiresIn: '30d' }
-// );
-
     const { passwordHash, ...userData } = user._doc;
 
     // если всё ок то возвращаем что либо что нужно
     res.json({ ...userData, token }); ///    ВОТ ЧТО ВЕРНЁТСЯ НА ФРОНТЕНД
-
   } catch (err) {
     console.log(err);
     res.status(500).json({
       message: "Не удалось зарегиться",
     });
-
   }
 };
 
@@ -80,12 +67,14 @@ export const login = async (req, res) => {
       });
     }
     // если всё ок
-    const token = jwt.sign({ _id: user._id }, 
+    const token = jwt.sign(
+      { _id: user._id, role: user.role },
       // process.env.JWT_SECRET,
-       "secret1234",
+      "secret1234",
       {
-      expiresIn: "30d",
-    });
+        expiresIn: "30d",
+      }
+    );
 
     // const userData = user.toObject();
     const { passwordHash, ...userData } = user._doc;
@@ -93,6 +82,7 @@ export const login = async (req, res) => {
     res.json({
       ...userData,
       token,
+      role: user.role
     });
   } catch (err) {
     console.log(err);
@@ -101,7 +91,6 @@ export const login = async (req, res) => {
     });
   }
 };
-
 
 export const getMe = async (req, res) => {
   // при запуске запроса включиться ф-ия checkAuth и если она одобрит то тогда выролнятся будет (req, res)
@@ -113,10 +102,10 @@ export const getMe = async (req, res) => {
       return res.status(404).json({
         message: "Пользователь не найден",
       });
-    } 
+    }
     const { passwordHash, ...userData } = user._doc;
     // если всё ок то возвращаем что либо что нужно
-    res.json( userData );
+    res.json(userData);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -124,3 +113,6 @@ export const getMe = async (req, res) => {
     });
   }
 };
+
+
+

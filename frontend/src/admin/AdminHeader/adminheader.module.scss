@@ -1,0 +1,37 @@
+
+.header {
+  position: fixed;
+  width: 200px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  background-color: #232E34;
+  color: var(--color-white);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.image {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.logo {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  width: 87px;
+  height: 47px;
+}
+
+.logout {
+  color: var(--color-white);
+  padding: 5px 15px;
+}

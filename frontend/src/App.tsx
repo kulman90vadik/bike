@@ -14,10 +14,16 @@ import FullProduct from "./page/FullProduct/FullProduct";
 import { fetchProducts, fetchProductsPag } from "./redux/slices/products";
 import { fetchTopProducts } from "./redux/slices/topproducts";
 import About from "./page/About";
+// import AdminPage from "./admin/AdminPage";
+import { useLocation } from "react-router-dom";
+
+
+import { adminRoutes } from "./admin/routes";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  // const page  = useSelector((state: RootState) => state.products.page);
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   React.useEffect(() => {
       const loadData = async () => {
@@ -35,7 +41,9 @@ const App = () => {
 
   return (
     <>
-      <Header />
+    
+      {!isAdminPage && <Header />}
+
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -46,7 +54,8 @@ const App = () => {
           <Route path="/about" element={<About />} />
 
           <Route path="/favorites" element={<Favorites />} />
-          
+          {adminRoutes}
+          {/* <Route path="/admin" element={<AdminPage />} /> */}
         </Routes>
       </main>
       {/* <Footer /> */}

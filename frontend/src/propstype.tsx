@@ -32,6 +32,7 @@ export interface Registerprops {
     fullName: string;
     token?: string;
     avatarUrl?: string;
+    role: string
 }
 
  export interface PaginatedResponse {

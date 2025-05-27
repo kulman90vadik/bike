@@ -14,6 +14,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+    role: {
+    type: String,
+    enum: ['user', 'admin'],  // роли, которые разрешены
+    default: 'user'           // по умолчанию обычный пользователь
+  },
   avatarUrl: String,
  
 }, {

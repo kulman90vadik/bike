@@ -57,10 +57,8 @@ const Registration = () => {
     const formData = new FormData();
     let avatarUrl = ''
 
-
     if (values.avatarFile?.[0]) {
       formData.append('image', values.avatarFile[0]); // важно: это массив! 
-    
     
       try {
         const { data } = await axios.post('/uploads', formData);
@@ -73,18 +71,13 @@ const Registration = () => {
         } else {
           setError('Произошла неизвестная ошибка при загрузке файла.')
           setPreview(null)
-          // alert('Произошла неизвестная ошибка при загрузке файла.');
         }
         return;
-
-
       }
     }
 
-
     let { avatarFile, ...restOfValues } = values;
     let mdata = await dispatch(fetchRegister({ ...restOfValues, avatarUrl }));
-
 
     if (!mdata.payload) {
       return alert('Registration failed')
@@ -94,12 +87,10 @@ const Registration = () => {
       window.localStorage.setItem('token', (mdata.payload as { token: string }).token);
     }
 
+    localStorage.removeItem('adminToken');
+
     navigate(redirect);
   }
-
-  // if (isAuth) {
-  //   return <Navigate to="/" />
-  // }
 
   return (
     <section className={styles.login}>

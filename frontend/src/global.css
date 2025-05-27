@@ -11,8 +11,8 @@ html {
 html,
 body {
     height: 100%;
-     overflow: auto !important;
-  height: auto !important;
+     /* overflow: auto !important; */
+  /* height: auto !important; */
   
 }
 

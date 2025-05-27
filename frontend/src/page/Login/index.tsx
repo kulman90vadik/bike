@@ -23,14 +23,11 @@ const Login = () => {
     }
   }, [isAuth, location.search, navigate]);
 
-  // const params = new URLSearchParams(location.search);
-  // const redirectTo = params.get('redirect') || '/'; // если ничего не указано — на главную
   
   const { register, handleSubmit, formState: {errors, isValid} } = useForm({
     defaultValues: { email: "tom@outlook.com", password: "123456" },
     mode: "onChange", // при либом изменении формы
   });
-  
     
   const onSubmit = async (values:FormValueslogin) => {
       const data = await dispatch(fetchAuth(values));
@@ -41,17 +38,19 @@ const Login = () => {
       if (data?.payload && typeof data.payload === 'object' && 'token' in data.payload) {
         window.localStorage.setItem('token', (data.payload as { token: string }).token);
       }
+
+ localStorage.removeItem('adminToken');
+
       await dispatch(fetchAllBasket())
       await dispatch(fetchAllFavorites())
   }
 
+  
 
   return (
     <section className={styles.login}>
       <div className="container">
-        <div className={styles.inner}>
-
-       
+        <div className={styles.inner}>     
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <span className={styles.title}>Login</span>
           <div className={styles.block}>
