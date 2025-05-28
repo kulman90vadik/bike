@@ -6,8 +6,15 @@ import { FormValueslogin } from "../../propstype"
 import React from "react"
 
 const AdminLogin = () => {
-    const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = React.useState(true)
+    const dispatch = useAppDispatch()
+
+    const { register, handleSubmit, formState: { errors, isValid }} = useForm({
+        defaultValues: { email: "admin@example.com", password: "Vadik1990" },
+        mode: "onChange" // при либом изменении формы
+    })
+
+
     React.useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false)
@@ -25,14 +32,7 @@ const AdminLogin = () => {
         window.location.href = "/admin/dashboard" // или куда надо
     }
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid }
-    } = useForm({
-        defaultValues: { email: "admin@example.com", password: "Vadik1990" },
-        mode: "onChange" // при либом изменении формы
-    })
+ 
 
     const onSubmit = async (values: FormValueslogin) => {
         const data = await dispatch(fetchAuth(values))
