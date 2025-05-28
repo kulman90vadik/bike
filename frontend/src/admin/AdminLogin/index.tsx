@@ -7,13 +7,11 @@ import React from "react"
 
 const AdminLogin = () => {
     const [isLoading, setIsLoading] = React.useState(true)
-    const dispatch = useAppDispatch()
-
+    const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { errors, isValid }} = useForm({
         defaultValues: { email: "admin@example.com", password: "Vadik1990" },
         mode: "onChange" // при либом изменении формы
     })
-
 
     React.useEffect(() => {
         const timer = setTimeout(() => {
@@ -32,7 +30,6 @@ const AdminLogin = () => {
         window.location.href = "/admin/dashboard" // или куда надо
     }
 
- 
 
     const onSubmit = async (values: FormValueslogin) => {
         const data = await dispatch(fetchAuth(values))

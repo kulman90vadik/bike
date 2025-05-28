@@ -17,7 +17,10 @@ const AsideFilter = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
 
-  //  const { totalPages, page, limit } = useSelector((state: RootState) => state.products);
+
+// МОЖЕТ НА ЭТО ПЕРЕВЕСТИ ??????
+  //  const products = useSelector((state: RootState) => state.products.allproducts)
+
 
   useEffect(() => {
     axios

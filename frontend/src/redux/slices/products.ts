@@ -20,8 +20,6 @@ export const fetchProductsPag = createAsyncThunk<PaginatedResponse, FetchParams 
 
 export const fetchProducts = createAsyncThunk<ProductProps[]>('auth/fetchProducts', async() => {
     const {data} = await axios.get<ProductProps[]>('./products');
-
-    
     return data;
 })
 
@@ -42,6 +40,7 @@ export const fetchSortProducts = createAsyncThunk<PaginatedResponse, string, { r
 
 type Props = {
     data: ProductProps[],
+    allproducts: ProductProps[],
     status: string,
     sales: string,
     branding: string,
@@ -59,6 +58,7 @@ type Props = {
 
 const initialState: Props = {
     data: [],
+    allproducts: [],
     sortOrder: '',
     sales: '',
     branding: '',
@@ -103,20 +103,28 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
 
+
+
 // fetchProducts        
 
         builder.addCase(fetchProducts.pending, (state) => {
             state.status = 'loading';
-            state.data = [];
+            // state.data = [];
+            state.allproducts = [];
         });
         builder.addCase(fetchProducts.fulfilled, (state, action) => {
             state.status = 'loaded';
-            state.data = action.payload;
+            // state.data = action.payload;
+            state.allproducts = action.payload;
         });
         builder.addCase(fetchProducts.rejected, (state) => {
             state.status = 'error';
-            state.data = [];
+            // state.data = [];
+            state.allproducts = [];
         });
+
+
+
 
 //fetchProductsPag
 

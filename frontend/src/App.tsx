@@ -14,10 +14,7 @@ import FullProduct from "./page/FullProduct/FullProduct";
 import { fetchProducts, fetchProductsPag } from "./redux/slices/products";
 import { fetchTopProducts } from "./redux/slices/topproducts";
 import About from "./page/About";
-// import AdminPage from "./admin/AdminPage";
 import { useLocation } from "react-router-dom";
-
-
 import { adminRoutes } from "./admin/routes";
 // import AdminLogin from "./admin/AdminLogin";
 
@@ -39,12 +36,9 @@ const App = () => {
       loadData();
   }, [])
 
-console.log(isAdminPage);
-
 
   return (
     <>
-    
       {!isAdminPage && <Header />}
 
       <main className={isAbout}>

@@ -76,7 +76,7 @@ const FullProduct = () => {
                 }}
                 modules={[FreeMode, Thumbs]}
                 className="mySwiper2"
-                style={{marginBottom: '10px'}}
+                style={{marginBottom: '10px', height: "450px"}}
               >
                 <SwiperSlide>
                   {fullProduct?.image && (
