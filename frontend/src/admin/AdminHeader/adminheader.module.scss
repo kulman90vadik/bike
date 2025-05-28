@@ -1,37 +1,54 @@
-
 .header {
-  position: fixed;
-  width: 200px;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
-  background-color: #232E34;
-  color: var(--color-white);
+    position: fixed;
+    width: 200px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: #98430c;
+    color: var(--color-white);
+    box-shadow: 50px 0 100px 40px rgba(152, 67, 12, 0.5);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    right: -100px; /* Чуть шире — больше пространства для плавности */
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, 
+        rgba(152, 67, 12, 0) 0%, 
+        rgba(152, 67, 12, 0.1) 25%, 
+        rgba(152, 67, 12, 0.3) 50%, 
+        rgba(152, 67, 12, 0.6) 75%, 
+        rgba(152, 67, 12, 1) 100%);
+    pointer-events: none;
 }
 
 .top {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .image {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
 }
 
 .logo {
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  width: 87px;
-  height: 47px;
+    margin: 20px auto 45px;
+    display: flex;
+    justify-content: center;
+    width: 87px;
+    height: 47px;
 }
 
 .logout {
-  color: var(--color-white);
-  padding: 5px 15px;
+    color: var(--color-white);
+    padding: 5px 15px;
 }

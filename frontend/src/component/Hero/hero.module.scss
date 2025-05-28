@@ -6,16 +6,14 @@
 }
 
 .bg {
-  
   background-image: url('/images/bike.jpg');
-  // background-color: var(--color-black);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   overflow: hidden;
   height: 100%;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
   position: absolute;
   animation: bg 15s ease infinite alternate;
   will-change: background-image;

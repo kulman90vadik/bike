@@ -38,7 +38,16 @@ const AdminHeader = () => {
             <path d="M17.2539 47.7627H21.9674L31.9281 9.1651L43.3117 47.7627L45.624 40.2033L33.7068 0.62738H29.2601L17.2539 47.7627Z" fill="white"/>
           </svg>
         <div className={styles.top}>
-          <img className={styles.image} src={auth?.avatarUrl} alt={auth?.fullName} />
+
+ {auth?.avatarUrl &&
+          <img className={styles.image} src={`${import.meta.env.VITE_API_BASE_URL}${auth?.avatarUrl}`} alt={auth?.fullName} />
+
+                    
+    }
+
+
+
+
           <h3>{auth?.fullName}</h3>
         </div>
 

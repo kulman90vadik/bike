@@ -15,7 +15,8 @@ const navigation = [
   { lebel: "Home", link: "/" },
   { lebel: "About", link: "/about" },
   { lebel: "Favorites", link: "/favorites" },
-  { lebel: "Basket", link: "/basket" }
+  { lebel: "Basket", link: "/basket" },
+  { lebel: "Admin", link: "/admin" }
 ];
 
 const Header = () => {
@@ -27,7 +28,6 @@ const Header = () => {
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
   const auth = useSelector((state: RootState) => state.auth.data);
-
 
   const onClickLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {

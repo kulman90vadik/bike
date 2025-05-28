@@ -6,7 +6,7 @@ import TopProducts from "../../component/TopProducts"
 import useLenis from "../../useLenis"
 
 const Home = () => {
-    useLenis()
+    // useLenis()
     return (
         <>
             <Hero />

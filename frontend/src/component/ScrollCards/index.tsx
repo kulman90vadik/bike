@@ -20,14 +20,10 @@ gsap.registerPlugin(ScrollTrigger);
 const isMobile = window.innerWidth < 768;
 
 const ScrollCards = () => {
-  // const products = useSelector((state: RootState) => state.products.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
-  // const status = useSelector((state: RootState) => state.products.status);
-  // let loaded = status == "loaded";
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const containerRef = React.useRef<HTMLUListElement | null>(null);
-
   const [products, setProducts] = React.useState<ProductProps[] | null>(null);
   const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
 
@@ -65,14 +61,14 @@ const ScrollCards = () => {
       const scrollLength = container.scrollWidth - window.innerWidth;
 
       gsap.to(container, {
-        x: () => `-${scrollLength}`, // Горизонтальная прокрутка
+        x: () => `-${scrollLength}`,
         ease: "none",
         scrollTrigger: {
           trigger: section,
-          start: "top top", // Начало анимации
-          end: () => `+=${scrollLength}`, // Конец анимации
-          scrub: true, // Связь с прокруткой
-          pin: true, // Пиннинг секции
+          start: "top top", 
+          end: () => `+=${scrollLength}`,
+          scrub: true, 
+          pin: true, 
           anticipatePin: 1,
         },
       });
@@ -83,16 +79,17 @@ const ScrollCards = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [status, products]);
+  
 
   return (
     <section className={styles.section} ref={sectionRef}>
       <div
         className={styles.bgtop}
-        style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
+        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
       ></div>
       <div
         className={styles.bgbottom}
-        style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
+        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
       ></div>
 
        {status === "loading" && 

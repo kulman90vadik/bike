@@ -1,7 +1,22 @@
-
 .dashboard {
-  background-color: #ccc;
-  padding-left: 205px;
+    // background-color: #ccc;
+    padding-left: 205px;
+    color: var(--color-white);
 }
 
+.hero {
+    min-height: 100vh;
 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("/images/astronavt.webp");
+    // position: relative;
+    // &::after {
+    //   position: absolute;
+    //   content: '';
+    //   z-index: -1;
+    //   inset: 0;
+    //   background-color: rgba(#000, .1);
+    // }
+}

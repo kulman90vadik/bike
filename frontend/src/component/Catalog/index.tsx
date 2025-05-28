@@ -129,7 +129,8 @@ const Catalog = () => {
     <section className={styles.catalog}>
       <div
         className={styles.bgtop}
-        style={{ backgroundImage: "url(/images/paralax/first1.png)" }}
+        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
+
       ></div>
       <div className="container">
         <div className={styles.wrapper}>
@@ -198,6 +199,11 @@ const Catalog = () => {
           </div>
         </div>
       </div>
+            <div
+        className={styles.bgbot}
+        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
+
+      ></div>
     </section>
   );
 };

@@ -1,20 +1,29 @@
-import { useNavigate } from "react-router-dom"
 import styles from "./adminlogin.module.scss"
 import { useAppDispatch } from "../../redux/store"
-import { useSelector } from "react-redux"
-import React from "react"
 import { useForm } from "react-hook-form"
 import { fetchAuth } from "../../redux/slices/auth"
 import { FormValueslogin } from "../../propstype"
+import React from "react"
 
 const AdminLogin = () => {
     const dispatch = useAppDispatch()
+    const [isLoading, setIsLoading] = React.useState(true)
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false)
+        }, 1500)
 
-    const adminToken = localStorage.getItem('adminToken');
-    if(adminToken) {
-      window.location.href = "/admin/dashboard" // или куда надо
+        return () => clearTimeout(timer)
+    }, [])
+
+    if (isLoading) {
+        return <img className={styles.loading} src="/images/loading.gif" alt="Loading" />
     }
-   
+
+    const adminToken = localStorage.getItem("adminToken")
+    if (adminToken) {
+        window.location.href = "/admin/dashboard" // или куда надо
+    }
 
     const {
         register,
@@ -41,8 +50,7 @@ const AdminLogin = () => {
                 return alert("У вас нет доступа к админ-панели")
             }
 
-
-            localStorage.removeItem('token');
+            localStorage.removeItem("token")
             // ✅ Сохраняем токен и пускаем админа   <!-- <a href="###URLV###" class="homepage">###URLV###</a> -->
             localStorage.setItem("adminToken", token)
 

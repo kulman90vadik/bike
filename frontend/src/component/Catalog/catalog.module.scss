@@ -84,7 +84,20 @@
   z-index: -1;
   width: 100%;
   left: 0;
-  min-height: 350px;
+  min-height: 420px;
+
+}
+
+.bgbot {
+   background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  left: 0;
+  min-height: 420px;
+  bottom: 0;
 }
 
 .bgtop {

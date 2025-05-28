@@ -19,11 +19,13 @@ import { useLocation } from "react-router-dom";
 
 
 import { adminRoutes } from "./admin/routes";
+// import AdminLogin from "./admin/AdminLogin";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
+  const isAbout = (location.pathname === '/about') ? 'about-hidden' : '';
 
   React.useEffect(() => {
       const loadData = async () => {
@@ -37,6 +39,7 @@ const App = () => {
       loadData();
   }, [])
 
+console.log(isAdminPage);
 
 
   return (
@@ -44,7 +47,7 @@ const App = () => {
     
       {!isAdminPage && <Header />}
 
-      <main>
+      <main className={isAbout}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -54,8 +57,10 @@ const App = () => {
           <Route path="/about" element={<About />} />
 
           <Route path="/favorites" element={<Favorites />} />
+
           {adminRoutes}
-          {/* <Route path="/admin" element={<AdminPage />} /> */}
+
+
         </Routes>
       </main>
       {/* <Footer /> */}

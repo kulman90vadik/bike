@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background-color: rgba(#000, 0.9);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -40,6 +40,12 @@
     }
 }
 
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 
 .label {

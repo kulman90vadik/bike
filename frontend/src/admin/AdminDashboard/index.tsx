@@ -1,14 +1,13 @@
-import styles from './dashboard.module.scss';
-
+import styles from "./dashboard.module.scss"
 
 const AdminDashboard = () => {
-  return (
-    <section className={styles.dashboard}>
-      <div className="container">
-        AdminDashboard
-      </div>
-    </section>
-  );
+    return (
+        <section className={styles.dashboard}>
+            <div className={styles.hero}>
+                <div className="container">Admin Dashboard</div>
+            </div>
+        </section>
+    )
 }
- 
-export default AdminDashboard;
+
+export default AdminDashboard

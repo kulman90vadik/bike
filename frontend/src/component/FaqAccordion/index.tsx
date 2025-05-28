@@ -35,7 +35,7 @@ const FaqAccordion = () => {
 
     return (
         <section className={styles.accardion}>
-            <div className={styles.bg} style={{ backgroundImage: "url(/images/paralax/first1.png)" }}></div>
+            <div className={styles.bg} style={{ backgroundImage: "url(/images/paralax/first2.png)" }}></div>
             <div className="container">
                 <h2 className={styles.title}>Frequently Asked Questions</h2>
                 <motion.ul>

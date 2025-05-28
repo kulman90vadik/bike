@@ -1,7 +1,8 @@
 import React from 'react';
 import { fetchProductsPag } from '../../redux/slices/products';
-import { useAppDispatch } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 import styles from './pagination.module.scss';
+import { useSelector } from 'react-redux';
 
 
 type Props = {
@@ -11,10 +12,12 @@ type Props = {
 
 const Pagination = ({ totalPages, page }: Props) => {
   const dispatch = useAppDispatch();
+  const { limit } = useSelector((state: RootState) => state.products);
 
   const clickPage = (n: number) => {
-    dispatch(fetchProductsPag({page: n}))
+    dispatch(fetchProductsPag({page: n, limit}))
   }
+
 
 
   return (
