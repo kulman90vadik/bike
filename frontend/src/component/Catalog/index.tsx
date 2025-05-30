@@ -176,6 +176,7 @@ const Catalog = () => {
                                 isInBasket={!!isInBasket}
                                 isInFavorites={!!isInFavorites}
                               />
+                              
                             </li>
                           );
                         })}

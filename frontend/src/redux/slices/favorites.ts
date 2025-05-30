@@ -15,7 +15,8 @@ export const fetchFavorites = createAsyncThunk<ProductProps[], string, { state: 
             return data;
         }
         else {
-            const products = state.products.data; 
+            const products = state.products.allproducts; 
+
             const product = products.find((p) => p._id === id);
             if (!product) return []; 
             let favoritesStorage = JSON.parse(localStorage.getItem('favorites') || '[]');

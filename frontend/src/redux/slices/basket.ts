@@ -11,7 +11,7 @@ export const fetchBasket = createAsyncThunk<BasketProps[], string, { state: Root
         const { data } = await axios.post<BasketProps[]>(`./basket/${id}`);
         return data;
     } else {
-        const products = state.products.data; 
+        const products = state.products.allproducts; 
         const product = products.find((p) => p._id === id);
         if (!product) return []; 
         let basketStorage = JSON.parse(localStorage.getItem('basket') || '[]');
