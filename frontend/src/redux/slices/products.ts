@@ -47,6 +47,7 @@ type Props = {
     country: string,
     sortOrder: string,
     preisRange: string,
+    statusAll: string,
 
     limit: number,
     page: number,
@@ -64,6 +65,7 @@ const initialState: Props = {
     branding: '',
     country: '',
     preisRange: '',
+    statusAll: 'loading',
     status: 'loading',
 
     limit: 3,
@@ -108,17 +110,17 @@ const productsSlice = createSlice({
 // fetchProducts        
 
         builder.addCase(fetchProducts.pending, (state) => {
-            state.status = 'loading';
+            state.statusAll = 'loading';
             // state.data = [];
             state.allproducts = [];
         });
         builder.addCase(fetchProducts.fulfilled, (state, action) => {
-            state.status = 'loaded';
+            state.statusAll = 'loaded';
             // state.data = action.payload;
             state.allproducts = action.payload;
         });
         builder.addCase(fetchProducts.rejected, (state) => {
-            state.status = 'error';
+            state.statusAll = 'error';
             // state.data = [];
             state.allproducts = [];
         });

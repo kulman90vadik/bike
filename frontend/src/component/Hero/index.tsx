@@ -5,13 +5,10 @@ import React, { Suspense } from "react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { motion } from "framer-motion"
 
-// import { Suspense } from 'react';
 import { useTranslation } from "react-i18next"
 
 const Hero = () => {
-    const { t, i18n } = useTranslation()
-
-    // console.log(i18n.language, "lang")
+    const { t } = useTranslation()
 
     gsap.registerPlugin(ScrollTrigger)
     function random(min: number, max: number) {
