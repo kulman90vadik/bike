@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form"
 import { fetchAuth } from "../../redux/slices/auth"
 import { FormValueslogin } from "../../propstype"
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
 const AdminLogin = () => {
     const [isLoading, setIsLoading] = React.useState(true)
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { errors, isValid }} = useForm({
         defaultValues: { email: "admin@example.com", password: "Vadik1990" },
@@ -27,7 +29,7 @@ const AdminLogin = () => {
 
     const adminToken = localStorage.getItem("adminToken")
     if (adminToken) {
-        window.location.href = "/admin/dashboard" // или куда надо
+        navigate("/admin/dashboard");
     }
 
 
