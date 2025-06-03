@@ -10,16 +10,20 @@ import { fetchAllBasket } from "../../redux/slices/basket";
 import SearchBox from "../Search";
 import { fetchAllFavorites } from "../../redux/slices/favorites";
 import { motion } from 'framer-motion';
+import { useTranslation } from "react-i18next";
 
-const navigation = [
-  { lebel: "Home", link: "/" },
-  { lebel: "About", link: "/about" },
-  { lebel: "Favorites", link: "/favorites" },
-  { lebel: "Basket", link: "/basket" },
-  { lebel: "Admin", link: "/admin" }
-];
+const locales = ['en', 'de'];
 
 const Header = () => {
+  const { t, i18n } = useTranslation(); 
+  const navigation = [
+  { lebel: t("navigation.home"), link: "/" },
+  { lebel: t("navigation.about"), link: "/about" },
+  { lebel: t("navigation.favorites"), link: "/favorites" },
+  { lebel: t("navigation.basket"), link: "/basket" },
+  { lebel: t("navigation.admin"), link: "/admin" }
+];
+
   const location  = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const isAuth = useSelector(selectIsAuth);
@@ -127,6 +131,23 @@ const Header = () => {
                 <ShoppingCart />
                 <span>{basket.length}</span>
             </Link>
+
+
+            <ul className={styles.lang}>
+              {locales.map(lang => {
+                return(
+                  <li key={lang}>
+                    <button 
+                      className={`${styles.langbtn} ${i18n.resolvedLanguage === lang ? styles.activelang : ''}`}
+                      type="button"
+                      onClick={() => i18n.changeLanguage(lang)}
+                    >{lang}</button>
+                  </li>  
+                )
+              })}
+            </ul>
+
+
           </div>
         </div>
       </div>

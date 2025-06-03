@@ -84,6 +84,9 @@ app.post('/auth/register', registerValidation, handleValidationErrors, UserContr
 
 app.get('/auth/me', checkAuth, UserController.getMe);
 
+app.get('/auth/users', checkAuth, readLimiter, UserController.getUsers);
+
+
 app.get("/products/topproducts", readLimiter, ProductController.topProducts);
 app.get("/products/sort", readLimiter, ProductController.sortProducts);
 

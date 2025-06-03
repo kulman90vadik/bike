@@ -27,8 +27,7 @@ const AsideFilterWidget = ({isLoading, title, data, dispatchHandle}: Props) => {
       <ChevronDown />
     </button>
     <AnimatePresence 
-    initial={false} // --- при первой загрузке не танимации
-    //exitBeforeEnter  --- сначала одна анимация потом вторая
+    initial={false} 
     >
       
       <motion.ul

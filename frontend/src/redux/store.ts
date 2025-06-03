@@ -7,6 +7,7 @@ import { topProductsReducer } from './slices/topproducts';
 import { basketReducer } from './slices/basket';
 import { favoritesReducer } from './slices/favorites';
 import { searchReducer } from './slices/search';
+import { routeReducer } from './slices/admin';
 import { fullProductReducer } from './slices/fullproduct';
 // import {postsReducer} from './slices/posts'
 
@@ -20,7 +21,8 @@ const store = configureStore({
         basket: basketReducer,   
         favorites: favoritesReducer,
         search: searchReducer,
-        topproducts: topProductsReducer
+        topproducts: topProductsReducer,
+        admin: routeReducer
     }
 })
 

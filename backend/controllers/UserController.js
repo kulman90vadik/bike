@@ -46,6 +46,7 @@ export const register = async (req, res) => {
   }
 };
 
+
 export const login = async (req, res) => {
   try {
     // проверка в базе данных пользователя
@@ -92,6 +93,7 @@ export const login = async (req, res) => {
   }
 };
 
+
 export const getMe = async (req, res) => {
   // при запуске запроса включиться ф-ия checkAuth и если она одобрит то тогда выролнятся будет (req, res)
   try {
@@ -115,4 +117,25 @@ export const getMe = async (req, res) => {
 };
 
 
+
+// getUsers
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await UserModel.find(); 
+    const safeUsers = users.map(user => ({
+      _id: user._id,
+      email: user.email,
+      fullName: user.fullName,
+      role: user.role,
+      avatarUrl: user.avatarUrl,
+      // createdAt: user.createdAt,
+    }));
+
+
+    res.json(safeUsers);
+  } catch (err) {
+    res.status(500).json({ message: 'Ошибка при получении пользователей' });
+  }
+};
 

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { FormValueslogin, FormValuesRegister, Registerprops } from '../../propstype';
+import { FormValueslogin, FormValuesRegister, Registerprops, UsersProps } from '../../propstype';
 import axios from '../../axios';
 import { RootState } from '../store';
 
@@ -21,16 +21,22 @@ export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async() => {
 })
 
 
+export const fetchAuthUsers = createAsyncThunk('auth/fetchAuthUsers', async() => {
+    const {data} = await axios.get<UsersProps[]>('./auth/users');
+    return data;
+})
+
+
 
 interface Props {
     status: string,
-    // is: boolean,
     data: Registerprops | null
+    users: UsersProps[] 
 }
 
 const initialState: Props = {
     data: null,
-    // is: false,
+    users: [],
     status: 'loading'
 }
 
@@ -43,6 +49,7 @@ const authSlice = createSlice({
             state.data = null;
         }
     },
+
 
     extraReducers: (builder) => {
 
@@ -90,6 +97,21 @@ const authSlice = createSlice({
         builder.addCase(fetchRegister.rejected, (state) => {
             state.status = 'error'
             state.data = null;
+        });
+
+// fetchAuthUsers
+
+        builder.addCase(fetchAuthUsers.pending, (state) => {
+            state.status = 'loading'
+            state.users = [];
+        });
+        builder.addCase(fetchAuthUsers.fulfilled, (state, action) => {
+            state.status = 'loaded'
+            state.users = action.payload;
+        });
+        builder.addCase(fetchAuthUsers.rejected, (state) => {
+            state.status = 'error'
+            state.users = [];
         });
     }
 

@@ -1,172 +1,193 @@
-
 .header {
-  padding: 20px 0;
-  position: fixed;
-  z-index: 300;
-  width: 100%;
-  top: 0;
-  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
-  left: 0;
+    padding: 20px 0;
+    position: fixed;
+    z-index: 300;
+    width: 100%;
+    top: 0;
+    transition:
+        background-color 0.2s ease-in,
+        padding 0.3s ease-in;
+    left: 0;
 }
 
 .active {
-  padding: 10px 0;
-  background-color: rgba(#000, 0.7);
-  transition: background-color 0.2s ease-in, padding 0.3s ease-in;
+    padding: 10px 0;
+    background-color: rgba(#000, 0.7);
+    transition:
+        background-color 0.2s ease-in,
+        padding 0.3s ease-in;
 }
 
 .wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .inner {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .link_logo {
-  width: 85px;
-  height: 45px;
-  display: flex;
-  @media (max-width: 450px) {
-    width: 65px;
-  }
+    width: 85px;
+    height: 45px;
+    display: flex;
+    @media (max-width: 450px) {
+        width: 65px;
+    }
 }
 
 .logo {
-  width: 100%;
-  object-fit: cover;
+    width: 100%;
+    object-fit: cover;
 }
 
 .exit {
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  svg {
-    margin-right: 5px;
-    width: 29px;
-    height: 29px;
-    path {
-      transition: stroke .3s ease-in;
-      fill: var(--color-orange);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    svg {
+        margin-right: 5px;
+        width: 29px;
+        height: 29px;
+        path {
+            transition: stroke 0.3s ease-in;
+            fill: var(--color-orange);
+        }
     }
-  }
-  &:hover path {
-    stroke: var(--color-orange);
-  }
+    &:hover path {
+        stroke: var(--color-orange);
+    }
 }
 
 .card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
- 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .smallimg {
-   width: 30px;
-   height: 30px;
-   border-radius: 50%;
-   object-fit: cover;
-   margin-right: 9px;
-   border: 2px solid var(--color-white);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 9px;
+    border: 2px solid var(--color-white);
 }
-
 
 .login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 10px;
-  margin-right: 10px;
-  @media (max-width: 450px) {
-    margin-right: 3px;
-    margin-left: 3px;
-  }
-  &:hover path {
-    stroke: var(--color-orange);
-  }
-  svg {
-    width: 29px;
-    height: 29px;
-    
-    fill: var(--color-orange);
-    stroke: var(--color-white);
-    path {
-      fill: var(--color-orange);
-      transition: stroke .3s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    @media (max-width: 450px) {
+        margin-right: 3px;
+        margin-left: 3px;
     }
-  }
-}
+    &:hover path {
+        stroke: var(--color-orange);
+    }
+    svg {
+        width: 29px;
+        height: 29px;
 
+        fill: var(--color-orange);
+        stroke: var(--color-white);
+        path {
+            fill: var(--color-orange);
+            transition: stroke 0.3s ease-in;
+        }
+    }
+}
 
 .card {
-  position: relative;
-  svg {
-    width: 29px;
-    height: 29px;
-    path {
-      transition: stroke .3s ease-in;
-      stroke: var(--color-white);
+    position: relative;
+    svg {
+        width: 29px;
+        height: 29px;
+        path {
+            transition: stroke 0.3s ease-in;
+            stroke: var(--color-white);
+        }
+        stroke: var(--color-orange);
     }
-    stroke: var(--color-orange);
-  }
-  &:hover path {
-    stroke: var(--color-orange);
-  }
-  span {
-    position: absolute;
-    top: 0;
-    right: -9px;
-    border-radius: 50%;
-    line-height: 1;
-    color: var(--color-white);
-    font-weight: 700;
-    font-size: 13px;
-    width: 15px;
-    height: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-orange);
-  }
+    &:hover path {
+        stroke: var(--color-orange);
+    }
+    span {
+        position: absolute;
+        top: 0;
+        right: -9px;
+        border-radius: 50%;
+        line-height: 1;
+        color: var(--color-white);
+        font-weight: 700;
+        font-size: 13px;
+        width: 15px;
+        height: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-orange);
+    }
 }
 
-
 .heart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-white);
-  margin-right: 15px;
-  position: relative;
-  svg {
-    width: 27px;
-    height: 27px;
-  }
-  path {
-    transition: stroke .3s ease-in;
-  }
-  &:hover path {
-    stroke: var(--color-orange);
-  }
-  span {
-    position: absolute;
-    top: 0;
-    right: -9px;
-    border-radius: 50%;
-    line-height: 1;
-    color: var(--color-white);
-    font-weight: 700;
-    font-size: 13px;
-    width: 15px;
-    height: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-orange);
-  }
+    color: var(--color-white);
+    margin-right: 15px;
+    position: relative;
+    svg {
+        width: 27px;
+        height: 27px;
+    }
+    path {
+        transition: stroke 0.3s ease-in;
+    }
+    &:hover path {
+        stroke: var(--color-orange);
+    }
+    span {
+        position: absolute;
+        top: 0;
+        right: -9px;
+        border-radius: 50%;
+        line-height: 1;
+        color: var(--color-white);
+        font-weight: 700;
+        font-size: 13px;
+        width: 15px;
+        height: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-orange);
+    }
+}
+
+.lang {
+    margin-left: 20px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.langbtn {
+    text-transform: uppercase;
+    background-color: transparent;
+    color: var(--color-orange);
+    border: 1px solid var(--color-orange);
+    padding: 5px;
+    margin: 3px;
+}
+
+.activelang {
+  transition: background-color 0.3s ease, color 0.3s ease;
+    color: var(--color-white);
+    background-color:  var(--color-orange);
 }

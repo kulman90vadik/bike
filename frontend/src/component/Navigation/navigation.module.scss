@@ -6,7 +6,7 @@
 
 .header-nav {
   margin-right: 40px;
-  @media (max-width: 991px) {
+  @media (max-width: 1160px) {
     position: fixed;
     transform: translateY(-300%)!important;
     // transition: transform 0.4s ease-in;
@@ -70,7 +70,7 @@
 
 .burger {
   display: none;
-  @media (max-width: 991px) {
+  @media (max-width: 1160px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@
     font-size: 33px;
     position: relative;
     order: 1;
-    margin-left: 15px;
+    margin-left: 5px;
     z-index: 222;
   }
 }

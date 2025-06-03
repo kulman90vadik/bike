@@ -8,11 +8,15 @@ import "./global.css";
 import "./color.css";
 import RippleEffect from './component/RippleEffect';
 
+import './i18n.ts'
+
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      
+        <App />
+    
       <RippleEffect />
     </BrowserRouter>
   </Provider>
