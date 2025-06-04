@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "../../global.css";
 
 interface Ripple {
@@ -9,9 +9,9 @@ interface Ripple {
 }
 
 const RippleEffect: React.FC = () => {
-  const [ripples, setRipples] = useState<Ripple[]>([]);
+  const [ripples, setRipples] = React.useState<Ripple[]>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const id = Date.now();
       const x = e.clientX;
