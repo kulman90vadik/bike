@@ -1,20 +1,35 @@
-
-
 {
-  "hero": {
-    "title": "Exklusive Fahrräder",
-    "text": "Das Cento10 Hybrid ist ein Rennrad mit pedalunterstütztem Elektroantrieb und setzt einen neuen, außergewöhnlich hohen Standard in dieser Kategorie.",
-    "link": "Weitere Details"
-  }, 
+    "hero": {
+        "title": "Exklusive Fahrräder",
+        "text": "Das Cento10 Hybrid ist ein Rennrad mit pedalunterstütztem Elektroantrieb und setzt einen neuen, außergewöhnlich hohen Standard in dieser Kategorie.",
+        "link": "Weitere Details"
+    },
 
-   "navigation": {
-    "home": "Startseite",
-    "about": "Über uns",
-    "favorites": "Favoriten",
-    "basket": "Warenkorb",
-    "admin": "Admin"
-  }
+    "navigation": {
+        "home": "Startseite",
+        "about": "Über uns",
+        "favorites": "Favoriten",
+        "basket": "Warenkorb",
+        "admin": "Admin"
+    },
 
+    "filterwidget": {
+        "title": "Fahrradmarken",
+        "country": "Land",
+        "from": "von",
+        "to": "bis"
+    },
+    "topfilter": {
+        "text": "Sortieren nach Preis",
+        "all": "Alle",
+        "sale": "Verkauf",
+        "new": "Neu"
+    },
+    "topproducts": {
+        "title": "Top Produkte nach Ansichten"
+    },
+    "pagination": {
+        "show": "Anzeigen",
+        "per": "pro Seite"
+    }
 }
-
-

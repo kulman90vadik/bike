@@ -219,8 +219,9 @@ const AdminProducts = () => {
                                     className={styles.block}
                                     onClick={() => {
                                         setCount(prev => (prev === index ? null : index))
-                                        // setOpenWidget(!openWidget)
+                         
                                     }}
+
                                 >
                                     <span>Product description:</span>
                                     <ChevronDown />

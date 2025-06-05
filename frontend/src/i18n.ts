@@ -28,3 +28,4 @@ i18n.use(Backend)
     })
 
 export default i18n
+

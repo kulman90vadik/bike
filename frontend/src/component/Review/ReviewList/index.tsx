@@ -34,32 +34,26 @@ const ReviewList = ({editPost} : Props) => {
   const funcActive = (authDataId: string | undefined, likes: likesUp[]) => {
     let active = likes.find(item => item.user === authDataId);
     
-    if(active) {
-      return 'active'
-    } else {
-      return ' '
-    }
+    if(active) { return 'active' } 
+    else { return ' ' }
   }
-  // const funcActiveDown = (authDataId: string | undefined, likesDown: likesDown[]) => {
-  //   let active = likesDown.find(item => item.user === authDataId);
-    
-  //   if(active) {
-  //     return 'activedown'
-  //   } else {
-  //     return ' '
-  //   }
-  // }
 
 
   return (
     <ul ref={refUl} className={styles.reviewlist}>
-      {status == "loading" ? (
-        <img
-          className={styles.loading}
-          src="/images/loading.gif"
-          alt="Loading"
-        />
-      ) : (
+      {
+    
+
+      // status == "loading" ? (
+      //   <img
+      //     className={styles.loading}
+      //     src="/images/loading.gif"
+      //     alt="Loading"
+      //   />
+      // ) : ( 
+
+
+
         fullProduct?.comments?.map((item: IComment) => {
           return (
             <li className={styles.reviewitem} key={item?._id}>
@@ -142,7 +136,8 @@ const ReviewList = ({editPost} : Props) => {
             </li>
           );
         })
-      )}
+      // ) 
+      }
     </ul>
   );
 };

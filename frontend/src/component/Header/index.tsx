@@ -65,7 +65,7 @@ const Header = () => {
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.active : ''}`}>
-      <div className="container">
+      <div className={`container ${styles.containerheader}`}>
         <div className={styles.wrapper}>
           <Link className={styles.link_logo} to="/">
           <svg className={styles.logo} width="87" height="48" viewBox="0 0 87 48" fill="none" xmlns="http://www.w3.org/2000/svg">

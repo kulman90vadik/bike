@@ -6,16 +6,20 @@ import "swiper/swiper-bundle.css";
 import Card from "../Card";
 import { Autoplay } from "swiper/modules";
 import { ProductProps } from "../../propstype";
+import { useTranslation } from "react-i18next";
 
 
 const TopProducts = () => {
+  const { t } = useTranslation()
   const topProducts = useSelector((state: RootState) => state.topproducts.data);
   const basket = useSelector((state: RootState) => state.basket.data);
   const favorites = useSelector((state: RootState) => state.favorites.data);
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>Top Viewed Products</h1>
+      <h1 className={styles.title}>
+        {t('topproducts.title')}
+        </h1>
         <Swiper
           breakpoints={{
             1050: {

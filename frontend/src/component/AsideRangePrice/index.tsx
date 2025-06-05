@@ -5,6 +5,7 @@ import { setPrice } from "../../redux/slices/products";
 
 import { debounce } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
 const AsideRangePrice = ({isLoading, max, min}: Props) => {
   const [value, setValue] = useState(String(Math.trunc(min)));
     const dispatch = useAppDispatch();
+    const { t } = useTranslation()
 
 
     const debouncedDispatch = React.useMemo( () =>
@@ -60,7 +62,7 @@ const AsideRangePrice = ({isLoading, max, min}: Props) => {
         {
           min > 0 && max > 0 ?
           <div className={styles.value}>
-            {`from ${value} € to ${Math.trunc(max)} €`}
+            {`${t('filterwidget.from')} ${value} € ${t('filterwidget.to')} ${Math.trunc(max)} €`}
           </div>
         :
           ''  
@@ -77,7 +79,9 @@ const AsideRangePrice = ({isLoading, max, min}: Props) => {
 };
 
 export default AsideRangePrice;
-function sortProducts(arg0: { price: number; }): any {
-  throw new Error("Function not implemented.");
-}
+
+
+// function sortProducts(arg0: { price: number; }): any {
+//   throw new Error("Function not implemented.");
+// }
 

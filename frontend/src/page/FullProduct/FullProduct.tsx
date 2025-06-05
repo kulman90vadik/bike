@@ -55,14 +55,15 @@ const FullProduct = () => {
 
   return (
     <section className={styles.product}>
-      {isLoading == "loading" ? (
-        <img
-          className={styles.loading}
-          src="/images/loading.gif"
-          alt="Loading"
-        /> 
+      {
+      // isLoading == "loading" ? (
+      //   <img
+      //     className={styles.loading}
+      //     src="/images/loading.gif"
+      //     alt="Loading"
+      //   /> 
         
-      ) : (
+      // ) : (
         <div className="container">
           <div className={styles.inner}>
             <div className={styles.left}>
@@ -168,43 +169,6 @@ const FullProduct = () => {
                   />
                 </SwiperSlide>
               </Swiper>
-              {/* <ul className={styles.list}>
-                <li className={styles.imgitem}>
-                  <img
-                    className={styles.smallimage}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </li>
-                <li className={styles.imgitem}>
-                  <img
-                    className={styles.smallimage}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </li>
-                <li className={styles.imgitem}>
-                  <img
-                    className={styles.smallimage}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </li>
-                <li className={styles.imgitem}>
-                  <img
-                    className={styles.smallimage}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </li>
-                <li className={styles.imgitem}>
-                  <img
-                    className={styles.smallimage}
-                    src={fullProduct?.image}
-                    alt={fullProduct?.name}
-                  />
-                </li>
-              </ul> */}
             </div>
 
             <div className={styles.right}>
@@ -247,7 +211,8 @@ const FullProduct = () => {
 
           {fullProduct && !Array.isArray(fullProduct) && <Review />}
         </div>
-      )}
+      // )
+      }
     </section>
   );
 };

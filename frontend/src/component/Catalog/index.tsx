@@ -14,22 +14,12 @@ import Pagination from "../Pagination";
 import Schowby from "../Schowby";
 
 const Catalog = () => {
+  const[count, setCount] = React.useState(0)
   gsap.registerPlugin(ScrollTrigger);
   const paginationRefs = React.useRef<HTMLDivElement | null>(null);
 
-  const {
-    data: products,
-    status,
-    sortOrder,
-    branding,
-    sales,
-    country,
-    totalPages,
-    page,
-    limit,
-    price,
-    totalItems,
-  } = useSelector((state: RootState) => state.products);
+  const {data: products, status, sortOrder, branding, sales, country, totalPages, 
+    page, limit, price,totalItems} = useSelector((state: RootState) => state.products);
   const cardRefs = React.useRef<(HTMLLIElement | null)[]>([]);
   const dispatch = useAppDispatch();
   const basket = useSelector((state: RootState) => state.basket.data);
@@ -49,14 +39,8 @@ const Catalog = () => {
     const priceParam = price ? `price=${price}` : "";
 
     const queryParts = [
-      categoryParam,
-      countryParam,
-      sortParam,
-      saleParam,
-      priceParam,
-      pageParam,
-      limitParam,
-    ].filter(Boolean); // удаляет пустые строки
+      categoryParam, countryParam, sortParam, saleParam, priceParam,
+      pageParam, limitParam ].filter(Boolean); // удаляет пустые строки
 
     const queryString = queryParts.join("&");
 
@@ -77,7 +61,9 @@ const Catalog = () => {
     (_, i) => (i + 1) * 3
   );
 
-
+const handleCount = (n: number) => {
+  setCount(n)
+}
   
   React.useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -183,7 +169,10 @@ const Catalog = () => {
                     </ul>
 
                     <div ref={paginationRefs} className={styles.bottom}>
-                      <Schowby schowArr={schowArr} />
+
+
+
+                      <Schowby schowArr={schowArr} count={count} handleCount={handleCount} />
                       <Pagination totalPages={totalPages} page={page} />
                     </div>
                   </>

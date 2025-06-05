@@ -10,6 +10,12 @@
     left: 0;
 }
 
+.containerheader {
+    @media (max-width: 450px) {
+        padding: 0 8px;
+    }
+}
+
 .active {
     padding: 10px 0;
     background-color: rgba(#000, 0.7);
@@ -33,8 +39,9 @@
     width: 85px;
     height: 45px;
     display: flex;
-    @media (max-width: 450px) {
-        width: 65px;
+    @media (max-width: 500px) {
+        min-width: 65px;
+        margin-right: 3px;
     }
 }
 
@@ -83,7 +90,7 @@
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
-    @media (max-width: 450px) {
+    @media (max-width: 500px) {
         margin-right: 3px;
         margin-left: 3px;
     }

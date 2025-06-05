@@ -112,12 +112,6 @@ const Review = () => {
         <motion.form
           ref={formRef}
           onSubmit={handleSubmit(onSubmit)}
-          // initial={{ height: 0, opacity: 0 }}
-          // animate={{
-          //   height: isForm ? "auto" : 0,
-          //   opacity: isForm ? 1 : 0,
-          // }}
-          // transition={{ duration: 0.3 }}
           className={styles.form}  
         >
           <span className={styles.title}>

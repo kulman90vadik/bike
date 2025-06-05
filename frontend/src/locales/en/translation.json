@@ -1,16 +1,34 @@
-
 {
-  "hero": {
-    "title": "Premium bicycles",
-    "text": "The Cento10 Hybrid is a racing bicycle with pedal-assist electric drive, setting a new, exceptionally high standard for this category.",
-    "link": "More details"
-  },
+    "hero": {
+        "title": "Premium bicycles",
+        "text": "The Cento10 Hybrid is a racing bicycle with pedal-assist electric drive, setting a new, exceptionally high standard for this category.",
+        "link": "More details"
+    },
 
-  "navigation": {
-    "home": "Home",
-    "about": "About",
-    "favorites": "Favorites",
-    "basket": "Basket",
-    "admin": "Admin"
+    "navigation": {
+        "home": "Home",
+        "about": "About",
+        "favorites": "Favorites",
+        "basket": "Basket",
+        "admin": "Admin"
+    },
+    "filterwidget": {
+        "title": "Brand",
+        "country": "Country",
+        "from": "from",
+        "to": "to"
+    },
+    "topfilter": {
+        "text": "Sort by price",
+        "all": "All",
+        "sale": "Sale",
+        "new": "New"
+    },
+    "topproducts": {
+      "title": "Top Viewed Products"
+    },
+    "pagination": {
+      "show": "Show",
+      "per": "per page"
+    }
   }
-}

@@ -3,11 +3,9 @@ import { useAppDispatch } from "../../redux/store"
 import { useForm } from "react-hook-form"
 import { fetchAuth } from "../../redux/slices/auth"
 import { FormValueslogin } from "../../propstype"
-import React from "react"
 import { useNavigate } from "react-router-dom"
 
 const AdminLogin = () => {
-    const [isLoading, setIsLoading] = React.useState(true)
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { errors, isValid }} = useForm({
@@ -15,17 +13,6 @@ const AdminLogin = () => {
         mode: "onChange" // при либом изменении формы
     })
 
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 1500)
-
-        return () => clearTimeout(timer)
-    }, [])
-
-    if (isLoading) {
-        return <img className={styles.loading} src="/images/loading.gif" alt="Loading" />
-    }
 
     const adminToken = localStorage.getItem("adminToken")
     if (adminToken) {

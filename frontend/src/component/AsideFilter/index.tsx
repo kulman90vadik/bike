@@ -6,9 +6,11 @@ import { setBranding, setCountry } from "../../redux/slices/products"
 import { RootState, useAppDispatch } from "../../redux/store"
 import AsideRangePrice from "../AsideRangePrice"
 import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
 
 const AsideFilter = () => {
     const {allproducts} = useSelector((state: RootState) => state.products)
+    const { t } = useTranslation()
 
     const [brandData, setBrandData] = useState<string[]>()
     const [countryData, setСountryData] = useState<string[]>()
@@ -51,9 +53,6 @@ const AsideFilter = () => {
     }, [allproducts])
 
     useEffect(() => {
-        // axios.get<ProductProps[]>(`./products`).then((res) => {
-        //   let data = res.data;
-
         if (Array.isArray(allproducts)) {
             const maxPrice = allproducts.reduce((max, product) => {
                 const finalPrice = Number(product.price) * (1 - Number(product.sale?.replace("%", "")) / 100)
@@ -81,10 +80,11 @@ const AsideFilter = () => {
 
     return (
         <aside className={styles.filters}>
-            <AsideFilterWidget dispatchHandle={handleBrand} title="Brand" isLoading={isLoading} data={brandData} />
+            <AsideFilterWidget dispatchHandle={handleBrand} 
+            title={t("filterwidget.title")} isLoading={isLoading} data={brandData} />
             <AsideFilterWidget
                 dispatchHandle={handleCountry}
-                title="Country"
+                title={t('filterwidget.country')}
                 isLoading={isLoading}
                 data={countryData}
             />

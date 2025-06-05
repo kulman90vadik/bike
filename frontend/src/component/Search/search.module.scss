@@ -6,7 +6,7 @@
 .searchBtn {
   margin-right: 10px;
   display: flex;
-   @media (max-width: 450px) {
+   @media (max-width: 500px) {
     margin-right: 0;
   }
   svg {
@@ -15,8 +15,8 @@
     height: 29px;
     transition: stroke .3s ease-in;
     stroke: var(--color-white);
-    @media (max-width: 450px) {
-      margin-right: 7px;
+    @media (max-width: 500px) {
+      margin-right: 0px;
     }
     path {
       stroke: var(--color-white);

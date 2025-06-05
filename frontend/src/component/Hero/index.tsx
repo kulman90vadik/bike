@@ -20,6 +20,7 @@ const Hero = () => {
     const btnRef = React.useRef<HTMLAnchorElement | null>(null)
     const wordRefs = React.useRef<(HTMLDivElement | null)[]>([])
     const heroRefs = React.useRef<HTMLDivElement | null>(null)
+    
 
     // to ---- на месте
     // from ---- будет выехзжать
