@@ -2,7 +2,7 @@ import styles from "./dashboard.module.scss"
 import { RootState } from "../../redux/store"
 import { useSelector } from "react-redux"
 import { AnimatePresence, motion } from "framer-motion"
-import AdminProducts from "./adminProducts"
+import AdminProducts from "./AdminProducts"
 import AdminUsers from "./AdminUsers"
 
 const variants = {
