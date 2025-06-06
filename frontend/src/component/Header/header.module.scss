@@ -177,26 +177,4 @@
     }
 }
 
-.lang {
-    margin-left: 20px;
-    display: flex;
-    font-size: 14px;
-    font-weight: 700;
-}
 
-.langbtn {
-    text-transform: uppercase;
-    background-color: transparent;
-    color: var(--color-orange);
-    border: 1px solid var(--color-orange);
-    padding: 5px;
-    margin: 3px;
-}
-
-.activelang {
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
-    color: var(--color-white);
-    background-color: var(--color-orange);
-}

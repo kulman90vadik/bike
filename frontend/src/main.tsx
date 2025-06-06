@@ -15,6 +15,7 @@ import LoadingPage from "./component/LoadingPage/index.tsx"
 
 createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
+        
         <BrowserRouter>
         
             <Suspense fallback={<LoadingPage />}>
@@ -25,5 +26,6 @@ createRoot(document.getElementById("root")!).render(
 
             <RippleEffect />
         </BrowserRouter>
+
     </Provider>
 )

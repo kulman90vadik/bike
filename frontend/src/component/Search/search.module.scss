@@ -6,9 +6,9 @@
 .searchBtn {
   margin-right: 10px;
   display: flex;
-   @media (max-width: 500px) {
-    margin-right: 0;
-  }
+  //  @media (max-width: 500px) {
+  //   margin-right: 10px;
+  // }
   svg {
     margin: auto;
     width: 29px;

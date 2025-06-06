@@ -1,98 +1,136 @@
-
-
 .list {
-  display: flex;
+    display: flex;
 }
 
 .header-nav {
-  margin-right: 40px;
-  @media (max-width: 1160px) {
-    position: fixed;
-    transform: translateY(-300%)!important;
-    // transition: transform 0.4s ease-in;
-    transform-origin: top!important;
-  }
+    margin-right: 40px;
+    @media (max-width: 1160px) {
+        position: fixed;
+        transform: translateY(-300%) !important;
+        // transition: transform 0.4s ease-in;
+        transform-origin: top !important;
+    }
 }
 
 .active {
-  position: fixed;
-  background-color: rgba(#000, .9);
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  z-index: 111;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  transform: translateY(0%)!important;
-  transform-origin: top!important;
-  transition: transform 0.4s ease-in;
-  .list {
-    text-align: center;
-    width: 70%;
-    margin: 0 auto;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .item{
+    position: fixed;
+    background-color: rgba(#000, 0.9);
+    top: 0;
+    bottom: 0;
+    height: 100%;
     width: 100%;
-    &:not(:last-child) {
-      margin-right: 0;
-      margin-bottom: 21px;
+    left: 0;
+    z-index: 111;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    transform: translateY(0%) !important;
+    transform-origin: top !important;
+    transition: transform 0.4s ease-in;
+    .list {
+        text-align: center;
+        width: 70%;
+        margin: 0 auto;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
     }
-  }
+    .item {
+        width: 100%;
+        &:not(:last-child) {
+            margin-right: 0;
+            margin-bottom: 21px;
+        }
+    }
 }
 
 .item {
-  &:not(:last-child) {
-    margin-right: 15px;
-  }
+    &:not(:last-child) {
+        margin-right: 15px;
+    }
 }
 
 .link {
-  display: block;
-  color: var(--color-gold);
-  transition: color 0.1s ease-in, box-shadow 0.2s ease-in;
-  padding: 4px 15px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  border: 1px solid;
-  position: relative;
-  border: 1px solid var(--color-gold);
+    display: block;
+    color: var(--color-gold);
+    transition:
+        color 0.1s ease-in,
+        box-shadow 0.2s ease-in;
+    padding: 4px 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border: 1px solid;
+    position: relative;
+    border: 1px solid var(--color-gold);
 
-  &:hover {
-    box-shadow: 0px 0px 4px var(--color-gold);
-  }
+    &:hover {
+        box-shadow: 0px 0px 4px var(--color-gold);
+    }
 }
 
 .burger {
-  display: none;
-  @media (max-width: 1160px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 33px;
-    position: relative;
-    order: 1;
-    margin-left: 5px;
-    z-index: 222;
-  }
+    display: none;
+    @media (max-width: 1160px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 33px;
+        position: relative;
+        order: 1;
+        margin-left: 15px;
+        z-index: 222;
+    }
 }
 
 .rotateX {
-   height: 36px;
-  width: 36px;
-  transform: rotate(360deg);
-  transition: transform 0.15s ease-in;
+    height: 36px;
+    width: 36px;
+    transform: rotate(360deg);
+    transition: transform 0.15s ease-in;
 }
 .rotateY {
-  height: 36px;
-  width: 36px;
-  transform: rotate(0deg);
-  transition: transform 0.15s ease-in;
+    height: 36px;
+    width: 36px;
+    transform: rotate(0deg);
+    transition: transform 0.15s ease-in;
 }
 
+.lang {
+    margin-right: 5px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    @media (max-width: 992px) {
+        position: fixed;
+        bottom: 25px;
+        right: -100px;
+        transition: right 0.3s ease-out 0s;
+        z-index: 111;
+    }
+}
+
+.langbtn {
+    text-transform: uppercase;
+    background-color: transparent;
+    color: var(--color-orange);
+    border: 1px solid var(--color-orange);
+    padding: 5px;
+    margin: 3px;
+}
+
+.activelang {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+    color: var(--color-white);
+    background-color: var(--color-orange);
+}
+
+.langopen {
+    display: flex;
+    // transform: translateX(0);
+    transition-delay: 2s;
+    right: 20px;
+    transition: right 0.3s ease-out 0.7s;
+}

@@ -12,10 +12,10 @@ import { fetchAllFavorites } from "../../redux/slices/favorites";
 import { motion } from 'framer-motion';
 import { useTranslation } from "react-i18next";
 
-const locales = ['en', 'de'];
+
 
 const Header = () => {
-  const { t, i18n } = useTranslation(); 
+  const { t } = useTranslation(); 
   const navigation = [
   { lebel: t("navigation.home"), link: "/" },
   { lebel: t("navigation.about"), link: "/about" },
@@ -133,20 +133,9 @@ const Header = () => {
             </Link>
 
 
-            <ul className={styles.lang}>
-              {locales.map(lang => {
-                return(
-                  <li key={lang}>
-                    <button 
-                      className={`${styles.langbtn} ${i18n.resolvedLanguage === lang ? styles.activelang : ''}`}
-                      type="button"
-                      onClick={() => i18n.changeLanguage(lang)}
-                    >{lang}</button>
-                  </li>  
-                )
-              })}
-            </ul>
 
+
+           
 
           </div>
         </div>
