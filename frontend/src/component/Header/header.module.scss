@@ -82,17 +82,17 @@
     object-fit: cover;
     margin-right: 9px;
     border: 2px solid var(--color-white);
+    margin-left: 6px;
 }
 
 .login {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 3px;
     margin-right: 10px;
     @media (max-width: 500px) {
         margin-right: 3px;
-        margin-left: 3px;
     }
     &:hover path {
         stroke: var(--color-orange);

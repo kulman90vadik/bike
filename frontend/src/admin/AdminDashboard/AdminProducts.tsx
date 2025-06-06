@@ -173,7 +173,7 @@ const AdminProducts = () => {
                     ))}
                 {allproducts.map((product, index) => (
                     <article key={product._id} className={styles.products}>
-                        <div>
+                        <div className={styles.image}>
                             <img className={styles.imageproduct} src={product.image} alt={product.name} />
                         </div>
                         <div className={styles.info}>

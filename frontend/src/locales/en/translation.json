@@ -12,23 +12,32 @@
         "basket": "Basket",
         "admin": "Admin"
     },
+
     "filterwidget": {
         "title": "Brand",
         "country": "Country",
         "from": "from",
         "to": "to"
     },
+
     "topfilter": {
         "text": "Sort by price",
         "all": "All",
         "sale": "Sale",
         "new": "New"
     },
+
     "topproducts": {
       "title": "Top Viewed Products"
     },
+
     "pagination": {
       "show": "Show",
       "per": "per page"
+    },
+
+    "card": {
+      "remove": "Remove from Basket",
+      "add":  "Add to Cart"
     }
   }

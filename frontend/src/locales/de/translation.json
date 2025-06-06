@@ -31,5 +31,10 @@
     "pagination": {
         "show": "Anzeigen",
         "per": "pro Seite"
+    },
+
+    "card": {
+      "remove": "In den Einkaufswagen",
+      "add":  "In Warenkorb"
     }
 }

@@ -6,6 +6,7 @@ import styles from "./card.module.scss";
 import { fetchFavorites } from "../../redux/slices/favorites";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   obj: ProductProps;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
+  const { t } = useTranslation(); 
   const search = useSelector((state: RootState) => state.search.search);
   const statusId = useSelector((state: RootState) => state.basket.statusId);
   const dispatch = useAppDispatch();
@@ -342,7 +344,8 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
               </g>
             </svg>
           ) : (
-            <span>{isInBasket ? "Remove from Basket" : "Add to Cart"}</span>
+            <span>{isInBasket ? t('card.remove') : t('card.add')}</span>
+
           )}
         </button>
       </div>
