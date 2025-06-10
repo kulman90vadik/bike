@@ -2,8 +2,9 @@
 
 
 .reviewlist {
-  color: #fff;
+  color: var(--color-white);
   margin-bottom: 25px;
+
 }
 
 .reviewitem {
@@ -13,17 +14,37 @@
   border-radius: 19px;
   &:nth-child(even) {
     margin-left: 75px;
+      @media (max-width: 920px) {
+      margin-left: 0;
+    }
   }
  &:not(:last-child) {
    margin-bottom: 13px;
  }
+    @media (max-width: 920px) {
+      width: 100%;
+      padding: 10px;
+    }
 }
 
 .reviewtop {
 width: 100%;
 line-height: 1;
  align-items: center;  
+justify-content: space-between;
  display: flex;
+  @media (max-width: 920px) {
+    // flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 9px;
+    align-items: start;
+    // justify-content: start;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
 }
 
 .image {
@@ -54,6 +75,16 @@ line-height: 1;
 .reviewdate {
  font-size: 17px;
  margin-right: 12px;
+  @media (max-width: 920px) {
+    // margin-right: auto;
+  }
+}
+
+.stars {
+  margin-left: auto;
+   @media (max-width: 920px) {
+    margin-left: 57px;
+  }
 }
 
 .star {
@@ -63,9 +94,13 @@ line-height: 1;
 }
 
 .buttons {
-  margin-left: auto;
+  margin-left: 15px;
   display: flex;
   gap: 5px;
+    @media (max-width: 920px) {
+  //  margin-left: 57px;
+    
+  }
 }
 
 .button {

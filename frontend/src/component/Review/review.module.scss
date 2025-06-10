@@ -11,8 +11,17 @@
   color: var(--color-white);
   p {
     margin-right: 20px;
+     @media (max-width: 920px) {
+      margin-right: 0;
+      margin-bottom: 6px;
+    }
+  }
+
+  @media (max-width: 920px) {
+    flex-direction: column;
   }
 }
+
 
 .btn {
   border: 1px solid var(--color-white);
@@ -59,16 +68,9 @@
   font-size: 21px;
   outline: transparent;
   border-radius: 20px;
-  // background-color: rgba(#fff, 0.4);
   transition: background-color 0.3s ease-in;
   &:focus {
     background-color: rgba(#fff, .8);
-    // + .label {
-      
-    //   background-color: rgba(#fff, .8);
-    //   transform-origin: left;
-    //   transform: translateY(-40px) scale(0.8);
-    // }
   }
 }
 
@@ -96,8 +98,10 @@
   width: 70%;
   border-radius: 20px;
   padding: 40px;
-  // background-color: rgba(255, 255, 255, 0.6); /* немного прозрачности */
-  // backdrop-filter: blur(20px);
+    @media (max-width: 920px) {
+      width: 100%;
+      padding: 15px;
+    }
 }
 
 .heading {
@@ -107,4 +111,8 @@
   font-size: 18px;
   margin-left: 2px;
   margin-right: 20px;
+   @media (max-width: 920px) {
+      margin-right: 0;
+      margin-bottom: 6px;
+    }
 }

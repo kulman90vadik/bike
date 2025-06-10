@@ -29,7 +29,7 @@ const FullProduct = () => {
   const { id } = useParams();
   const basket = useSelector((state: RootState) => state.basket.data);
   const fullProduct = useSelector((state: RootState) => state.fullproduct.data);
-  const isLoading = useSelector((state: RootState) => state.fullproduct.status);
+  // const isLoading = useSelector((state: RootState) => state.fullproduct.status);
   // const statusId = useSelector((state: RootState ) => state.basket.statusId);
   React.useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,7 @@ const FullProduct = () => {
         await dispatch(fetchProduct(id));
       }
     };
+
     fetchData();
   }, [id, dispatch]);
 
@@ -56,14 +57,6 @@ const FullProduct = () => {
   return (
     <section className={styles.product}>
       {
-      // isLoading == "loading" ? (
-      //   <img
-      //     className={styles.loading}
-      //     src="/images/loading.gif"
-      //     alt="Loading"
-      //   /> 
-        
-      // ) : (
         <div className="container">
           <div className={styles.inner}>
             <div className={styles.left}>
@@ -76,10 +69,10 @@ const FullProduct = () => {
                       : null,
                 }}
                 modules={[FreeMode, Thumbs]}
-                className="mySwiper2"
-                style={{marginBottom: '10px', height: "450px"}}
+                className={`mySwiper2 ${styles.swipermy}`}
+                style={{marginBottom: '10px'}}
               >
-                <SwiperSlide>
+                <SwiperSlide className={styles.slide}>
                   {fullProduct?.image && (
                     <InnerImageZoom
                       className={styles.image}
@@ -89,7 +82,7 @@ const FullProduct = () => {
                   )}
                 </SwiperSlide>
 
-                <SwiperSlide>
+                <SwiperSlide className={styles.slide}>
                   {fullProduct?.image && (
                     <InnerImageZoom
                       className={styles.image}
@@ -99,7 +92,7 @@ const FullProduct = () => {
                   )}
                 </SwiperSlide>
 
-                <SwiperSlide>
+                <SwiperSlide className={styles.slide}>
                   {fullProduct?.image && (
                     <InnerImageZoom
                       className={styles.image}
@@ -107,9 +100,9 @@ const FullProduct = () => {
                       src={fullProduct?.image}
                     />
                   )}
-                </SwiperSlide>
+                </SwiperSlide >
 
-                <SwiperSlide>
+                <SwiperSlide  className={styles.slide}>
                   {fullProduct?.image && (
                     <InnerImageZoom
                       className={styles.image}

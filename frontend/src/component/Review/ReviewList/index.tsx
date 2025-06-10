@@ -58,6 +58,7 @@ const ReviewList = ({editPost} : Props) => {
           return (
             <li className={styles.reviewitem} key={item?._id}>
               <div className={styles.reviewtop}>
+                <div className={styles.box}>
                 <img
                   className={styles.image}
                   src={`${import.meta.env.VITE_API_BASE_URL}${
@@ -79,11 +80,18 @@ const ReviewList = ({editPost} : Props) => {
                     : ""}
                 </span>
 
+                </div>
+                 <div className={styles.box}>
+
+                <div className={styles.stars}>
+
+
                 {stars.map((star, index) => (
                   <span className={styles.star} key={star}>
                     {item.rating >= index + 1 ? selectedIcon : deselectedIcon}
                   </span>
                 ))}
+                </div>
 
                 <div className={styles.buttons}>
                   {authData?._id === item.user && (
@@ -131,6 +139,7 @@ const ReviewList = ({editPost} : Props) => {
                     </span>
                   </button>
                 </div>
+              </div>
               </div>
               <div className={styles.reviewtext}>{item.text}</div>
             </li>
