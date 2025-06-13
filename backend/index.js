@@ -2,6 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import multer from 'multer';
+
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+
 import { registerValidation, loginValidation } from './validations.js';
 import { readLimiter } from './ratelimit.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
@@ -21,6 +25,10 @@ const app = express();
 app.use(express.json()); // научили понимать json файлы
 app.use(cors()); // ВАЖНО ДЛЯ ЗАПРОСА МЕЖДУ ЛОКАЛЬНЫМИ ХОСТАМИ ФРОНТА И БЕКЕНДА
 
+const swaggerDocument = YAML.load('./openapi.yaml');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 const PORT = process.env.PORT || 5555;
 const storage = multer.diskStorage({
   // выполниться функция ниже с параметрами, пропускаем сейчас их
@@ -39,6 +47,11 @@ const storage = multer.diskStorage({
     cb(null, `${file.fieldname}-${uniqueSuffix}.${extension}`);
   }
 });
+
+
+
+
+
 
 const upload = multer({
   storage,
@@ -93,7 +106,7 @@ app.get("/products/sort", readLimiter, ProductController.sortProducts);
 
 app.get('/products', readLimiter, ProductController.getAll);
 app.get('/productspag', readLimiter, ProductController.getPagination);
-
+  
 
 app.get('/products/:id', readLimiter, ProductController.getOne);
 
@@ -122,6 +135,7 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`!!Server OK!! -- http://0.0.0.0:${PORT}`);
+  console.log(`📘 Swagger UI: http://0.0.0.0:${PORT}/api-docs`)
 });
 
 // mongoose

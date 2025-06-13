@@ -17,13 +17,13 @@ export default (req, res, next) => {
     // console.log(token);
       // console.error('JWT Verification Error:', error.message);
       return res.status(403).json({
-          message: 'Нет доступа (ошибка токена)',
+          message: 'No access',
       });
   }
 
   } else {
     return res.status(403).json({
-      message: "Нет доступаa"
+      message: "No access"
     })
   }
 

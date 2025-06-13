@@ -1,5 +1,8 @@
-import React, { lazy, Suspense } from "react";
-// import { useLocation } from "react-router-dom";
+import React, { lazy } from "react";
+
+import SwaggerUI from "swagger-ui-react";
+import "swagger-ui-react/swagger-ui.css";
+
 import { adminRoutes } from "./admin/routes";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./redux/store";
@@ -11,7 +14,7 @@ import { fetchAuthMe } from "./redux/slices/auth";
 
 
 // import Header from "./component/Header";
-import LoadingPage from "./component/LoadingPage";
+// import LoadingPage from "./component/LoadingPage";
 // import Home from "./page/Home";
 // import Login from "./page/Login";
 // import Registration from "./page/Registration";
@@ -30,8 +33,6 @@ const FullProduct = lazy(() => import('./page/FullProduct/FullProduct'))
 
 const App = () => {
   const dispatch = useAppDispatch();
-
-
 
   React.useEffect(() => {
       const loadData = async () => {
@@ -55,12 +56,10 @@ const App = () => {
           <Route path="/login" element={<Login />}/>
           <Route path="/registration" element={<Registration />}/>
           <Route path="/about" element={<About />} />
-          {/* <Route path="/favorites" element={<Suspense fallback="...loading"><Favorites /></Suspense>} /> */}
           <Route path="/products/:id" element={<FullProduct />} />
-          {/* <Route path="/basket" element={<Basket />} /> */}
-          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/favorites" element={<Favorites />} />
-
+          <Route path="/api-docs" element={<SwaggerUI url="/openapi.yaml" />} />
+          
           {adminRoutes}
 
         </Routes>

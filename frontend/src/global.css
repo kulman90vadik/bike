@@ -198,3 +198,18 @@ body {
     border-radius: 10px;
     background: rgba(245, 117, 32, 0.7);
 }
+
+
+
+/* ///////////////////////////////////////// */
+
+.swagger-ui {
+    width: 80%;
+    margin: 100px auto 0;
+    border-radius: 25px;
+    padding: 20px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+       @media (max-width: 991px) {
+        width: 100%;
+    }
+}

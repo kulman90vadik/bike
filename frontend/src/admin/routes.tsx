@@ -12,5 +12,6 @@ export const adminRoutes = (
   <Route path="/admin" element={<AdminLayout />}>
     <Route index element={<AdminLogin />} />
     <Route path="dashboard" element={<AdminDashboard />} />
+    
   </Route>
 );

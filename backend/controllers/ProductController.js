@@ -2,6 +2,7 @@ import ProductModel from '../models/Product.js';
 import UserModel from '../models/User.js';
 
 export const addComment = async (req, res) => {
+  
   try {
     const { text, rating } = req.body;
     const productId = req.params.id;

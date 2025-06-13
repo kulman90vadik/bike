@@ -136,6 +136,29 @@
     border-bottom-right-radius: 33px;
 }
 
+.addproduct {
+    background-color: rgba(#ccc, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        color: inherit;
+        &:hover {
+            svg {
+                stroke: rgba(#ccc, 0.9);
+                transition: stroke 0.3s ease-in;
+            }
+        }
+    }
+
+    svg {
+        transition: stroke 0.3s ease-in;
+        width: 60px;
+        height: 60px;
+    }
+}
+
 .btns {
     display: flex;
     align-items: center;

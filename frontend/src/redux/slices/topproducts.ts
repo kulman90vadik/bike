@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../axios';
 import { ProductProps } from '../../propstype';
-import { RootState } from '../store';
+// import { RootState } from '../store';
 
 
 export const fetchTopProducts = createAsyncThunk<ProductProps[]>('auth/fetchTopProducts', async() => {

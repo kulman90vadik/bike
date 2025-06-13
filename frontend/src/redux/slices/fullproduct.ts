@@ -71,6 +71,8 @@ export const fetchLikeComment = createAsyncThunk<ProductProps, { id: string; idc
   return data;
 });
 
+
+
 type Props = {
   data: ProductProps | null;
   status: string;

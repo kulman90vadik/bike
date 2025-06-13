@@ -10,7 +10,8 @@
         "about": "Über uns",
         "favorites": "Favoriten",
         "basket": "Warenkorb",
-        "admin": "Admin"
+        "admin": "Admin",
+        "apidocs": "OpenAPI"
     },
 
     "filterwidget": {
@@ -34,7 +35,12 @@
     },
 
     "card": {
-      "remove": "In den Einkaufswagen",
-      "add":  "In Warenkorb"
+        "remove": "In den Einkaufswagen",
+        "add": "In Warenkorb"
+    },
+
+    "header": {
+        "searchicon": "Suche starten",
+        "searchplaceholder": "...Fahrradname suchen"
     }
 }

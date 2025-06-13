@@ -5,8 +5,10 @@ import React from "react";
 // import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/store";
 import { searchValue, searchValueClear } from "../../redux/slices/search";
+import { useTranslation } from "react-i18next";
 
 const SearchBox = () => {
+    const { t } = useTranslation(); 
   const[open, setOpen] = React.useState(false);
   const[value, setValue] = React.useState('');
   const ref = React.useRef<HTMLDivElement>(null);
@@ -51,13 +53,13 @@ const SearchBox = () => {
 
   return (
     <div className={styles.search} ref={ref}>
-      <button className={styles.searchBtn} onClick={focusElement}>
+      <button className={styles.searchBtn} onClick={focusElement} aria-label={t("header.searchicon")}>
         <Search />
       </button>
       <div className={styles.box}>
       <input
         value={value}
-        placeholder="...Search Name Bike"
+        placeholder={t("header.searchplaceholder")}
         onChange={(event) => changeSearch(event)}
        
         className={`${styles.input} ${open ? styles.show : styles.hidden}`}

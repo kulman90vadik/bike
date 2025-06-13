@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  title: Premium Bicycles
+  version: 1.0.0
+servers:
+  - url: http://localhost:5555
+    description: Local server
+  - url: https://honest-bikeapp.up.railway.app
+    description: Production server
+components:
+  securitySchemes:
+    bearerAuth:                # Имя схемы безопасности
+      type: http
+      scheme: bearer
+      bearerFormat: JWT        # Тип токена — JWT  
+
+paths:
+  /auth/register:
+    post:
+      summary: User registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - fullName
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  example: 123
+                fullName:
+                  type: string
+                  example: John Doe
+                avatarUrl:
+                  type: string
+                  example: https://example.com/avatar.jpg
+      responses:
+        '200':
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 60f7a3a37f8b9c001cfec123
+                  email:
+                    type: string
+                    example: user@example.com
+                  fullName:
+                    type: string
+                    example: John Doe
+                  avatarUrl:
+                    type: string
+                    example: https://example.com/avatar.jpg
+                  role:
+                    type: string
+                    example: user
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '500':
+          description: Registration error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Registration failed
+
+  /auth/login:
+    post:
+      summary: User authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  example: 123
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 60f7a3a37f8b9c001cfec123
+                  email:
+                    type: string
+                    example: user@example.com
+                  fullName:
+                    type: string
+                    example: John Doe
+                  role:
+                    type: string
+                    example: user
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Authorization error. Please try again later.
+
+  /auth/me:
+    get:
+      summary: Get current user info
+      security:
+        - bearerAuth: []       # Подключаем защиту с bearer token
+      responses:
+        '200':
+          description: User data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 60f7a3a37f8b9c001cfec123
+                  email:
+                    type: string
+                    example: user@example.com
+                  fullName:
+                    type: string
+                    example: John Doe
+                  avatarUrl:
+                    type: string
+                    example: https://example.com/avatar.jpg
+                  role:
+                    type: string
+                    example: user
+        '401':
+          description: Unauthorized - access token is missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access denied
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access denied

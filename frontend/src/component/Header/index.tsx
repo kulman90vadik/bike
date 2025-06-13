@@ -21,7 +21,8 @@ const Header = () => {
   { lebel: t("navigation.about"), link: "/about" },
   { lebel: t("navigation.favorites"), link: "/favorites" },
   { lebel: t("navigation.basket"), link: "/basket" },
-  { lebel: t("navigation.admin"), link: "/admin" }
+  { lebel: t("navigation.admin"), link: "/admin" },
+  { lebel: t("navigation.apidocs"), link: "/api-docs" }
 ];
 
   const location  = useLocation();

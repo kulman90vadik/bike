@@ -10,7 +10,8 @@
         "about": "About",
         "favorites": "Favorites",
         "basket": "Basket",
-        "admin": "Admin"
+        "admin": "Admin",
+        "apidocs": "OpenAPI"
     },
 
     "filterwidget": {
@@ -39,5 +40,10 @@
     "card": {
       "remove": "Remove from Basket",
       "add":  "Add to Cart"
+    },
+
+    "header": {
+      "searchicon": "Start search",
+      "searchplaceholder": "...Search Name Bike"
     }
   }

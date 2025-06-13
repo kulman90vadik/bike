@@ -41,7 +41,7 @@ export const register = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Не удалось зарегиться",
+      message: "Registration failed",
     });
   }
 };
@@ -52,8 +52,8 @@ export const login = async (req, res) => {
     // проверка в базе данных пользователя
     const user = await UserModel.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).json({
-        massage: "Пользователь не найден",
+      return res.status(400).json({
+        massage: "Invalid credentials",
         // для реального проекта надо писать --- НЕВЕРНЫЙ ЛОГИН ИЛИ ПАРОЛЬ
       });
     }
@@ -64,7 +64,7 @@ export const login = async (req, res) => {
     );
     if (!isValidPass) {
       return res.status(400).json({
-        massage: "НЕВЕРНЫЙ ЛОГИН ИЛИ ПАРОЛЬ",
+        massage: "Invalid credentials",
       });
     }
     // если всё ок
@@ -88,7 +88,7 @@ export const login = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Не удалось залагиниться авторизоваться",
+     message: "Authorization error. Please try again later.",
     });
   }
 };
@@ -102,7 +102,7 @@ export const getMe = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: "Пользователь не найден",
+        message: "Invalid credentials",
       });
     }
     const { passwordHash, ...userData } = user._doc;
@@ -111,7 +111,7 @@ export const getMe = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Нет доступа",
+      message: "Server error",
     });
   }
 };
