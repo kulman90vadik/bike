@@ -5,7 +5,7 @@ info:
 servers:
   - url: http://localhost:5555
     description: Local server
-  - url: https://honest-bikeapp.up.railway.app
+  - url: https://bike-7jzs.onrender.com/
     description: Production server
 components:
   securitySchemes:

@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:5555  # локальный сервер
-  - url: https://honest-bikeapp.up.railway.app # продакшен
+  - url: https://bike-7jzs.onrender.com/ # продакшен
 components:
   securitySchemes:
     bearerAuth:                # Имя схемы безопасности
