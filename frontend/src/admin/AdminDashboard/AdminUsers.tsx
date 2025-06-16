@@ -15,7 +15,7 @@ const AdminUsers = () => {
                         {user.avatarUrl != "" ? (
                             <img
                                 className={styles.smallimg}
-                                src={`https://honest-bikeapp.up.railway.app${user.avatarUrl}`}
+                                src={`${import.meta.env.VITE_API_BASE_URL}${user.avatarUrl}`}
                                 // src={`${import.meta.env.VITE_API_BASE_URL}${user.avatarUrl}`}
                                 alt={user.fullName}
                             />

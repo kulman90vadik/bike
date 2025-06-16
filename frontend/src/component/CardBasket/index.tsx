@@ -24,7 +24,7 @@ const CardBasket = ({ obj }: Props) => {
   return (
     <li className={styles.card}>
       <div className={styles.photo}>
-        <img className={styles.image} src={obj.image} alt={obj.name} />
+        <img className={styles.image} src={`${import.meta.env.VITE_API_BASE_URL}${obj.image}`} alt={obj.name} />
       </div>
       <div className={styles.name}>{obj.name}</div>
 

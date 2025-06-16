@@ -37,10 +37,12 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
 
   const isLoading = statusId[obj._id] === "loading";
 
+ 
+
   return (
     <article className={styles.item}>
       <div className={styles.top}>
-        <img className={styles.flag} src={obj.flag} alt={obj.flag} />
+        <img className={styles.flag} src={`${import.meta.env.VITE_API_BASE_URL}${obj.flag}`} alt={obj.flag} />
         <button
           type="button"
           onClick={() => addToFavorites(obj._id)}
@@ -61,7 +63,8 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
         to={`/products/${obj._id}`}
         state={{ name: obj.name }}
       >
-        <img className={styles.image} src={obj.image} alt={obj.name} />
+        <img className={styles.image} src={`${import.meta.env.VITE_API_BASE_URL}${obj.image}`} alt={obj.name} />
+          {/* src={`${import.meta.env.VITE_API_BASE_URL}${auth?.avatarUrl}`} */}
       </Link>
 
       <div className={styles.inner}>

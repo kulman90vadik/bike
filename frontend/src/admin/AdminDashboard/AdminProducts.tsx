@@ -177,7 +177,7 @@ const AdminProducts = () => {
             {allproducts.map((product, index) => (
                 <article key={product._id} className={styles.products}>
                     <div className={styles.image}>
-                        <img className={styles.imageproduct} src={product.image} alt={product.name} />
+                        <img className={styles.imageproduct} src={`${import.meta.env.VITE_API_BASE_URL}${product.image}`} alt={product.name} />
                     </div>
                     <div className={styles.info}>
                         <div className={styles.block}>
