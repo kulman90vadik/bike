@@ -1,0 +1,143 @@
+@use 'sass:math';
+
+
+@mixin bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin lineClamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+
+
+  //  @use '../../mixins.scss' as mixins;
+
+  // max-width: mixins.rem(750);
+  // @include mixins.font-text(27, 18);
+
+  
+
+
+
+@mixin font-text($max: 48, $min: 16) {
+  $maxViewportWidth: 1250;
+  $minViewportWidth: 360;
+
+  $maxSize: math.div($max, 16);
+  $minSize: math.div($min, 16);
+  $maxWidth: math.div($maxViewportWidth, 16);
+  $minWidth: math.div($minViewportWidth, 16);
+
+  $slope: math.div(($maxSize - $minSize), ($maxWidth - $minWidth));
+  $yAxisIntersection: -$minWidth * $slope + $minSize;
+
+  font-size: clamp(
+    #{$minSize * 1rem},
+    #{$yAxisIntersection * 1rem} + #{$slope * 100vw},
+    #{$maxSize * 1rem}
+  );
+}
+
+// h1 { @include fluid-text(40, 28) }
+// h2 { @include fluid-text(36, 26) }
+// h3 { @include fluid-text(32, 24) }
+// h4 { @include fluid-text(28, 22) }
+// h5 { @include fluid-text(24, 20) }
+// h6 { @include fluid-text(20, 18) }
+// body { @include fluid-text(18, 16) }
+
+// ------------------------------------------------------ //
+
+@function rem($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error 'Не используйте единицы измерения при работе с функцией rem()! Передавайте аргументом только числа.'
+  }
+}
+
+// box 
+//   width: rem(400);        // 600px => 37.5rem
+//   height: rem(250);       // 280px => 17.5rem
+//   padding: rem(40);       // 40px  => 2.5rem
+//   border-radius: rem(15); // 15px  => 0.9375rem
+//   box-shadow:
+//     rem(6)                // 6px   => 0.375rem
+//     rem(6)                // 6px   => 0.375rem
+//     rem(10) deeppink;     // 10px  => 0.625rem
+
+//   /* 768px => 48rem */
+//   @media (width < rem(768)) {
+//     padding: rem(20);     // 20px  => 1.25rem
+//     font-size: rem(14);   // 14px  => 0.875rem
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // @mixin max($width) {
+//     @media only screen and (max-width: $width+ "px") {
+//         @content;
+//     }
+// }
+
+
+// @function max($numbers...) {
+//     @return m#{a}x(#{$numbers});
+// }
+
+// @function min($numbers...) {
+//     @return m#{i}n(#{$numbers});
+// }
+
+
+
+// // @mixin line-clamp(
+// //     $font-size,
+// //     $line-height,
+// //     $lines-to-show) {
+// //     @if unitless($line-height)==false {
+// //         $line-height: create-unitless-line-height($font-size, $line-height);
+// //     }
+
+// //     display: block;
+// //     display: -webkit-box;
+// //     font-size: $font-size;
+// //     max-height: ($font-size * $line-height * $lines-to-show);
+// //     line-height: $line-height;
+// //     overflow: hidden;
+// //     text-overflow: ellipsis;
+// //     -webkit-box-orient: vertical;
+// //     -webkit-line-clamp: $lines-to-show;
+// //     text-overflow: ellipsis;
+// // }

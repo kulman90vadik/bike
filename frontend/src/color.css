@@ -10,6 +10,23 @@
 
   --index: calc(1vw + 1vh);
 
+  /* @include font-text(40, 28) */
+  /* height: rem(250); */
+
+  /*
+   @use '../../mixins.scss' as mixins;
+
+  max-width: mixins.rem(750);
+  @include mixins.font-text(27, 18);
+
+
+
+  html {
+    font-size: 62.5%;
+  } 
+
+  */
+
   
   /* #2E2E2E */
   /* #1A1A1A */
@@ -17,4 +34,5 @@
   /* --hover-color: #0056b3; */
   /* --transition-duration: 0.3s; */
   /* --transition-easing: ease; */
+
 }
