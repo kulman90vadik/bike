@@ -34,10 +34,7 @@ const Card = ({ obj, isInBasket, isInFavorites }: Props) => {
 
   const regex = new RegExp(`(${search})`, "gi");
   const parts = obj.name.split(regex);
-
   const isLoading = statusId[obj._id] === "loading";
-
- 
 
   return (
     <article className={styles.item}>
