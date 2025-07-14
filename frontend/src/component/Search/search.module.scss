@@ -1,14 +1,12 @@
+@use '../../mixins.scss' as mixins;
+
 
 .search {
   position: relative;
 }
 
 .searchBtn {
-  // margin-right: 10px;
   display: flex;
-  //  @media (max-width: 500px) {
-  //   margin-right: 10px;
-  // }
   svg {
     margin: auto;
     width: 29px;
@@ -16,7 +14,7 @@
     transition: stroke .3s ease-in;
     stroke: var(--color-white);
     @media (max-width: 500px) {
-      margin-right: 0px;
+      margin-right: 0;
     }
     path {
       stroke: var(--color-white);
@@ -51,7 +49,9 @@
 
 .input {
   padding: 0 25px 0 6px;
+
   font-size: 19px;
+  @include mixins.font-text(19, 18);
   line-height: 1;
   border-radius: 10px;
   outline: transparent;

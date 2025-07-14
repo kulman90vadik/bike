@@ -13,16 +13,9 @@
     overflow: hidden;
 }
 
-
-
-
   //  @use '../../mixins.scss' as mixins;
-
   // max-width: mixins.rem(750);
   // @include mixins.font-text(27, 18);
-
-  
-
 
 
 @mixin font-text($max: 48, $min: 16) {
@@ -81,27 +74,27 @@
 
 
 
+// -----------------------------------------------------
+// @function adaptive-size($max, $min, $max-vw: 1850, $min-vw: 360) {
+//   $max-val: math.div($max, 16); // в rem
+//   $min-val: math.div($min, 16);
+//   $max-width: math.div($max-vw, 16);
+//   $min-width: math.div($min-vw, 16);
+
+//   $slope: math.div(($max-val - $min-val), ($max-width - $min-width));
+//   $intercept: $min-val - $slope * $min-width;
+
+//   @return clamp(
+//     #{$min-val}rem,
+//     #{$intercept}rem + #{$slope * 100}vw,
+//     #{$max-val}rem
+//   );
+// }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//  margin-bottom: mixins.adaptive-size(25, 11);
+// @use "./mixins.scss" as mixins;
+// -----------------------------------------------------
 
 
 

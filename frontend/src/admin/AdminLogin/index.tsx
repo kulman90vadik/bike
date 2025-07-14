@@ -9,7 +9,7 @@ const AdminLogin = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { errors, isValid }} = useForm({
-        defaultValues: { email: "admin@example.com", password: "Vadik1990" },
+        defaultValues: { email: "admin@example.com", password: "admin" },
         mode: "onChange" // при либом изменении формы
     })
 

@@ -36,7 +36,7 @@ const AsideRangePrice = ({isLoading, max, min}: Props) => {
 
 
  const changePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
+    const val = Number(e.target.value); 
     setValue(e.target.value);
     debouncedDispatch(val);
   };

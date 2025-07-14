@@ -66,9 +66,9 @@ const FullProduct = () => {
                             >
                                 {Array(5)
                                     .fill(0)
-                                    .map(_ => {
+                                    .map((_, i) => {
                                         return (
-                                            <SwiperSlide className={styles.slide}>
+                                            <SwiperSlide key={i} className={styles.slide}>
                                                 {fullProduct?.image && (
                                                     <InnerImageZoom
                                                         className={styles.image}
@@ -92,9 +92,9 @@ const FullProduct = () => {
                             >
                                 {Array(5)
                                     .fill(0)
-                                    .map(_ => {
+                                    .map((_, i) => {
                                         return (
-                                            <SwiperSlide>
+                                            <SwiperSlide key={i}>
                                                 <img
                                                     className={styles.smallimage}
                                                     src={`${import.meta.env.VITE_API_BASE_URL}${fullProduct?.image}`}

@@ -10,21 +10,23 @@
 
   --index: calc(1vw + 1vh);
 
+
+  
+
   /* @include font-text(40, 28) */
   /* height: rem(250); */
 
+
+
   /*
-   @use '../../mixins.scss' as mixins;
+  @use '../../mixins.scss' as mixins;
 
   max-width: mixins.rem(750);
   @include mixins.font-text(27, 18);
 
-
-
   html {
     font-size: 62.5%;
   } 
-
   */
 
   
