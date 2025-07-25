@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         <>
             {!isAdminPage && <Header />}
             <main className={isAbout}>{children}</main>
-            {(!isAdminPage && !isLoginPage && !isRegisterPage) && <Footer />}
+            {/* {(!isAdminPage && !isLoginPage && !isRegisterPage) && <Footer />} */}
         </>
     )
 }
