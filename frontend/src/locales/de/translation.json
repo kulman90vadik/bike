@@ -42,5 +42,9 @@
     "header": {
         "searchicon": "Suche starten",
         "searchplaceholder": "...Fahrradname suchen"
+    },
+
+     "footer": {
+      "text": "Das Unternehmen World-bikes ist auf den Verkauf von Produkten für den Radsport spezialisiert."
     }
 }

@@ -4,15 +4,8 @@
   background-image: url('/images/bike.jpg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: cover;  
   position: relative;
-  // &::after {
-  //   position: absolute;
-  //   content: '';
-  //   inset: 0;
-  //   z-index: 10;
-  //   background-color: rgba(#000, 0.7);
-  // }
 }
 
 .inner {
@@ -29,11 +22,8 @@
   width: 100%;
   padding: 20px;
   border-radius: 20px;
-
   backdrop-filter: blur(10px);
-  // -webkit-backdrop-filter: blur(1px); /* для Safari */
-  background-color: rgba(255, 255, 255, 0.2); /* немного прозрачности */
- 
+  background-color: rgba(255, 255, 255, 0.2);
   margin: 0 auto;
 }
 

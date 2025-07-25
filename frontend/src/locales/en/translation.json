@@ -45,5 +45,10 @@
     "header": {
       "searchicon": "Start search",
       "searchplaceholder": "...Search Name Bike"
+    },
+
+    "footer": {
+      "text": "The Cento10 Hybrid is a racing bicycle with pedal-assist electric drive, setting a new, exceptionally high standard for this category."
     }
+
   }

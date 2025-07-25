@@ -66,6 +66,7 @@ export const fetchProductComment = createAsyncThunk< ProductProps, reviewPayload
   return data;
 });
 
+
 export const fetchLikeComment = createAsyncThunk<ProductProps, { id: string; idcomment: string, like: string }>("auth/fetchLikeComment", async ({ id, idcomment, like }) => {
   const { data } = await axios.patch<ProductProps>(`./products/${id}/comments/${idcomment}/${like}`);
   return data;

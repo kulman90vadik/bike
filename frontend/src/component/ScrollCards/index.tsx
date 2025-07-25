@@ -1,140 +1,140 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import Card from "../Card";
-import styles from "./scroll.module.scss";
-import React, { useEffect, useLayoutEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
-import { ProductProps } from "../../propstype";
-import axios from "../../axios";
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
+import Card from "../Card"
+import styles from "./scroll.module.scss"
+import React, { useEffect, useLayoutEffect } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import Lenis from "@studio-freight/lenis"
+import { ProductProps } from "../../propstype"
+import axios from "../../axios"
 
 interface LenisOptions {
-  duration?: number;
-  easing?: (t: number) => number;
-  smooth?: boolean;
+    duration?: number
+    easing?: (t: number) => number
+    smooth?: boolean
 }
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
-const isMobile = window.innerWidth < 768;
+const isMobile = window.innerWidth < 768
 
 const ScrollCards = () => {
-  const basket = useSelector((state: RootState) => state.basket.data);
-  const favorites = useSelector((state: RootState) => state.favorites.data);
-  const sectionRef = React.useRef<HTMLElement | null>(null);
-  const containerRef = React.useRef<HTMLUListElement | null>(null);
-  const [products, setProducts] = React.useState<ProductProps[] | null>(null);
-  const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
+    const basket = useSelector((state: RootState) => state.basket.data)
+    const favorites = useSelector((state: RootState) => state.favorites.data)
+    const { allproducts: products, statusAll: status } = useSelector((state: RootState) => state.products)
+    const sectionRef = React.useRef<HTMLElement | null>(null)
+    const containerRef = React.useRef<HTMLUListElement | null>(null)
+    const titleRef = React.useRef<HTMLHeadingElement | null>(null)
+    // const [products, setProducts] = React.useState<ProductProps[] | null>(null);
+    // const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
 
-  React.useEffect(() => {
-      setStatus("loading");
-      axios
-        .get<ProductProps[]>("/products")
-        .then((res) => {
-          setProducts(res.data);
-          setStatus("success");
-        })
-        .catch((err) => {
-          console.warn(err);
-          setStatus("error");
-        });
-    }, []);
+    // React.useEffect(() => {
+    //     setStatus("loading");
+    //     axios
+    //       .get<ProductProps[]>("/products")
+    //       .then((res) => {
+    //         setProducts(res.data);
+    //         setStatus("success");
+    //       })
+    //       .catch((err) => {
+    //         console.warn(err);
+    //         setStatus("error");
+    //       });
+    //   }, []);
 
-  useLayoutEffect(() => {
-    if (isMobile) return;
+    useLayoutEffect(() => {
+        if (isMobile) return
 
-    const lenis = new Lenis({
-      smooth: true,
-    } as LenisOptions);
+        const lenis = new Lenis({
+            smooth: true
+        } as LenisOptions)
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+        function raf(time: number) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
 
-    requestAnimationFrame(raf);
-    const container = containerRef.current;
-    const section = sectionRef.current;
+        requestAnimationFrame(raf)
+        const container = containerRef.current
+        const section = sectionRef.current
 
-    if (container && section) {
-      const scrollLength = container.scrollWidth - window.innerWidth;
+        if (container && section) {
+            const scrollLength = container.scrollWidth - window.innerWidth
 
-      gsap.to(container, {
-        x: () => `-${scrollLength}`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top", 
-          end: () => `+=${scrollLength}`,
-          scrub: true, 
-          pin: true, 
-          anticipatePin: 1,
-        },
-      });
-    }
+            gsap.to(container, {
+                x: () => `-${scrollLength}`,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: () => `+=${scrollLength}`,
+                    scrub: true,
+                    pin: true,
+                    anticipatePin: 1
+                }
+            })
 
-    return () => {
-      lenis.destroy();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [status, products]);
-  
+            gsap.to(titleRef.current, {
+                y: () => "-20", 
+                x: () => "200",
+                 ease: "none",
+                 width: "500px",
+                scrollTrigger: {
+                    trigger: titleRef.current,
+                    start: "top 20% top",
+                    end: () => "+=300", 
+                    scrub: true,
+                    // pin: true,
+                    anticipatePin: 1
+                }
+            })
+        }
 
-  return (
-    <section className={styles.section} ref={sectionRef}>
-      <div
-        className={styles.bgtop}
-        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
-      ></div>
-      <div
-        className={styles.bgbottom}
-        style={{ backgroundImage: "url(/images/paralax/first2.png)" }}
-      ></div>
+        return () => {
+            lenis.destroy()
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+        }
+    }, [status, products])
 
-       {status === "loading" && 
-         <img
-          className={styles.loading}
-          src="/images/loading.gif"
-          alt="Loading"
-        /> 
-       }
-      {status === "error" && <div className={styles.error}>
-        Error loading
-        <img
-          width={55}
-          height={55}
-          src="/images/err.svg"
-          alt="Error"
-        /> 
-        </div>}
+    console.log(status)
 
-      <ul className={styles.list} ref={containerRef}>
-        {
-          status === "success" && products?.map((obj) => {
-            const isInBasket = basket?.some(
-              (item: ProductProps) => item.productId === obj._id
-            );
-            const isInFavorites = favorites?.some(
-              (item: ProductProps) => item.productId === obj._id
-            );
+    return (
+        <section className={styles.section} ref={sectionRef}>
+            <h2 ref={titleRef} className={styles.title}>
+                Best models for winter driving
+            </h2>
+            
 
-            return (
-              <li className={styles.item} key={obj._id}>
-                <Card
-                  obj={obj}
-                  isInBasket={!!isInBasket}
-                  isInFavorites={!!isInFavorites}
-                />
-              </li>
-            );
-          })}
-      </ul>
-    </section>
-  );
-};
+            <div className={styles.bgtop} style={{ backgroundImage: "url(/images/paralax/first2.png)" }}></div>
+            <div className={styles.bgbottom} style={{ backgroundImage: "url(/images/paralax/first2.png)" }}></div>
 
-export default ScrollCards;
+            {status === "loading" && <img className={styles.loading} src="/images/loading.gif" alt="Loading" />}
+            {status === "error" && (
+                <div className={styles.error}>
+                    Error loading
+                    <img width={55} height={55} src="/images/err.svg" alt="Error" />
+                </div>
+            )}
+
+            <ul className={styles.list} ref={containerRef}>
+                {status === "loaded" &&
+                    products?.map(obj => {
+                        const isInBasket = basket?.some((item: ProductProps) => item.productId === obj._id)
+                        const isInFavorites = favorites?.some((item: ProductProps) => item.productId === obj._id)
+
+                        return (
+                            <li className={styles.item} key={obj._id}>
+                                <Card obj={obj} isInBasket={!!isInBasket} isInFavorites={!!isInFavorites} />
+                            </li>
+                        )
+                    })}
+            </ul>
+        </section>
+    )
+}
+
+export default ScrollCards
 
 // React.useEffect(() => {
 // const fetchData = async () => {
@@ -150,7 +150,7 @@ export default ScrollCards;
 // }, [])
 
 {
-  /* 
+    /* 
       <svg
         ref={refSvg}
         className={styles.images}

@@ -4,7 +4,6 @@ import { useAppDispatch } from "../../redux/store";
 import { FormValuesRegister } from "../../propstype";
 import { fetchRegister } from "../../redux/slices/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import { ImageUp } from "lucide-react";
 import React from "react";
 import {isAxiosError} from 'axios';
@@ -28,7 +27,6 @@ const Registration = () => {
   const[error, setError] = React.useState('')
 
   const dispatch = useAppDispatch();
-  // const isAuth = useSelector(selectIsAuth);
   const { register, handleSubmit, watch, formState: { errors, isValid }} = useForm<FormValues>({
     defaultValues: {
       fullName: 'Tom',
@@ -42,6 +40,7 @@ const Registration = () => {
 
   const avatarFile = watch("avatarFile") as FileList | undefined;
 
+  
 
   React.useEffect(() => {
     if (avatarFile?.length) {
@@ -58,15 +57,13 @@ const Registration = () => {
     let avatarUrl = ''
 
     if (values.avatarFile?.[0]) {
-      formData.append('image', values.avatarFile[0]); // важно: это массив! 
+      formData.append('image', values.avatarFile[0]); 
     
       try {
         const { data } = await axios.post('/uploads', formData);
         avatarUrl = data.url;
       } catch (error) {
         if (isAxiosError(error) && error.response) {
-          // alert(error.response.data.message); // Показать ошибку пользователю
-          setError(error.response.data.message)
           setPreview(null)
         } else {
           setError('Произошла неизвестная ошибка при загрузке файла.')
@@ -109,7 +106,6 @@ const Registration = () => {
           <input 
             type="file"
             accept="image/png, image/jpeg"
-            // onChange={(event) => handleChangeFile(event)} 
             hidden 
             {...register("avatarFile")}
             />

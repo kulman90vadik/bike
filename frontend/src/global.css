@@ -209,3 +209,8 @@ body {
         width: 100%;
     }
 }
+
+
+.leaflet-top, .leaflet-bottom {
+    z-index: 500!important;
+}
