@@ -1,0 +1,4 @@
+.env.development
+    VITE_API_BASE_URL
+.env.production
+    VITE_API_BASE_URL    
