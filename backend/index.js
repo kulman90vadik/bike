@@ -9,7 +9,7 @@ import YAML from 'yamljs';
 import { registerValidation, loginValidation } from './validations.js';
 import { readLimiter } from './ratelimit.js';
 import { handleValidationErrors, checkAuth}  from './utils/index.js';
-import { UserController, ProductController, BasketController, FavoritesController } from './controllers/index.js';
+import { UserController, ProductController, BasketController, FavoritesController, BranchController  } from './controllers/index.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -138,12 +138,6 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📘 Swagger UI: http://0.0.0.0:${PORT}/api-docs`)
 });
 
-// mongoose
-// .connect('mongodb://vkuhlmann:Vadik1990@cluster123-shard-00-00.dwucc.mongodb.net:27017,cluster123-shard-00-01.dwucc.mongodb.net:27017,cluster123-shard-00-02.dwucc.mongodb.net:27017/proj?ssl=true&replicaSet=atlas-gr7xm8-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster123')
-// .then(() => console.log('db okkkkkk'))
-// .catch((err) => console.log(`Error ${err}`))
-
-// const uri = "mongodb://vkuhlmann:Vadik1990@cluster123-shard-00-00.dwucc.mongodb.net:27017,cluster123-shard-00-01.dwucc.mongodb.net:27017,cluster123-shard-00-02.dwucc.mongodb.net:27017/proj?ssl=true&replicaSet=atlas-gr7xm8-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster123";
 
 mongoose
   .connect(process.env.MONGODB_URI)

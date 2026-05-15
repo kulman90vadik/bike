@@ -3,9 +3,6 @@ html {
 }
 
 
-
-
-
 html,
 body {
     height: 100%;
@@ -157,32 +154,6 @@ body {
     }
 }
 
-.leaflet-tooltip.custom-tooltip {
-    background-color: #333;
-    color: #fff;
-    font-size: 11px;
-    padding: 2px 5px;
-    border-radius: 6px;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.leaflet-popup-tip,
-.leaflet-popup-content-wrapper {
-    color: #fff !important;
-    background: rgba(0, 0, 0, 0.7) !important;
-    border-radius: 12px;
-    padding: 5px;
-}
-
-.leaflet-popup-content {
-    margin: 0;
-    text-align: center;
-}
-
-.leaflet-popup-close-button {
-    color: red !important;
-}
 
 .swiper-slide-thumb-active img {
     opacity: 1;
@@ -211,6 +182,83 @@ body {
 }
 
 
+
+
+
 .leaflet-top, .leaflet-bottom {
     z-index: 500!important;
 }
+
+.leaflet-tooltip.custom-tooltip {
+    background-color: #333;
+    color: #ffffff!important;
+    font-size: 13px;
+    padding: 2px 5px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
+    color: #fcf9f9 !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    text-align: center;
+}
+
+
+.leaflet-top, .leaflet-bottom {
+    z-index: 500!important;
+}
+
+
+.leaflet-tooltip.custom-tooltip {
+    background-color: #333;
+    color: #ffffff!important;
+    font-size: 11px;
+    padding: 2px 5px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+   
+}
+
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
+    color: #fcf9f9 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    text-align: center;
+    .popupTitle {
+        font-size:17px;
+        color: #f57520;
+    }
+    p {
+        margin: 8px 0 !important;
+    }
+    .popupCity {
+        font-size: 16px;
+    }
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    color: red !important;
+    font-weight: 700!important;
+    font-size: 22px!important;
+    right: 10px!important;
+    top: 10px!important;
+}
+

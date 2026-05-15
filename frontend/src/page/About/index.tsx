@@ -41,7 +41,7 @@ const About = () => {
     <>
       <Layers />
 
-      <ScrollCards />
+      {/* <ScrollCards /> */}
 
       <FaqAccordion />
 
